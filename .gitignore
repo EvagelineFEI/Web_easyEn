@@ -1,0 +1,67 @@
+# ignore these folders
+target/
+.idea/
+.settings/
+.vscode/
+bin/
+out/
+
+# ignore these files
+.classpath
+.project
+.settings
+.idea
+
+pom.xml
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+
+# filter databfile、sln file
+*.mdb
+*.ldb
+*.sln
+
+# class file
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+
+# compression file
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+*.via
+*.tmp
+*.err
+*.log
+*.iml
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+Thumbs.db
+.factorypath
+.mvn/
+mvnw.cmd
+mvnw
+
+# Files or folders need to be retained
+# ...
