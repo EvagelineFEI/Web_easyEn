@@ -1,7 +1,13 @@
 # Web_easyEn
 A web project by my friends and I for our class~
 
-## 项目结构
+## 新版项目结构
+
+hh鉴定原结构耦合度高，所以我换了个结构，变成前后端完全分离在两个文件夹下面的结构了。今天发现之前的web配置（Jsp+Servlet）也是耦合的，赶紧把pom文件也改了。
+
+但是发现有些项目还是使用的old结构，所以就留着旧版的供参考了。
+
+## 项目结构old
 
 参考的是网上通用的Java开源项目结构介绍
 
