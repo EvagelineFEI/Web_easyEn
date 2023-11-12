@@ -8,10 +8,10 @@
     <version>2.1.2.RELEASE</version>
     <relativePath/> <!-- lookup parent from repository -->
   </parent>
-  <groupId>com.exam</groupId>
-  <artifactId>exam</artifactId>
+  <groupId>com.easyen</groupId>
+  <artifactId>easyen</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <name>examsystem</name>
+  <name>easyEnglish</name>
   <description>online examsystem project for Spring Boot</description>
 
   <properties>
