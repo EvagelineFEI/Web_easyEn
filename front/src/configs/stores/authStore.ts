@@ -5,15 +5,15 @@ import index from "@/router";
 interface Profile {
   id: string;
   name: string;
+  email: string;
   avatar: string;
   created: boolean;
 }
 
-
 export const useAuthStore = defineStore("auth", {
   state: () => ({
     isLoggedIn: false,
-    user: null,
+    user: null, // cookie with user
     profile: null as Profile | null
   }),
 

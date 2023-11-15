@@ -1,10 +1,10 @@
 import {createRouter, createWebHistory} from 'vue-router'
-import Home from "@/views/Home";
-import LearnStatus from "@/views/LearnStatus";
-import Learning from "@/views/Practice";
-import Communication from "@/views/Communication";
+import Home from "@/views/Home.vue";
+
 import auth from "@/router/auth";
 import learning from "@/router/learn";
+import Track from "@/router/track";
+import communication from "@/router/communication";
 
 // register new route in here
 const routes = [
@@ -21,19 +21,16 @@ const routes = [
     // 交流专区
     {
         path: '/communication',
-        name: 'Communication',
-        component: Communication,
-        children: [],
         meta: {
-            layout: "communicate"
-        }
+            layout: "default"
+        },
+        children: communication,
+
     },
 
     // 学习专区
     {
         path: '/practice',
-        name: 'Practice',
-        component: Learning,
         meta: {
             layout: "learn"
         },
@@ -42,18 +39,19 @@ const routes = [
 
     // 学情交流
     {
-        path: '/learn-status',
-        name: 'LearnStatus',
-        component: LearnStatus,
-        children: [],
+        path: '/learn-track',
         meta: {
-            layout: "learn"
-        }
+            layout: "default"
+        },
+        children: Track,
     },
 
     // 用户相关
     {
         path: '/auth',
+        meta: {
+            layout: "default"
+        },
         redirect: '/auth/signin',
         children: auth
     },

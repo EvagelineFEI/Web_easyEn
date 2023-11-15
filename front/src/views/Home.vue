@@ -31,6 +31,6 @@
 
 <style lang="scss" scoped>
 .card-shadow {
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px !important;
+  box-shadow: rgba(99, 99, 99, 0.2) 0 2px 8px 0 !important;
 }
 </style>

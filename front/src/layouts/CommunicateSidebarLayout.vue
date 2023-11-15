@@ -11,16 +11,8 @@ const nav = ref(configs.menu.communicateNav);
   <v-main class="view main-content w-full">
     <v-container>
       <v-row>
-        <MainSideBar :list="nav"/>
         <v-col>
-          <v-sheet
-              min-height="70vh"
-              elevation="4"
-              rounded="lg"
-              border
-          >
-            <slot/>
-          </v-sheet>
+          <slot/>
         </v-col>
       </v-row>
     </v-container>

@@ -1,5 +1,5 @@
 import { createApp } from 'vue'
-import App from "./App"
+import App from "./App.vue"
 
 // Vuetify
 import 'vuetify/styles'
@@ -17,6 +17,7 @@ app.use(vuetify)
 app.use(i18n)
 app.use(pinia)
 app.use(autoAnimatePlugin)
+
 router
     .isReady()
     .then(()=> app.mount('#app'))

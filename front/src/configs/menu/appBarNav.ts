@@ -1,7 +1,7 @@
 export default [
     {
         title: "首页导航",
-        icon: "mdi-home-variant",
+        icon: "mdi-map-marker",
         to: {name: 'Home'}
     },
     {
@@ -11,12 +11,12 @@ export default [
     },
     {
         title: "学习专区",
-        icon: "mdi-account-school",
+        icon: "mdi-school",
         to: {name: 'Practice'}
     },
     {
-        title: "学情交流",
-        icon: "mdi-information",
-        to: {name: 'LearnStatus'}
+        title: "学情追踪",
+        icon: "mdi-send",
+        to: {name: 'LearnTrack'}
     },
 ]

@@ -37,12 +37,17 @@ export default {
         cet4: "四级阅读",
         cet6: "六级阅读",
     },
+    track: {
+        start: "启始时间",
+        end: "截止时间",
+    },
     // Vuetify 组件内部翻译
     $vuetify: {
         badge: "徽章",
+        open: "开",
         close: "关",
         input: {
-            appendAction:"",
+            appendAction:"追加",
         },
         dataIterator: {
             noResultsText: "未找到匹配的记录",
@@ -70,11 +75,18 @@ export default {
             pageText: "{2}中的{0}-{1}",
         },
         datePicker: {
+            ok: "确认",
+            cancel: "取消",
+            title: "选择日期",
+            header:"开始日期",
             itemsSelected: "已选择{0}",
             nextMonthAriaLabel: "下个月",
             nextYearAriaLabel: "明年",
             prevMonthAriaLabel: "上个月",
             prevYearAriaLabel: "去年",
+            input: {
+                placeholder:"请输入日期",
+            },
         },
         noDataText: "无可用数据",
         carousel: {
@@ -89,7 +101,7 @@ export default {
         },
         fileInput: {
             counter: "{0}个文件",
-            counterSize: "{0}个文件（共{1}个）",
+            counterSize: "{0}个文件（共{1}个)）",
         },
         timePicker: {
             am: "AM",
@@ -105,4 +117,4 @@ export default {
             },
         },
     },
-}; ``
+};

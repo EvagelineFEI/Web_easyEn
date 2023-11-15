@@ -1,6 +1,6 @@
-import SignIn from "@/views/Auth/SignIn";
-import SignUp from "@/views/Auth/SignUp";
-import ForgotPasswd from "@/views/Auth/ForgotPasswd";
+import SignIn from "@/views/Auth/SignIn.vue";
+import SignUp from "@/views/Auth/SignUp.vue";
+import ForgotPasswd from "@/views/Auth/ForgotPasswd.vue";
 
 export default [
     {

@@ -1,12 +1,21 @@
-import Write from "@/views/Communication/Write";
+import WritePost from "@/views/Communication/WritePost.vue";
+import Communication from "@/views/Communication.vue";
+import Post from "@/views/Communication/Post.vue";
 
 export default [
     {
+        path: '',
+        name: 'Communication',
+        component: Communication,
+    },
+    {
         path: 'write',
         name: 'Write',
-        component: Write,
-        meta: {
-            layout: "sidebar"
-        }
+        component: WritePost,
+    },
+    {
+        path: 'post/:id',
+        name: 'Post',
+        component: Post,
     }
 ]

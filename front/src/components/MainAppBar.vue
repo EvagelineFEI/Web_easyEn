@@ -1,28 +1,20 @@
 <script setup lang="ts">
 
 import {useDisplay} from "vuetify";
-import UserProfile from "@/components/UserProfile";
+import UserProfile from "@/components/UserProfile.vue";
 import configs from "@/configs";
 
-const customizeTheme = configs.stores.useCustomizeThemeStore();
 const navListBar = configs.menu.appBarNav;
 const { mdAndUp } = useDisplay();
 const authStore = configs.stores.useAuthStore();
 const getLogo = () => {
   return new URL(`@/assets/EAZYEN.png`, import.meta.url).href
 }
-
-const props = defineProps({
-  menu: {
-    default: () => [],
-  },
-});
-
 </script>
 
 <template>
-  <v-system-bar height="65">
-    <v-img :src="getLogo()" max-width="230" max-height="140" alt="EAZYEN" class="mx-2" contain/>
+  <v-system-bar height="80">
+    <v-img :src="getLogo()" max-width="250" max-height="280" alt="EAZYEN" class="mx-2" contain/>
     <v-spacer></v-spacer>
   </v-system-bar>
     <v-app-bar
