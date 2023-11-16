@@ -1,50 +1,54 @@
 <template>
-    <v-card rounded height="280px" width="25%">
-      <v-col>
-        <v-card-title>
-          时间范围
-        </v-card-title>
+  <v-sheet elevation="0">
+    <v-row justify="center">
+      <v-col cols="5" class="align-self-center">
         <v-text-field
-        v-model="startDate"
-        type="date"
-        :label="$t('track.start')">
+            v-model="startDate"
+            type="date"
+            variant="outlined"
+            :label="$t('track.start')">
         </v-text-field>
-        <v-text-field
-        v-model="endDate"
-        type="date"
-        :label="$t('track.end')">
-        </v-text-field>
-        <v-card-actions>
-          <v-btn @click="updateDateRange" color="primary" >确定</v-btn>
-          <v-btn @click="cleanDateRange" color="primary" >取消</v-btn>
-        </v-card-actions>
       </v-col>
-    </v-card>
+      <v-col cols="5" class="align-self-center">
+        <v-text-field
+            v-model="endDate"
+            type="date"
+            variant="outlined"
+            :label="$t('track.end')">
+        </v-text-field>
+      </v-col>
+      <v-row class="justify-end">
+        <v-col class="justify-center">
+          <v-card-actions>
+            <v-btn @click="updateDateRange" icon="mdi-arrow-top-right" color="primary"></v-btn>
+            <v-btn @click="cleanDateRange" icon="mdi-close" color="primary"></v-btn>
+          </v-card-actions>
+        </v-col>
+      </v-row>
+    </v-row>
+  </v-sheet>
 </template>
 
 <script setup lang="ts">
-
-
-const props = defineProps({
-    start_date: String,
-    end_date: String
+defineProps({
+  start_date: String,
+  end_date: String
 })
 
 const emit = defineEmits(['update:start_date', "update:end_date"])
 
-const startDate = ref(null);
-const endDate = ref(null);
+const startDate = ref(null as String | null);
+const endDate = ref(null as String | null);
 
 function cleanDateRange() {
-    startDate.value = null
-    endDate.value = null
-    emit('update:start_date', null)
-    emit('update:end_date', null)
+  startDate.value = null
+  endDate.value = null
+  emit('update:start_date', null)
+  emit('update:end_date', null)
 }
 
 function updateDateRange() {
   emit('update:start_date', startDate.value)
   emit('update:end_date', endDate.value)
 }
-
 </script>

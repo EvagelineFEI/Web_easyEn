@@ -2,9 +2,11 @@
 import CustomizationMenu from "@/components/CustomizationMenu";
 import DefaultLayout from "@/layouts/DefaultLayout";
 import CommunicationSidebarLayout from "@/layouts/CommunicateSidebarLayout";
-import LearnSidebarLayout from "@/layouts/LearnSidebarLayout";
+import PracticeSidebarLayout from "@/layouts/PracticeSidebarLayout.vue";
 import ErrorLayout from "@/layouts/ErrorLayout";
 import configs from "@/configs";
+import vuetify from "@/plugins/vuetify";
+
 
 const router = useRoute();
 
@@ -18,7 +20,7 @@ const isRouterLoaded = computed(() => {
 const layouts = {
   default: DefaultLayout,
   communicate: CommunicationSidebarLayout,
-  learn: LearnSidebarLayout,
+  learn: PracticeSidebarLayout,
   error: ErrorLayout
 };
 
@@ -42,4 +44,10 @@ const currentLayout = computed(() => {
     <CustomizationMenu/>
   </v-app>
 </template>
+
+<style>
+.main-content {
+  max-width: 1080px;
+}
+</style>
 

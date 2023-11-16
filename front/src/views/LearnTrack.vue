@@ -44,17 +44,11 @@ const dataItems = ref([
 
 // 使用 computed 定义计算属性
 const filteredItems = computed(() => {
-   if(startDate.value && endDate.value) {
-    const sDate = new Date(startDate.value);
-    const eDate = new Date(endDate.value);
-
-    return dataItems.value.filter(item => {
-      const prcDate = new Date(item.prcDate);
-      return (sDate && eDate) ? prcDate >= sDate && prcDate <= eDate : true;
-    });
-  } else {
-    return dataItems.value 
-  }
+  return dataItems.value.filter(item => {
+    const prcDate = new Date(item.prcDate);
+    return (!startDate.value || prcDate >= new Date(startDate.value)) &&
+        (!endDate.value || prcDate <= new Date(endDate.value));
+  });
 });
 
 //const formatDate = (date: Date) => {
@@ -71,9 +65,14 @@ const filteredItems = computed(() => {
 
 
 <template>
-  <v-row> 
-    <!-- 数据表 --> 
+  <v-row>
+
+    <!-- 数据表 -->
     <v-col>
+      <DataRangeCard
+          v-model:start_date="startDate"
+          v-model:end_date="endDate">
+      </DataRangeCard>
       <v-data-table
           :items="filteredItems"
           :headers="headers"
@@ -90,12 +89,11 @@ const filteredItems = computed(() => {
         </template>
       </v-data-table>
     </v-col>
-    
-    <DataRangeCard
-    v-model:start_date="startDate"
-    v-model:end_date="endDate">
-    </DataRangeCard>
-    
+
+<!--    <v-col cols="3" md="4" lg="3">-->
+
+<!--    </v-col>-->
+
   </v-row>
 </template>
 

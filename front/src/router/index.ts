@@ -22,7 +22,7 @@ const routes = [
     {
         path: '/communication',
         meta: {
-            layout: "default"
+            layout: "communicate"
         },
         children: communication,
 

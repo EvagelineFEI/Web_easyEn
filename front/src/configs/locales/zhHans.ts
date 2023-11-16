@@ -33,6 +33,11 @@ export default {
         account: "已经有帐号了？",
         signin: "登录",
     },
+    communication: {
+        toolbox: "工具箱",
+        post: "发帖",
+        manage: "管理"
+    },
     practice: {
         cet4: "四级阅读",
         cet6: "六级阅读",
@@ -42,6 +47,11 @@ export default {
         end: "截止时间",
     },
     // Vuetify 组件内部翻译
+    "10":"10",
+    "25":"25",
+    "50":"50",
+    "100":"100",
+
     $vuetify: {
         badge: "徽章",
         open: "开",

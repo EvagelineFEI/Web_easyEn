@@ -28,9 +28,9 @@ const resetErrors = () => {
 </script>
 <template>
 <div class="layout-content ma-auto w-full">
-    <v-card color="white" class="pa-3 ma-3" elevation="3">
+    <v-card color="white" class="pa-3 ma-3 rounded-lg" elevation="3">
       <v-card-title class="my-4 text-h4">
-        <span class="flex-fill"> Frogot </span>
+        <span class="flex-fill"> Forgot </span>
       </v-card-title>
       <v-card-subtitle>输入你的账号邮箱</v-card-subtitle>
       <!-- sign in form -->

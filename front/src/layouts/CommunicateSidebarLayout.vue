@@ -1,6 +1,5 @@
 <script setup>
 import MainAppBar from "@/components/MainAppBar";
-import MainSideBar from "@/components/SideBar";
 import configs from "@/configs";
 
 const nav = ref(configs.menu.communicateNav);
@@ -8,7 +7,7 @@ const nav = ref(configs.menu.communicateNav);
 
 <template>
   <MainAppBar/>
-  <v-main class="view main-content w-full">
+  <v-main class="view align-self-center main-content w-75">
     <v-container>
       <v-row>
         <v-col>

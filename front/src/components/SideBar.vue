@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import configs from "@/configs";
+
 const customizeTheme = configs.stores.useCustomizeThemeStore();
 
 const props = defineProps({
@@ -11,60 +12,54 @@ const props = defineProps({
 </script>
 
 <template>
-  <v-sheet
-     elevation="1"
-     width="16%"
-     min-height="1px"
-     rounded="lg"
-  >
-    <v-list class="menu-list" nav dense color="primary">
-      <template v-for="listArea in props.list">
-        <template v-if="!listArea.link && listArea.items" :key="listArea.key">
-          <div
-              v-if="!customizeTheme.miniSidebar && (listArea.key || listArea.text)"
-              class="pa-1 mt-2 text-overline"
-          >
-            <v-icon
-                class="me-2"
-                :active-class="`active-nav-${customizeTheme.primaryColor.colorName}`"
-                :icon="listArea.icon || 'mdi-circle-medium'"
-            />
-            {{ listArea.key ? $t(listArea.key) : listArea.text }}
-          </div>
-          <template v-if="listArea.items">
-            <template v-for="listItem in listArea.items" :key="listItem.key">
-              <v-list-item
-                  class="me-2"
-                  :to="listItem.link"
-                  :prepend-icon="listItem.icon || 'mdi-circle-medium'"
-                  :active-class="`active-nav-${customizeTheme.primaryColor.colorName}`"
-                  density="compact"
-              >
-                <v-list-item-title
-                    v-text="listItem.key ? $t(listItem.key) : listItem.text"
-                ></v-list-item-title>
-              </v-list-item>
-            </template>
-          </template>
-          <hr class="my-4" />
-        </template>
-        <template v-else>
-          <v-list-item
+  <v-list class="menu-list" nav dense color="primary">
+    <template v-for="listArea in props.list">
+      <template v-if="!listArea.link && listArea.items" :key="listArea.key">
+        <div
+            v-if="!customizeTheme.miniSidebar && (listArea.key || listArea.text)"
+            class="pa-1 mt-2 text-overline"
+        >
+          <v-icon
               class="me-2"
-              :key="listArea.key"
-              :to="listArea.link"
-              :prepend-icon="listArea.icon || 'mdi-circle-medium'"
               :active-class="`active-nav-${customizeTheme.primaryColor.colorName}`"
-              density="compact"
-          >
-            <v-list-item-title
-                v-text="listArea.key ? $t(listArea.key) : listArea.text"
-            ></v-list-item-title>
-          </v-list-item>
+              :icon="listArea.icon || 'mdi-circle-medium'"
+          />
+          {{ listArea.key ? $t(listArea.key) : listArea.text }}
+        </div>
+        <template v-if="listArea.items">
+          <template v-for="listItem in listArea.items" :key="listItem.key">
+            <v-list-item
+                class="me-2"
+                :to="listItem.link"
+                :prepend-icon="listItem.icon || 'mdi-circle-medium'"
+                :active-class="`active-nav-${customizeTheme.primaryColor.colorName}`"
+                density="compact"
+            >
+              <v-list-item-title
+                  v-text="listItem.key ? $t(listItem.key) : listItem.text"
+              ></v-list-item-title>
+            </v-list-item>
+          </template>
         </template>
+        <hr class="my-4"/>
       </template>
-    </v-list>
-  </v-sheet>
+      <template v-else>
+        <v-list-item
+            class="me-2"
+            :key="listArea.key"
+            :to="listArea.link"
+            :prepend-icon="listArea.icon || 'mdi-circle-medium'"
+            :active-class="`active-nav-${customizeTheme.primaryColor.colorName}`"
+            density="compact"
+        >
+          <v-list-item-title
+              class="text-"
+              v-text="listArea.key ? $t(listArea.key) : listArea.text"
+          ></v-list-item-title>
+        </v-list-item>
+      </template>
+    </template>
+  </v-list>
 </template>
 
 <style scoped>
