@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import configs from "@/configs";
 
 const customizeTheme = configs.stores.useCustomizeThemeStore();
@@ -12,7 +12,7 @@ const props = defineProps({
 </script>
 
 <template>
-  <v-list class="menu-list" nav dense color="primary">
+  <v-list class="menu-list" color="primary" dense nav>
     <template v-for="listArea in props.list">
       <template v-if="!listArea.link && listArea.items" :key="listArea.key">
         <div
@@ -20,19 +20,19 @@ const props = defineProps({
             class="pa-1 mt-2 text-overline"
         >
           <v-icon
-              class="me-2"
               :active-class="`active-nav-${customizeTheme.primaryColor.colorName}`"
               :icon="listArea.icon || 'mdi-circle-medium'"
+              class="me-2"
           />
           {{ listArea.key ? $t(listArea.key) : listArea.text }}
         </div>
         <template v-if="listArea.items">
           <template v-for="listItem in listArea.items" :key="listItem.key">
             <v-list-item
-                class="me-2"
-                :to="listItem.link"
-                :prepend-icon="listItem.icon || 'mdi-circle-medium'"
                 :active-class="`active-nav-${customizeTheme.primaryColor.colorName}`"
+                :prepend-icon="listItem.icon || 'mdi-circle-medium'"
+                :to="listItem.link"
+                class="me-2"
                 density="compact"
             >
               <v-list-item-title
@@ -45,11 +45,11 @@ const props = defineProps({
       </template>
       <template v-else>
         <v-list-item
-            class="me-2"
             :key="listArea.key"
-            :to="listArea.link"
-            :prepend-icon="listArea.icon || 'mdi-circle-medium'"
             :active-class="`active-nav-${customizeTheme.primaryColor.colorName}`"
+            :prepend-icon="listArea.icon || 'mdi-circle-medium'"
+            :to="listArea.link"
+            class="me-2"
             density="compact"
         >
           <v-list-item-title

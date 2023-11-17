@@ -1,17 +1,15 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import CustomizationMenu from "@/components/CustomizationMenu";
 import DefaultLayout from "@/layouts/DefaultLayout";
 import CommunicationSidebarLayout from "@/layouts/CommunicateSidebarLayout";
 import PracticeSidebarLayout from "@/layouts/PracticeSidebarLayout.vue";
 import ErrorLayout from "@/layouts/ErrorLayout";
 import configs from "@/configs";
-import vuetify from "@/plugins/vuetify";
-
-
-const router = useRoute();
 
 // Store Listen
 const customizeTheme = configs.stores.useCustomizeThemeStore();
+
+const router = useRoute();
 
 const isRouterLoaded = computed(() => {
   return router.name !== null;

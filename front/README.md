@@ -13,6 +13,7 @@ Storage components is `Pinia`
 
 ```
 ├── auto-imports.d.ts
+├── tsconfig.js
 ├── index.html # 站点基本信息和字体依赖
 ├── package.json # 依赖包
 ├── package-lock.json

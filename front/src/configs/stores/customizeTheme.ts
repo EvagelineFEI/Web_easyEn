@@ -15,7 +15,7 @@ interface State {
 }
 
 export const useCustomizeThemeStore = defineStore("customizeTheme", {
-    state: ():State => ({
+    state: (): State => ({
         miniSidebar: false,
         darkTheme: false,
         primaryColor: {

@@ -1,7 +1,7 @@
-<script setup lang="ts">
-import { useTheme } from "vuetify";
+<script lang="ts" setup>
+import {useTheme} from "vuetify";
 import configs from "@/configs";
-import { Icon } from "@iconify/vue";
+import {Icon} from "@iconify/vue";
 import {onMounted, ref, watch} from "vue";
 
 interface Color {
@@ -72,11 +72,11 @@ const updatePrimaryColor = (newColor: Color) => {
     </div>
 
     <v-navigation-drawer
-      v-model="themeDrawer"
-      location="right"
-      temporary
-      width="300"
-      class="theme-drawer"
+        v-model="themeDrawer"
+        class="theme-drawer"
+        location="right"
+        temporary
+        width="300"
     >
       <div class="pa-5">
         <div class="top-area">
@@ -87,65 +87,65 @@ const updatePrimaryColor = (newColor: Color) => {
           <div>See our dashboard options.</div>
         </div>
 
-        <hr class="my-6" />
+        <hr class="my-6"/>
 
         <div class="theme-area">
           <b>Global Theme Mode</b>
-          <div class="px-3 pt-3" v-if="customizeTheme.darkTheme">
+          <div v-if="customizeTheme.darkTheme" class="px-3 pt-3">
             <v-btn
-              @click="customizeTheme.darkTheme = !customizeTheme.darkTheme"
-              icon
-              color="grey-darken-4"
-              class="text-white"
+                class="text-white"
+                color="grey-darken-4"
+                icon
+                @click="customizeTheme.darkTheme = !customizeTheme.darkTheme"
             >
-              <Icon width="30" icon="line-md:moon-filled-loop" />
+              <Icon icon="line-md:moon-filled-loop" width="30"/>
             </v-btn>
             <span class="ml-5">Dark Mode</span>
           </div>
-          <div class="px-3 pt-3" v-else>
+          <div v-else class="px-3 pt-3">
             <v-btn
-              @click="customizeTheme.darkTheme = !customizeTheme.darkTheme"
-              icon
-              color="white"
-              class="text-red"
+                class="text-red"
+                color="white"
+                icon
+                @click="customizeTheme.darkTheme = !customizeTheme.darkTheme"
             >
               <Icon
-                width="30"
-                icon="line-md:moon-filled-alt-to-sunny-filled-loop-transition"
+                  icon="line-md:moon-filled-alt-to-sunny-filled-loop-transition"
+                  width="30"
               />
             </v-btn>
             <span class="ml-5">Light Mode</span>
           </div>
         </div>
-        <hr class="my-6" />
+        <hr class="my-6"/>
 
         <div class="primary-color-area">
           <b>Primary Colors</b>
           <v-item-group
-            class="mt-3"
-            v-model="currentColor"
-            selected-class="elevation-12"
-            mandatory
+              v-model="currentColor"
+              class="mt-3"
+              mandatory
+              selected-class="elevation-12"
           >
             <v-item
-              v-for="color in primaryColors"
-              :key="color.colorId"
-              :value="color"
-              v-slot="{ isSelected, toggle }"
+                v-for="color in primaryColors"
+                :key="color.colorId"
+                v-slot="{ isSelected, toggle }"
+                :value="color"
             >
               <v-btn
-                @click="toggle"
-                class="text-white mr-1"
-                icon
-                size="30"
-                :color="color.colorValue"
+                  :color="color.colorValue"
+                  class="text-white mr-1"
+                  icon
+                  size="30"
+                  @click="toggle"
               >
-                <Icon width="22" v-if="isSelected" icon="line-md:confirm" />
+                <Icon v-if="isSelected" icon="line-md:confirm" width="22"/>
               </v-btn>
             </v-item>
           </v-item-group>
         </div>
-        <hr class="my-6" />
+        <hr class="my-6"/>
       </div>
     </v-navigation-drawer>
   </div>
@@ -164,6 +164,7 @@ const updatePrimaryColor = (newColor: Color) => {
   box-shadow: 1px 1px 9px #3DB4A0FF;
   transition: all 0.5s;
   cursor: pointer;
+
   &:hover {
     box-shadow: 1px 1px 18px #3DB4A0FF;
     right: 0px;
@@ -187,10 +188,10 @@ const updatePrimaryColor = (newColor: Color) => {
 
 hr {
   background-image: linear-gradient(
-    90deg,
-    transparent,
-    rgba(0, 0, 0, 0.4),
-    transparent
+          90deg,
+          transparent,
+          rgba(0, 0, 0, 0.4),
+          transparent
   ) !important;
   background-color: transparent;
   opacity: 0.25;

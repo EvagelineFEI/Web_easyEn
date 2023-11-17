@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import DataRangeCard from "@/components/DateRangeCard.vue"
 
-const startDate = ref(null);
-const endDate = ref(null);
+const startDate = ref(null as string | null);
+const endDate = ref(null as string | null);
 
 const headers = [
   {title: 'Date', align: 'start', key: 'prcDate'},
@@ -51,16 +51,6 @@ const filteredItems = computed(() => {
   });
 });
 
-//const formatDate = (date: Date) => {
-//  if (date) {
-//    const year = date.getFullYear();
-//    const month = (date.getMonth() + 1).toString().padStart(2, '0');
-//    const day = date.getDate().toString().padStart(2, '0');
-//    return `${year}-${month}-${day}`;
-//  }
-//  return '';
-//};
-
 </script>
 
 
@@ -69,10 +59,12 @@ const filteredItems = computed(() => {
 
     <!-- 数据表 -->
     <v-col>
-      <DataRangeCard
-          v-model:start_date="startDate"
-          v-model:end_date="endDate">
-      </DataRangeCard>
+      <v-col cols="10" class="align-self-end">
+        <DataRangeCard
+            v-model:start_date="startDate"
+            v-model:end_date="endDate">
+        </DataRangeCard>
+      </v-col>
       <v-data-table
           :items="filteredItems"
           :headers="headers"
@@ -89,10 +81,6 @@ const filteredItems = computed(() => {
         </template>
       </v-data-table>
     </v-col>
-
-<!--    <v-col cols="3" md="4" lg="3">-->
-
-<!--    </v-col>-->
 
   </v-row>
 </template>

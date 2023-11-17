@@ -34,6 +34,7 @@ export default {
         signin: "登录",
     },
     communication: {
+        purpulerPost: "热门帖子",
         toolbox: "工具箱",
         post: "发帖",
         manage: "管理"
@@ -58,6 +59,7 @@ export default {
         close: "关",
         input: {
             appendAction:"追加",
+            clear: "清空",
         },
         dataIterator: {
             noResultsText: "未找到匹配的记录",

@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import configs from "@/configs";
 import index from "@/router";
 
@@ -34,7 +34,7 @@ const navs = [
   >
     <template v-slot:activator="{ props }">
       <v-btn class="mx-2" icon v-bind="props">
-        <v-badge content="2" color="success" dot bordered>
+        <v-badge bordered color="success" content="2" dot>
           <v-avatar size="40">
             <v-img
                 :src="authStore.profile.avatar ? authStore.profile.avatar : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwrAiMevuwrbU9o0Ck2paVf4ufHUDb2dU48MEDrAlrQw&s'"
@@ -45,7 +45,7 @@ const navs = [
     </template>
 
     <v-card max-width="300">
-      <v-list lines="three" density="compact">
+      <v-list density="compact" lines="three">
         <!-- ---------------------------------------------- -->
         <!-- Profile Area -->
         <!-- ---------------------------------------------- -->
@@ -72,14 +72,14 @@ const navs = [
       <!-- Menu Area -->
       <!-- ---------------------------------------------- -->
 
-      <v-list variant="flat" elevation="0" :lines="false" density="compact">
+      <v-list :lines="false" density="compact" elevation="0" variant="flat">
         <v-list-item
-            color="primary"
             v-for="(nav, i) in navs"
             :key="i"
             :to="nav.link"
-            link
+            color="primary"
             density="compact"
+            link
         >
           <template v-slot:prepend>
             <v-avatar size="30">
@@ -99,8 +99,8 @@ const navs = [
       <!-- ---------------------------------------------- -->
       <!-- Logout Area -->
       <!-- ---------------------------------------------- -->
-      <v-list variant="flat" elevation="0" :lines="false" density="compact">
-        <v-list-item color="primary" to="nav.link" link density="compact">
+      <v-list :lines="false" density="compact" elevation="0" variant="flat">
+        <v-list-item color="primary" density="compact" link to="nav.link">
           <template v-slot:prepend>
             <v-avatar size="30">
               <v-icon>mdi-lifebuoy</v-icon>
@@ -115,9 +115,9 @@ const navs = [
         </v-list-item>
         <v-list-item
             color="primary"
+            density="compact"
             link
             @click="handleLogout"
-            density="compact"
         >
           <template v-slot:prepend>
             <v-avatar size="30">
