@@ -59,12 +59,14 @@ const filteredItems = computed(() => {
 
     <!-- 数据表 -->
     <v-col>
-      <v-col cols="10" class="align-self-end">
-        <DataRangeCard
-            v-model:start_date="startDate"
-            v-model:end_date="endDate">
-        </DataRangeCard>
-      </v-col>
+      <v-row justify="center">
+        <v-col cols="10">
+          <DataRangeCard
+              v-model:start_date="startDate"
+              v-model:end_date="endDate">
+          </DataRangeCard>
+        </v-col>
+      </v-row>
       <v-data-table
           :items="filteredItems"
           :headers="headers"
@@ -75,7 +77,7 @@ const filteredItems = computed(() => {
             <td>{{ item.prcDuration }} 小时</td>
             <td>{{ item.prcType }}</td>
             <td>
-              <v-btn :to="{ name: 'TrackDetails', params: { id: item.prcId } }">详情</v-btn>
+              <v-btn color="primary" :to="{ name: 'TrackDetails', params: { id: item.prcId } }">详情</v-btn>
             </td>
           </tr>
         </template>

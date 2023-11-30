@@ -2,19 +2,8 @@ export default [
     {
         text:"阅读练习",
         icon:"mdi-book",
-        items:[
-            {
-                text: "四级阅读",
-                key:"",
-                link: { name: 'Vocabulary' }
-            },
-            {
-                text: "六级阅读",
-                key:"",
-                link: { name: 'Speaking' }
-            },
-        ],
         key:"",
+        link: { name: 'Articles'},
     },
     {
         text: "单词积累",
@@ -22,12 +11,12 @@ export default [
         key:"",
         link: { name: 'Vocabulary' }
     },
-    {
-        text: "口语跟练",
-        icon:"mdi-forum",
-        key:"",
-        link: { name: 'Speaking' }
-    },
+//    {
+//        text: "口语跟练",
+//        icon:"mdi-forum",
+//        key:"",
+//        link: { name: 'Speaking' }
+//    },
     {
         text: "作文批改",
         icon:"mdi-book-open-variant",

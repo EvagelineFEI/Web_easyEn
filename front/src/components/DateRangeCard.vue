@@ -22,12 +22,19 @@
         </v-text-field>
       </v-col>
 
-      <v-col justify="center">
+
+      <v-row justify="center">
         <v-tooltip
             v-model="showFilter"
             location="top">
           <template v-slot:activator="{ props }">
-            <v-btn v-bind="props" variant="plain" @click="updateDateRange" icon="mdi-arrow-top-right" color="primary"></v-btn>
+            <v-btn 
+              v-bind="props" 
+              variant="plain" 
+              @click="updateDateRange" 
+              icon="mdi-arrow-top-right" 
+              color="primary"
+            />
           </template>
           <span>筛选</span>
         </v-tooltip>
@@ -35,12 +42,17 @@
             v-model="cleanFilter"
             location="top">
           <template v-slot:activator="{ props }">
-            <v-btn v-bind="props" variant="plain" @click="cleanDateRange" icon="mdi-close" color="primary"></v-btn>
+            <v-btn 
+              v-bind="props" 
+              variant="plain" 
+              @click="cleanDateRange" 
+              icon="mdi-close" 
+              color="primary"
+            />
           </template>
           <span>清空</span>
         </v-tooltip>
-      </v-col>
-
+      </v-row>
     </v-row>
   </v-sheet>
 </template>

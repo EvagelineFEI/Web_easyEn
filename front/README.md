@@ -5,9 +5,9 @@ Use `Vue 3` + `Vite` + `Vuetify`
 
 Base on `Node.js` , version `v20.8.1`
 
-Router components is `vue-router`
+Router plugin is `vue-router`
 
-Storage components is `Pinia`
+Storage plugin is `Pinia`
 
 ## Project Struct
 

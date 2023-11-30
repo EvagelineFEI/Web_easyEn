@@ -1,3 +1,43 @@
+<script setup lang="ts">
+import DateRangeCard from "@/components/DateRangeCard.vue";
+import {Ref} from "vue";
+
+const posts: Ref<Post[]> = ref([
+  {id: 1, title: "Vue.js 3.0 发布啦！", content: "Vue 3.0 带来了许多新特性...", publishedAt: "2023-01-01"},
+  {id: 2, title: "Vue.js 3.0 发布啦！", content: "Vue 3.0 带来了许多新特性...", publishedAt: "2023-01-01"},
+  {id: 3, title: "Vue.js 3.0 发布啦！", content: "Vue 3.0 带来了许多新特性...", publishedAt: "2023-01-01"},
+  {id: 4, title: "Vue.js 3.0 发布啦！", content: "Vue 3.0 带来了许多新特性...", publishedAt: "2023-01-01"},
+  {id: 5, title: "Vue.js 3.0 发布啦！", content: "Vue 3.0 带来了许多新特性...", publishedAt: "2023-01-01"},
+  {id: 6, title: "Vue.js 3.0 发布啦！", content: "Vue 3.0 带来了许多新特性...", publishedAt: "2023-01-01"},
+  {id: 7, title: "Vue.js 3.0 发布啦！", content: "Vue 3.0 带来了许多新特性...", publishedAt: "2023-01-01"},
+  {id: 8, title: "Vue.js 3.0 发布啦！", content: "Vue 3.0 带来了许多新特性...", publishedAt: "2023-01-01"},
+])
+
+interface Post {
+  id: number,
+  title: string,
+  content: string,
+  publishedAt: string
+}
+
+const filteredPosts = computed(() => {
+  // 实现关键词和时间检索
+  return posts.value.filter(post => {
+    return (!startDate.value || new Date(post.publishedAt) >= new Date(startDate.value)) &&
+        (!endDate.value || new Date(post.publishedAt) <= new Date(endDate.value));
+  })
+})
+
+const startDate = ref('');
+const endDate = ref('');
+const triggerKeyword = ref('');
+const page = ref(1);
+
+function clearKeyword() {
+  triggerKeyword.value = ''
+}
+</script>
+
 <template>
   <v-row class="d-flex justify-space-between mb-auto">
     <!-- 数据表 -->
@@ -93,53 +133,10 @@
 
         </v-data-iterator>
         <v-card-text>
-          <v-btn block prepend-icon="mdi-pen" color="primary">{{ $t("communication.post") }}</v-btn>
-          <br/>
-          <v-btn block prepend-icon="mdi-note-multiple" color="primary">{{ $t("communication.manage") }}</v-btn>
+          
         </v-card-text>
       </v-card>
     </v-col>
 
   </v-row>
 </template>
-
-<script setup lang="ts">
-import DateRangeCard from "@/components/DateRangeCard.vue";
-import {Ref} from "vue";
-
-const posts: Ref<Post[]> = ref([
-  {id: 1, title: "Vue.js 3.0 发布啦！", content: "Vue 3.0 带来了许多新特性...", publishedAt: "2023-01-01"},
-  {id: 2, title: "Vue.js 3.0 发布啦！", content: "Vue 3.0 带来了许多新特性...", publishedAt: "2023-01-01"},
-  {id: 3, title: "Vue.js 3.0 发布啦！", content: "Vue 3.0 带来了许多新特性...", publishedAt: "2023-01-01"},
-  {id: 4, title: "Vue.js 3.0 发布啦！", content: "Vue 3.0 带来了许多新特性...", publishedAt: "2023-01-01"},
-  {id: 5, title: "Vue.js 3.0 发布啦！", content: "Vue 3.0 带来了许多新特性...", publishedAt: "2023-01-01"},
-  {id: 6, title: "Vue.js 3.0 发布啦！", content: "Vue 3.0 带来了许多新特性...", publishedAt: "2023-01-01"},
-  {id: 7, title: "Vue.js 3.0 发布啦！", content: "Vue 3.0 带来了许多新特性...", publishedAt: "2023-01-01"},
-  {id: 8, title: "Vue.js 3.0 发布啦！", content: "Vue 3.0 带来了许多新特性...", publishedAt: "2023-01-01"},
-])
-
-interface Post {
-  id: number,
-  title: string,
-  content: string,
-  publishedAt: string
-}
-
-const filteredPosts = computed(() => {
-  // 实现关键词和时间检索
-  return posts.value.filter(post => {
-    return (!startDate.value || new Date(post.publishedAt) >= new Date(startDate.value)) &&
-        (!endDate.value || new Date(post.publishedAt) <= new Date(endDate.value));
-  })
-})
-
-const startDate = ref('');
-const endDate = ref('');
-const triggerKeyword = ref('');
-const page = ref(1);
-
-function clearKeyword() {
-  triggerKeyword.value = ''
-}
-
-</script>
