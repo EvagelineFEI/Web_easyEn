@@ -1,6 +1,6 @@
-package com.easyen.dto;
+package com.easyen.easyenglish.dto;
 
-public class SpeakingPracticeRequest {
+public class spRequest {
     private String topic;
     private String examType;
 
