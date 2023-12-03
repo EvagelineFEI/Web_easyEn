@@ -1,0 +1,14 @@
+server:
+  port: 6660
+
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://121.48.200.8:9000/easy_en
+    username: admin
+    password: iloveSCU
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+
+

@@ -18,6 +18,11 @@
 	</properties>
 	<dependencies>
 		<dependency>
+			<groupId>com.theokanning.openai-gpt3-java</groupId>
+			<artifactId>service</artifactId>
+			<version>0.10.0</version>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
 		</dependency>
@@ -77,7 +82,11 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-	</dependencies>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+        </dependency>
+    </dependencies>
 
 	<build>
 		<plugins>
