@@ -6,5 +6,10 @@ import java.util.List;
 
 public interface essayService {
     List<essay> getAllEssays();
-    String generateEssay(String requirements, String originEssay);
+    essay findByID(Integer essayId);
+    List<essay> findByUser(Integer userID);
+    List<essay> findEssaysByTitle(String essayTitle);
+    void addEssay(essay essay);
+    void deleteEssay(Integer essayId);
+    void updateEssay(essay essay);
 }

@@ -4,6 +4,7 @@ import lombok.Data;
 
 import java.util.Date;
 
+// 作文表
 @Data
 public class essay {
     private Integer essay_id;
