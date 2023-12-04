@@ -1,5 +1,6 @@
 package com.easyen.easyenglish.dto;
 
+// 用于传递给GPT的信息，包括批改要点requirements、作文originalEssay
 public class essayGenerate {
     private String requirements;
     private String originalEssay;

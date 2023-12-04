@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.easyen.easyenglish.mapper.correctionFeedbackMapper">
+    <insert id="addFeedback" parameterType="com.easyen.easyenglish.entity.correctionFeedback">
+        INSERT INTO correction_feedback(essay_id, correction_score, correction_suggestions, correction_date)
+        VALUES (#{essay_id}, #{correction_score}, #{correction_suggestions}, #{correction_date})
+    </insert>
+    <delete id="deleteFeedback" parameterType="java.lang.Integer">
+        DELETE FROM correction_feedback WHERE feedback_id = #{feedbackId}
+    </delete>
+    <update id="updateFeedback" parameterType="com.easyen.easyenglish.entity.correctionFeedback">
+        UPDATE correction_feedback
+        SET
+            essay_id = #{essay_id},
+            correction_score = #{correction_score},
+            correction_suggestions = #{correction_suggestions}
+            WHERE feedback_id = #{feedback_id}
+    </update>
+    <select id="findByID" resultType="com.easyen.easyenglish.entity.correctionFeedback">
+        select * from correction_feedback where feedback_id = #{feedbackId}
+    </select>
+    <select id="findByEssay" resultType="com.easyen.easyenglish.entity.correctionFeedback">
+        select * from correction_feedback where essay_id = #{essay_id}
+    </select>
+</mapper>

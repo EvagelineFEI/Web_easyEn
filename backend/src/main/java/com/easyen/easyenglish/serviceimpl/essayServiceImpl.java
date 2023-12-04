@@ -1,5 +1,4 @@
 package com.easyen.easyenglish.serviceimpl;
-import com.alibaba.fastjson2.JSONObject;
 import com.easyen.easyenglish.mapper.essayMapper;
 import com.easyen.easyenglish.entity.essay;
 import com.easyen.easyenglish.service.essayService;
@@ -7,8 +6,8 @@ import com.theokanning.openai.completion.CompletionChoice;
 import com.theokanning.openai.completion.CompletionRequest;
 import com.theokanning.openai.service.OpenAiService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
@@ -23,23 +22,44 @@ public class essayServiceImpl implements essayService {
     }
 
     @Override
-    public String generateEssay(String requirements, String originEssay) {
-        // 下方输入api key
-        String token = "";
-        OpenAiService service = new OpenAiService(token);
+    public essay findByID(Integer essayId){return essayMapper.findByID(essayId);}
 
-        // 构建ChatGPT请求
-        CompletionRequest completionRequest = CompletionRequest.builder()
-                .model("text-davinci-003")
-                .prompt("我的要求是："+requirements+"。我的作文是："+originEssay)
-                .temperature(0.7)
-                .maxTokens(2048)
-                .topP(1D)
-                .frequencyPenalty(0D)
-                .presencePenalty(0D)
-                .build();
-        CompletionChoice choice = service.createCompletion(completionRequest).getChoices().get(0);
-        String generatedText = choice.getText();
-        return generatedText;
+    @Override
+    public List<essay> findByUser(Integer userID){
+        return essayMapper.findByUser(userID);
+    }
+
+    @Override
+    public List<essay> findEssaysByTitle(String essayTitle) {
+        return essayMapper.findEssaysByTitle(essayTitle);
+    }
+
+    @Override
+    @Transactional
+    public void addEssay(essay essay) {
+        try {
+            essayMapper.addEssay(essay);
+        } catch (Exception e) {
+            // 在实际应用中，你可能会记录日志或者执行其他适当的异常处理操作
+            e.printStackTrace();
+            throw new RuntimeException("添加Essay失败：" + e.getMessage());
+        }
+    }
+
+    @Override
+    @Transactional
+    public void deleteEssay(Integer essayId) {
+        try {
+            essayMapper.deleteEssay(essayId);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("删除Essay失败：" + e.getMessage());
+        }
+    }
+
+    @Override
+    @Transactional
+    public void updateEssay(essay essay) {
+        essayMapper.updateEssay(essay);
     }
 }
