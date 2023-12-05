@@ -40,15 +40,24 @@ const checkInput = () => {
             <v-card class="box">
                 <v-card-text>
                     <v-row>
-                        <v-col class="text">音标：</v-col>
+                        <v-col cols="3" class="text">音标：</v-col>
                         <v-col>{{ wordObject.phonetic }}</v-col>
                     </v-row>
                 </v-card-text>
-                <v-card-text class="text">单词释义：</v-card-text>
-                <v-card-text>{{wordObject.meaning}}</v-card-text>
-
+                <v-card-text class="text">
+                    <v-row>
+                        <v-col cols="3" class="text">单词释义： </v-col>
+                        <v-col>{{wordObject.meaning}}</v-col>
+                    </v-row>
+                </v-card-text>
+                <v-card-text class="text">
+                    <v-row>
+                        <v-col cols="3" class="text">查看答案：</v-col>
+                        <v-col>{{wordObject.meaning}}</v-col>
+                    </v-row>
+                </v-card-text>
             </v-card>
-            <v-btn @click="checkInput" class="button">提交</v-btn>
+            <v-btn @click="checkInput" color="primary" class="button">提交</v-btn>
         </v-col>
     </v-row>
 </template>

@@ -67,8 +67,8 @@ function clearKeyword() {
       <v-data-iterator :items="filteredPosts" :page="page" :items-per-page="5" :search="triggerKeyword">
         <template v-slot:default="{ items }">
           <template
-              v-for="(item, i) in items"
-              :key="i"
+              v-for="(item, index) in items"
+              :key="index"
           >
             <v-card>
               <v-card-title>{{ item.raw.title }}</v-card-title>
@@ -78,7 +78,7 @@ function clearKeyword() {
               <v-btn color="primary" :to="{ name: 'Post', params: { id: item.raw.id } }">详情</v-btn>
             </div>
             </v-card>
-            <br>
+            <br/>
           </template>
         </template>
 
@@ -117,9 +117,9 @@ function clearKeyword() {
           prepend-icon="mdi-toolbox"
           :title="$t('communication.toolbox')">
         <v-card-text>
-          <v-btn block prepend-icon="mdi-pen" color="primary">{{ $t("communication.post") }}</v-btn>
+          <v-btn block prepend-icon="mdi-pen" color="primary" :to="{name: 'Write'}">{{ $t("communication.post") }}</v-btn>
           <br/>
-          <v-btn block prepend-icon="mdi-note-multiple" color="primary">{{ $t("communication.manage") }}</v-btn>
+          <v-btn block prepend-icon="mdi-note-multiple" color="primary" :to="{name: 'PostManage', params: {userid: 0}}">{{ $t("communication.manage") }}</v-btn>
         </v-card-text>
       </v-card>
 
@@ -127,13 +127,24 @@ function clearKeyword() {
 
       <!--热门帖子-->
       <v-card
-          prepend-icon="mdi-toolbox"
-          :title="$t('communication.purpulerPost')">
-        <v-data-iterator>
-
-        </v-data-iterator>
+          prepend-icon="mdi-post"
+          :title="$t('communication.populerPost')"
+          height="300px">
         <v-card-text>
-          
+          <v-infinite-scroll :height="300" :items="posts">
+            <template
+                v-for="(item, index) in posts"
+                :key="index + 1"
+            >
+              <v-row justify="start" :class="index % 2 === 0 ? 'bg-grey-lighten-2' : ''">
+                <v-col cols="10">
+                  <v-btn variant="text" :to="{name:'Post', params: {id: item.id}}" >
+                    {{ item.title }}
+                  </v-btn>
+                </v-col>
+              </v-row>
+            </template>
+          </v-infinite-scroll>
         </v-card-text>
       </v-card>
     </v-col>

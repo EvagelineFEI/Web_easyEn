@@ -34,7 +34,7 @@ export default {
         signin: "登录",
     },
     communication: {
-        purpulerPost: "热门帖子",
+        populerPost: "热门帖子",
         toolbox: "工具箱",
         post: "发帖",
         manage: "管理"

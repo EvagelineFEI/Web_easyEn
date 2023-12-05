@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-import CustomizationMenu from "@/components/CustomizationMenu";
-import DefaultLayout from "@/layouts/DefaultLayout";
-import CommunicationSidebarLayout from "@/layouts/CommunicateSidebarLayout";
+import CustomizationMenu from "@/components/CustomizationMenu.vue";
+import DefaultLayout from "@/layouts/DefaultLayout.vue";
+import CommunicationSidebarLayout from "@/layouts/CommunicateSidebarLayout.vue";
 import PracticeSidebarLayout from "@/layouts/PracticeSidebarLayout.vue";
-import ErrorLayout from "@/layouts/ErrorLayout";
+import ErrorLayout from "@/layouts/ErrorLayout.vue";
 import configs from "@/configs";
 
 // Store Listen

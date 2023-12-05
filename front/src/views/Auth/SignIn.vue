@@ -2,12 +2,10 @@
 import configs from "@/configs";
 import {ref} from "vue";
 
-
 const authStore = configs.stores.useAuthStore();
 const isLoading = ref(false);
 const isSignInDisabled = ref(false);
 
-const refLoginForm = ref();
 const email = ref("");
 const password = ref("");
 const isFormValid = ref(true);
@@ -16,12 +14,17 @@ const isFormValid = ref(true);
 const showPassword = ref(false);
 
 const handleLogin = async () => {
-  const {valid} = await refLoginForm.value.validate();
-  if (valid) {
+  if (!isFormValid) {
+    return
+  }
+  
+  const response = await true;
+
+  if (response) {
     isLoading.value = true;
     isSignInDisabled.value = true;
-    await authStore.loginWithEmailAndPassword(email.value, password.value);
   } else {
+    errorMessages.value = response;
     console.log("no");
   }
 };
@@ -34,7 +37,7 @@ const emailRules = ref([
 const passwordRules = ref([
   (v: string) => !!v || "Password is required",
   (v: string) =>
-      (v && v.length <= 10) || "Password must be less than 10 characters",
+      (v && v.length >= 8) || "Password must be more than 8 characters",
 ]);
 
 // error provider
@@ -61,10 +64,10 @@ const resetErrors = () => {
 
       <v-card-text>
         <v-form
-            ref="refLoginForm"
             class="text-left"
             v-model="isFormValid"
-            lazy-validation
+            @submit.prevent="handleLogin"
+            validate-on="input"
         >
           <v-text-field
               ref="refEmail"
@@ -109,7 +112,6 @@ const resetErrors = () => {
               block
               size="x-large"
               color="primary"
-              @click="handleLogin"
               class="mt-2"
           >
             {{ $t("login.button") }}

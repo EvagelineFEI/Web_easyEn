@@ -1,16 +1,16 @@
 <template>
-    <v-col align-self="center">
+    <v-col align="self-center">
         <v-text-field 
             v-model="essay_title" 
             label="标题" 
             variant="outlined"
         />
         <v-row justify="end">
-            <v-col cols="2" v-for="i in 3">
+            <v-col cols="2" v-for="item in chekcBoxItems">
                 <v-checkbox 
-                    v-model="checkPredicate" 
+                    :v-model="item.key" 
                     color="primary" 
-                    label="检查谓词"
+                    :label="item.title"
                 />
             </v-col>
         </v-row>
@@ -19,6 +19,7 @@
             label="作文内容" 
             variant="outlined" 
             density="comfortable"
+            rows="12"
         />
         <v-row justify="end">
             <v-col cols="2">
@@ -39,6 +40,17 @@ import { ref } from 'vue';
 const essay_title = ref('');
 const essay_content = ref('');
 const checkPredicate = ref(false);
+const checkPro = ref(false);
+
+interface CheckBoxItemType {
+    title: string;
+    key: any;
+}
+
+const chekcBoxItems: CheckBoxItemType[] = [
+    {title: '检查谓词', key: checkPredicate},
+    {title: '检查拼写', key: checkPro},
+];
 
 const submitEssay = () => {
     // 处理提交作文的逻辑
