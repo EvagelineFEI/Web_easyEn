@@ -45,7 +45,7 @@ public class correctionFeedbackController {
         if (feedback != null) {
             return ResponseEntity.ok(Map.of("code", 200, "data", feedback));
         } else {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.ok(Map.of("code", 500, "data", feedback));
         }
     }
 
@@ -56,7 +56,7 @@ public class correctionFeedbackController {
         if (!feedbackList.isEmpty()) {
             return ResponseEntity.ok(Map.of("code", 200, "data", feedbackList));
         } else {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.ok(Map.of("code", 500, "data", feedbackList));
         }
     }
 

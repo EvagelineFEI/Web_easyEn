@@ -33,7 +33,7 @@ public class essayController {
         if (essay != null) {
             return ResponseEntity.ok(Map.of("code", 200, "essay", essay));
         } else {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.ok(Map.of("code", 500, "essay", "[]"));
         }
     }
 
@@ -44,7 +44,7 @@ public class essayController {
         if (!essays.isEmpty()) {
             return ResponseEntity.ok(Map.of("code", 200, "essay", essays));
         } else {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.ok(Map.of("code", 500, "essay", essays));
         }
     }
 
@@ -55,7 +55,7 @@ public class essayController {
         if (!essays.isEmpty()) {
             return ResponseEntity.ok(Map.of("code", 200, "essay", essays));
         } else {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.ok(Map.of("code", 500, "essay", essays));
         }
     }
 
