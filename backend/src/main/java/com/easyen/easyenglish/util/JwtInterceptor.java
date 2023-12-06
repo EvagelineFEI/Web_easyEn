@@ -25,7 +25,7 @@ public class JwtInterceptor implements HandlerInterceptor {
         if (token == null || token.isEmpty()) {
             System.out.println("Token为空");
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            response.sendRedirect("/login");//回到登录页面
+            response.sendRedirect("/api/login");//回到登录页面
             return false;
         }
 
@@ -34,7 +34,7 @@ public class JwtInterceptor implements HandlerInterceptor {
         if (claims == null) {
             System.out.println("Token超时或验证失败");
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            response.sendRedirect("/login");//回到登录页面
+            response.sendRedirect("/api/login");//回到登录页面
             return false;
         }
 
