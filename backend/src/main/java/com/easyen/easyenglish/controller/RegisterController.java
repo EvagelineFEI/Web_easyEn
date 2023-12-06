@@ -5,10 +5,12 @@ import com.easyen.serviceimpl.RegisterServiceImpl;
 import com.easyen.util.ApiResultHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/api")
 public class RegisterController {
     @Autowired
     private RegisterServiceImpl registerService;
@@ -17,7 +19,7 @@ public class RegisterController {
     public ApiResult register(@RequestParam String username,
                               @RequestParam String password,
                               @RequestParam String email,
-                              @RequestParam String other_info){
+                              @RequestParam(required = false) String other_info){
 
         Integer user_insert =  registerService.UserRegister(username, password, email, other_info);
 
