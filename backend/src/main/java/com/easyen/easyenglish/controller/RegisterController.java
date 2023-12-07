@@ -1,4 +1,4 @@
-package com.easyen.controller;
+package com.easyen.easyenglish.controller;
 
 import com.easyen.entitty.ApiResult;
 import com.easyen.serviceimpl.RegisterServiceImpl;

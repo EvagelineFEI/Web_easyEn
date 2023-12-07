@@ -8,9 +8,7 @@ import com.theokanning.openai.service.OpenAiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.*;
-
 @Service
 public class essayServiceImpl implements essayService {
     @Autowired
@@ -33,7 +31,6 @@ public class essayServiceImpl implements essayService {
     public List<essay> findEssaysByTitle(String essayTitle) {
         return essayMapper.findEssaysByTitle(essayTitle);
     }
-
     @Override
     @Transactional
     public void addEssay(essay essay) {

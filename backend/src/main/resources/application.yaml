@@ -12,4 +12,9 @@ mybatis:
   mapper-locations: classpath:mapper/*.xml
 
 
+gpt:
+  api-key: "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"
+  model: "text-davinci-003",
+  maxTokens: 2048
+  temperature: 0.5
 

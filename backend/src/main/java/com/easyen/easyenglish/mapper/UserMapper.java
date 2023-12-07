@@ -1,4 +1,4 @@
-package com.easyen.mapper;
+package com.easyen.easyenglish.mapper;
 
 import com.easyen.entitty.User;
 import org.apache.ibatis.annotations.*;

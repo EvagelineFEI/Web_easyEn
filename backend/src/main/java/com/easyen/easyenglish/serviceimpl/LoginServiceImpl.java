@@ -14,7 +14,6 @@ public class LoginServiceImpl implements LoginService {
     public User UserLogin(Integer userID, String password) {
 
         User user = userMapper.getUserByID(userID);
-
         if (user != null && user.getPassword().equals(password)) {
             // 登录成功，重置错误次数
             user.setErrorsCount(0);
