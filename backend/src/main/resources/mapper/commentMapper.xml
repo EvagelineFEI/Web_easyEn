@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.easyen.easyenglish.mapper.commentMapper">
+    <select id="selectAllComments" resultType="com.easyen.easyenglish.entity.comments">
+        select * from comments
+    </select>
+    <select id="selectCommentsByPost" resultType="com.easyen.easyenglish.entity.comments">
+        select * from comments
+        where comment_state = true and
+              post_id = #{postID}
+        order by comment_time desc
+        limit #{pageSize} offset #{offset}
+    </select>
+    <insert id="insertComment" parameterType="com.easyen.easyenglish.entity.comments">
+        insert INTO comments (comment_state, user_id, post_id, contents, comment_time)
+        VALUES (#{comment_state}, #{user_id}, #{post_id}, #{contents}, #{comment_time})
+    </insert>
+    <delete id="deleteComment" parameterType="com.easyen.easyenglish.entity.comments">
+        delete from comments
+        where comment_id = #{commentID}
+    </delete>
+</mapper>
