@@ -1,6 +1,5 @@
 import locales from "@/configs/locales";
 import menu from "@/configs/menu"
-import apis from "@/configs/apis";
 import stores from "@/configs/stores";
 
 export default {
@@ -10,6 +9,5 @@ export default {
     },
     menu,
     locales,
-    apis,
     stores
 }

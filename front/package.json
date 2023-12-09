@@ -12,15 +12,17 @@
     "@mdi/font": "^7.3.67",
     "@types/node": "^20.8.10",
     "axios": "^1.6.0",
+    "echarts": "^5.4.3",
     "pinia": "^2.1.7",
     "pinia-plugin-persist": "^1.0.0",
     "url": "^0.11.3",
     "vite-plugin-vuetify": "^1.0.2",
     "vue": "^3.3.4",
     "vue-cookies": "^1.8.3",
+    "vue-echarts": "^6.6.2",
     "vue-i18n": "^9.6.0",
     "vue-router": "^4.2.5",
-    "vuetify": "^3.3.23"
+    "vuetify": "^3.4.5"
   },
   "devDependencies": {
     "@iconify/vue": "^4.1.1",
@@ -28,6 +30,6 @@
     "@vue/tsconfig": "^0.4.0",
     "sass": "^1.69.4",
     "unplugin-auto-import": "^0.16.7",
-    "vite": "^4.4.5"
+    "vite": "^4.5.1"
   }
 }

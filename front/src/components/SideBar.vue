@@ -49,11 +49,10 @@ const props = defineProps({
             :active-class="`active-nav-${customizeTheme.primaryColor.colorName}`"
             :prepend-icon="listArea.icon || 'mdi-circle-medium'"
             :to="listArea.link"
-            class="me-2"
             density="compact"
         >
           <v-list-item-title
-              class="text-"
+              class="text-center"
               v-text="listArea.key ? $t(listArea.key) : listArea.text"
           ></v-list-item-title>
         </v-list-item>

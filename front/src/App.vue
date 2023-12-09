@@ -45,7 +45,7 @@ const currentLayout = computed(() => {
 
 <style>
 .main-content {
-  max-width: 1080px;
+  max-width: 1140px;
 }
 </style>
 

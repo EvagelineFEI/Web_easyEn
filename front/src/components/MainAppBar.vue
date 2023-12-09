@@ -10,6 +10,7 @@ const authStore = configs.stores.useAuthStore();
 const getLogo = () => {
   return new URL(`@/assets/EAZYEN.png`, import.meta.url).href
 }
+
 </script>
 
 <template>

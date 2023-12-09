@@ -8,7 +8,15 @@ import { fileURLToPath, URL } from "node:url";
 
 export default defineConfig({
   server: {
-    host: "0.0.0.0"
+    host: "0.0.0.0",
+    proxy: {
+      '/api': {
+        target: 'http://127.0.0.1:8080',
+        rewrite: (path) => path.replace(/^\/api/, ''),
+        changeOrigin: true,
+        ws: true,
+      },
+    },
   },
   plugins: [
     vue(),
@@ -24,7 +32,8 @@ export default defineConfig({
     alias: {
       "~": fileURLToPath(new URL("./", import.meta.url)),
       "@": fileURLToPath(new URL("./src", import.meta.url)),
-      "@data": fileURLToPath(new URL("./src/data", import.meta.url)),
+      "@api": fileURLToPath(new URL("./src/api", import.meta.url)),
+      "@configs": fileURLToPath(new URL("./src/configs", import.meta.url)),
     },
     extensions: [".js", ".json", ".jsx", ".mjs", ".ts", ".tsx", ".vue"],
   },

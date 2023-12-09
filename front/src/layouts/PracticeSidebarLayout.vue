@@ -12,7 +12,7 @@ const nav = ref(configs.menu.learnNav);
         <v-container class="align-self-auto">
             <v-row>
                 <v-col cols="3">
-                    <v-card>
+                    <v-card max-width="200px" >
                         <MainSideBar :list="nav" />
                     </v-card>
                 </v-col>

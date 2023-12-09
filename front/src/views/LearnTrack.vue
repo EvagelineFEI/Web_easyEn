@@ -39,7 +39,94 @@ const dataItems = ref([
     prcType: 'PracticeType',
     prcDate: '2023-11-03',
     prcDuration: '3.5'      //练习时长
-  }
+  },
+
+  {
+    prcId: '5',
+    userId: 'xxxxx',
+    prcType: 'PracticeType',
+    prcDate: '2023-11-01',
+    prcDuration: '3.5'      //练习时长
+  },
+  {
+    prcId: '6',
+    userId: 'xxxxx',
+    prcType: 'PracticeType',
+    prcDate: '2023-11-06',
+    prcDuration: '3.5'      //练习时长
+  },
+  {
+    prcId: '7',
+    userId: 'xxxxx',
+    prcType: 'PracticeType',
+    prcDate: '2023-11-02',
+    prcDuration: '3.5'      //练习时长
+  },
+  {
+    prcId: '8',
+    userId: 'xxxxx',
+    prcType: 'PracticeType',
+    prcDate: '2023-11-03',
+    prcDuration: '3.5'      //练习时长
+  },
+
+  {
+    prcId: '9',
+    userId: 'xxxxx',
+    prcType: 'PracticeType',
+    prcDate: '2023-11-01',
+    prcDuration: '3.5'      //练习时长
+  },
+  {
+    prcId: '10',
+    userId: 'xxxxx',
+    prcType: 'PracticeType',
+    prcDate: '2023-11-06',
+    prcDuration: '3.5'      //练习时长
+  },
+  {
+    prcId: '11',
+    userId: 'xxxxx',
+    prcType: 'PracticeType',
+    prcDate: '2023-11-02',
+    prcDuration: '3.5'      //练习时长
+  },
+  {
+    prcId: '12',
+    userId: 'xxxxx',
+    prcType: 'PracticeType',
+    prcDate: '2023-11-03',
+    prcDuration: '3.5'      //练习时长
+  },
+
+  {
+    prcId: '13',
+    userId: 'xxxxx',
+    prcType: 'PracticeType',
+    prcDate: '2023-11-01',
+    prcDuration: '3.5'      //练习时长
+  },
+  {
+    prcId: '14',
+    userId: 'xxxxx',
+    prcType: 'PracticeType',
+    prcDate: '2023-11-06',
+    prcDuration: '3.5'      //练习时长
+  },
+  {
+    prcId: '15',
+    userId: 'xxxxx',
+    prcType: 'PracticeType',
+    prcDate: '2023-11-02',
+    prcDuration: '3.5'      //练习时长
+  },
+  {
+    prcId: '16',
+    userId: 'xxxxx',
+    prcType: 'PracticeType',
+    prcDate: '2023-11-03',
+    prcDuration: '3.5'      //练习时长
+  },
 ]);
 
 // 使用 computed 定义计算属性
@@ -55,9 +142,7 @@ const filteredItems = computed(() => {
 
 
 <template>
-  <v-row>
     <!-- 数据表 -->
-    <v-col>
       <v-row justify="center">
         <v-col cols="10">
           <DataRangeCard
@@ -67,6 +152,7 @@ const filteredItems = computed(() => {
         </v-col>
       </v-row>
       <v-data-table
+          class="h-full"
           :items="filteredItems"
           :headers="headers"
           item-value="prcId">
@@ -76,14 +162,13 @@ const filteredItems = computed(() => {
             <td>{{ item.prcDuration }} 小时</td>
             <td>{{ item.prcType }}</td>
             <td>
-              <v-btn color="primary" :to="{ name: 'TrackDetails', params: { id: item.prcId } }">详情</v-btn>
+              <v-row justify="center">
+                 <v-btn color="primary" :to="{ name: 'TrackDetails', params: { id: item.prcId } }">详情</v-btn>
+              </v-row>
             </td>
           </tr>
         </template>
       </v-data-table>
-    </v-col>
-
-  </v-row>
 </template>
 
 

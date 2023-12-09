@@ -19,7 +19,7 @@
             label="作文内容" 
             variant="outlined" 
             density="comfortable"
-            rows="12"
+            rows="18"
         />
         <v-row justify="end">
             <v-col cols="2">

@@ -11,6 +11,9 @@ const posts: Ref<Post[]> = ref([
   {id: 6, title: "Vue.js 3.0 发布啦！", content: "Vue 3.0 带来了许多新特性...", publishedAt: "2023-01-01"},
   {id: 7, title: "Vue.js 3.0 发布啦！", content: "Vue 3.0 带来了许多新特性...", publishedAt: "2023-01-01"},
   {id: 8, title: "Vue.js 3.0 发布啦！", content: "Vue 3.0 带来了许多新特性...", publishedAt: "2023-01-01"},
+  {id: 9, title: "Vue.js 3.0 发布啦！", content: "Vue 3.0 带来了许多新特性...", publishedAt: "2023-01-01"},
+  {id: 10, title: "Vue.js 3.0 发布啦！", content: "Vue 3.0 带来了许多新特性...", publishedAt: "2023-01-01"},
+  {id: 11, title: "Vue.js 3.0 发布啦！", content: "Vue 3.0 带来了许多新特性...", publishedAt: "2023-01-01"},
 ])
 
 interface Post {
@@ -130,22 +133,23 @@ function clearKeyword() {
           prepend-icon="mdi-post"
           :title="$t('communication.populerPost')"
           height="300px">
-        <v-card-text>
+        <v-container>
           <v-infinite-scroll :height="300" :items="posts">
             <template
                 v-for="(item, index) in posts"
                 :key="index + 1"
             >
-              <v-row justify="start" :class="index % 2 === 0 ? 'bg-grey-lighten-2' : ''">
+              <v-row justify="start">
                 <v-col cols="10">
-                  <v-btn variant="text" :to="{name:'Post', params: {id: item.id}}" >
+                  <router-link :to="{name:'Post', params: {id: item.id}}" >
                     {{ item.title }}
-                  </v-btn>
+                  </router-link>
                 </v-col>
               </v-row>
+              <!--<v-divider/>-->
             </template>
           </v-infinite-scroll>
-        </v-card-text>
+        </v-container>
       </v-card>
     </v-col>
 

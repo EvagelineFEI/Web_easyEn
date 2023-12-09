@@ -1,13 +1,10 @@
 import {defineStore} from "pinia";
 
-import index from "@/router";
-
 interface Profile {
     id: string;
     name: string;
     email: string;
     avatar: string;
-    created: boolean;
 }
 
 export const useAuthStore = defineStore("auth", {
@@ -27,22 +24,17 @@ export const useAuthStore = defineStore("auth", {
     getters: {},
 
     actions: {
-        setLoggedIn(payload: boolean) {
-            this.isLoggedIn = payload;
-        },
-
-        registerWithEmailAndPassword(email: string, password: string) {
-            index.push("/");
-        },
-
-        async loginWithEmailAndPassword(email: string, password: string) {
-            this.setLoggedIn(true)
-            await index.push("/");
+        loggedIn(JWT: string, userId: string) {
+            this.isLoggedIn = true;
+            this.user = JWT;
+            this.profile = {
+                id: userId
+            };
         },
 
         logout() {
-            this.setLoggedIn(false)
-            index.push({name: "SignIn"});
+            this.user = null;
+            this.isLoggedIn = false;
         },
     },
 });

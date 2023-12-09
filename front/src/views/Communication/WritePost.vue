@@ -5,7 +5,7 @@
         </v-btn>
         <h1>写帖子</h1>
         <v-text-field v-model="title" label="标题" placeholder="请输入标题"></v-text-field>
-        <v-textarea v-model="content" label="内容" placeholder="请输入内容"></v-textarea>
+        <v-textarea auto-grow rows="12" v-model="content" label="内容" placeholder="请输入内容"></v-textarea>
         <v-btn @click="publishPost" color="primary">发布</v-btn>
     </v-container>
 </template>
