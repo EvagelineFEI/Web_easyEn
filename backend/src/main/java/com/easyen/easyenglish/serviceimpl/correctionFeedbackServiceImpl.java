@@ -63,7 +63,7 @@ public class correctionFeedbackServiceImpl implements correctionFeedbackService 
         // 构建ChatGPT请求
         CompletionRequest completionRequest = CompletionRequest.builder()
                 .model("text-davinci-003")
-                .prompt("请你返回批改意见。我的批改点是："+requirements+"。我的作文是："+originEssay)
+                .prompt("请你为我的作文返回批改意见。我希望你从这几个要求入手批改："+requirements+"。我的作文是："+originEssay)
                 .temperature(0.5)
                 .maxTokens(2048)
                 .topP(1D)

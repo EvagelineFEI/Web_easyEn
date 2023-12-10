@@ -1,6 +1,6 @@
 package com.easyen.easyenglish.mapper;
 
-import com.easyen.entitty.User;
+import com.easyen.easyenglish.entity.User;
 import org.apache.ibatis.annotations.*;
 
 @Mapper

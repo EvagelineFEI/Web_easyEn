@@ -28,7 +28,6 @@ public class speakEnRecordServiceimpl implements speakEnRecordService {
         }
     }
 
-
     @Override
     public void deleteRecord(Integer record) {
         try {
@@ -57,7 +56,7 @@ public class speakEnRecordServiceimpl implements speakEnRecordService {
     }
 
     @Override
-    public speakEnPracticeRecord findByTopic(String topic) {
+    public List<speakEnPracticeRecord> findByTopic(String topic) {
         return speakEnRecordMapper.findByTopic(topic);
     }
 
@@ -70,12 +69,12 @@ public class speakEnRecordServiceimpl implements speakEnRecordService {
     @Value("${gpt.maxTokens}")
     Integer maxt;
     @Override
-    public String getSpeakResponce(String question) {
+    public String getSpeakResponce(String requirements,String question) {
         OpenAiService service = new OpenAiService(token);
         // 构建ChatGPT请求
         CompletionRequest completionRequest = CompletionRequest.builder()
                 .model(model)
-                .prompt("我现在在进行雅思口语话题的练习。我练习的话题或问题是："+question+"。请依据雅思评分标准，给出一个可能的得到高分的回答")
+                .prompt("我现在在进行"+requirements+"口语话题的练习。我练习的话题或问题是："+question+"。请依据"+requirements+"评分标准，给出一个可能的得到高分的回答")
                 .temperature(t)
                 .maxTokens(maxt)
                 .topP(1D)

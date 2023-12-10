@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.easyen.easyenglish.mapper.viewprogressMapper">
+     <select id="getSpeaknum" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+          SELECT
+          COUNT(*)
+          FROM
+          speak_practice_record s
+          left join users  u on s.user_id = u.user_id
+          where (s.user_id = #{user_id} and s.practice_date = CURRENT_DATE)
+     </select>
+     <select id="getEssaynum" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+          SELECT
+            COUNT(*)
+          FROM
+            essay e
+            left join users  u on e.user_id = u.user_id
+          where (e.user_id = #{user_id} and e.upload_date = CURRENT_DATE)
+     </select>
+     <select id="getSpeakP" resultType="com.easyen.easyenglish.entity.speakEnPracticeRecord">
+          select * from speak_practice_record
+          where user_id = #{user_id}
+     </select>
+     <select id="getEssayP" resultType="com.easyen.easyenglish.entity.essay">
+          select * from essay
+          where user_id = #{user_id}
+     </select>
+</mapper>

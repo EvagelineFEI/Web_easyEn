@@ -1,5 +1,5 @@
-package com.easyen.service;
-import com.easyen.entitty.User;
+package com.easyen.easyenglish.service;
+import com.easyen.easyenglish.entity.User;
 
 public interface LoginService {
 

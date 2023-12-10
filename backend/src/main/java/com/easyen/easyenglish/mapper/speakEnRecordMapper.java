@@ -10,5 +10,5 @@ public interface speakEnRecordMapper {
     void deleteRecord(Integer record_id);
     void updateRecord(speakEnPracticeRecord record);
     List<speakEnPracticeRecord> getAllRecord();
-    speakEnPracticeRecord findByTopic(String topic);
+    List<speakEnPracticeRecord> findByTopic(String topic);
 }

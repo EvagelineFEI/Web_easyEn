@@ -9,6 +9,6 @@ public interface speakEnRecordService {
     void deleteRecord(Integer record);
     void updateRecord(speakEnPracticeRecord record);
     List<speakEnPracticeRecord> getAllrecord();
-    speakEnPracticeRecord findByTopic(String topic);
-    String getSpeakResponce(String questions);
+    List<speakEnPracticeRecord> findByTopic(String topic);
+    String getSpeakResponce(String requirements,String questions);
 }
