@@ -5,7 +5,6 @@ public class Result {
     private static final int FAILRE_CODE = 504;
     private static final int SUCCESS_CODE = 200;
     private static final int OTHER_CODE = 250;
-
     private Object resultData;
     private int code;
 
@@ -15,15 +14,12 @@ public class Result {
     public static Result failure(Object data){
         return new Result(data,FAILRE_CODE);
     }
-
     public static Result successCode(){
         return new Result(SUCCESS_CODE);
     }
     public static Result failureCode(){
         return new Result(FAILRE_CODE);
     }
-
-
     public Result(Object resultData, int code) {
         this.resultData = resultData;
         this.code = code;

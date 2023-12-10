@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.easyen.easyenglish.mapper.speakEnRecordMapper">
+    <select id="getAllRecord" resultType="com.easyen.easyenglish.entity.speakEnPracticeRecord">
+        select * from speak_practice_record
+    </select>
+    <select id="findByTopic" resultType="com.easyen.easyenglish.entity.speakEnPracticeRecord">
+        select * from speak_practice_record where practiced_topic LIKE CONCAT('%', #{topic}, '%')
+    </select>
+    <insert id="addRecord" parameterType="com.easyen.easyenglish.entity.speakEnPracticeRecord">
+        INSERT INTO speak_practice_record (id,user_id,practiced_topic,topic_answer,practice_date)
+        VALUES (#{id},#{user_id},#{practiced_topic},#{topic_answer},#{practice_date})
+    </insert>
+    <delete id="deleteRecord" parameterType="java.lang.Integer">
+        DELETE FROM speak_practice_record WHERE id = #{record_id}
+    </delete>
+    <update id="updateRecord" parameterType="com.easyen.easyenglish.entity.speakEnPracticeRecord">
+        UPDATE speak_practice_record
+        SET
+            id = #{id},
+            user_id = #{user_id},
+            practiced_topic = #{practiced_topic},
+            topic_answer = #{topic_answer},
+            practice_date = CURRENT_DATE
+        WHERE id = #{id}
+    </update>
+</mapper>

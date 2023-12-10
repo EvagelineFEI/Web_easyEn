@@ -1,4 +1,4 @@
-package com.easyen.entitty;
+package com.easyen.easyenglish.entity;
 
 public class ApiResult<T> {
     /**

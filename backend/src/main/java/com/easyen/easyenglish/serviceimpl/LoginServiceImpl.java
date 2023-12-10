@@ -1,8 +1,8 @@
-package com.easyen.serviceimpl;
+package com.easyen.easyenglish.serviceimpl;
 
-import com.easyen.entitty.User;
-import com.easyen.mapper.UserMapper;
-import com.easyen.service.LoginService;
+import com.easyen.easyenglish.entity.User;
+import com.easyen.easyenglish.mapper.UserMapper;
+import com.easyen.easyenglish.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,3 +39,4 @@ public class LoginServiceImpl implements LoginService {
     }
 
 }
+

@@ -72,7 +72,6 @@ public class correctionFeedbackController {
             return new Result("发生未知错误：" + e.getMessage(), 500);
         }
     }
-
     // 传入批改要点requirement（String）、批改作文originalEssay（String），返回批改建议（String）
     @PostMapping("/Suggestion")
     public Result getChatResponse(@RequestBody essayGenerate essayGenerate){

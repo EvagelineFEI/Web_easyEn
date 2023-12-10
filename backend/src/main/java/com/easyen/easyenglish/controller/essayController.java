@@ -17,7 +17,6 @@ import java.util.Map;
 public class essayController {
     @Autowired
     essayService essayService;
-
     // 查询数据库所有作文
     @GetMapping("/findAll")
     public Result getAllEssays() {
@@ -28,7 +27,6 @@ public class essayController {
             return new Result("发生未知错误：" + e.getMessage(), 500);
         }
     }
-
     // 根据作文号查询作文
     @GetMapping("/findById/{essayId}")
     public Result findByID(@PathVariable Integer essayId) {
@@ -61,7 +59,6 @@ public class essayController {
             return new Result("发生未知错误：" + e.getMessage(), 500);
         }
     }
-
     // 增加作文，成功返回200
     @PostMapping("/upload")
     public Result addEssay(@RequestBody essay essay) {
@@ -72,7 +69,6 @@ public class essayController {
             return new Result("发生未知错误：" + e.getMessage(), 500);
         }
     }
-
     // 删除作文，成功返回200
     @DeleteMapping("/delete/{essayId}")
     public Result deleteEssay(@PathVariable Integer essayId) {
@@ -83,7 +79,6 @@ public class essayController {
             return new Result("发生未知错误：" + e.getMessage(), 500);
         }
     }
-
     // 更新作文，成功返回200
     @PutMapping("/update")
     public Result updateEssay(@RequestBody essay essay) {

@@ -1,11 +1,9 @@
-package com.easyen.controller;
-
-
-import com.easyen.entitty.User;
-import com.easyen.util.JwtUtil;
+package com.easyen.easyenglish.controller;
+import com.easyen.easyenglish.entity.User;
+import com.easyen.easyenglish.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
-import com.easyen.serviceimpl.LoginServiceImpl;
+import com.easyen.easyenglish.serviceimpl.LoginServiceImpl;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,7 +14,6 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api")
 public class LoginController {
-
     @Autowired
     private LoginServiceImpl loginService;
 
@@ -50,3 +47,4 @@ public class LoginController {
         }
     }
 }
+

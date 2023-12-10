@@ -1,5 +1,5 @@
-package com.easyen.util;
-import com.easyen.util.JwtInterceptor;
+package com.easyen.easyenglish.util;
+import com.easyen.easyenglish.util.JwtInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;

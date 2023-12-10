@@ -1,6 +1,6 @@
-package com.easyen.serviceimpl;
+package com.easyen.easyenglish.serviceimpl;
 
-import com.easyen.mapper.UserMapper;
+import com.easyen.easyenglish.mapper.UserMapper;
 import com.easyen.service.RegisterSercive;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

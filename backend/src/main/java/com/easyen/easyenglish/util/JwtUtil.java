@@ -1,10 +1,10 @@
-package com.easyen.util;
+package com.easyen.easyenglish.util;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.easyen.entitty.User;
+import com.easyen.easyenglish.entity.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.Date;

@@ -1,5 +1,5 @@
-package com.easyen.util;
-import com.easyen.entitty.ApiResult;
+package com.easyen.easyenglish.util;
+import com.easyen.easyenglish.entity.ApiResult;
 
 public class ApiResultHandler {
     public static ApiResult success(Object object) {
