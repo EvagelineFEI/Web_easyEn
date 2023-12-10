@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
+@RequestMapping("/api/post")
 public class postController {
     @Autowired
     postService postService;
