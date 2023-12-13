@@ -21,12 +21,12 @@ public class LoginController {
     private LoginServiceImpl loginService;
 
     @PostMapping("/login")
-    public Map<String, Object> login(@RequestParam int user_id,
+    public Map<String, Object> login(@RequestParam String email,
                                      @RequestParam String password) {
         Map<String, Object> response = new HashMap<>();
 
         try {
-            User userRes = loginService.UserLogin(user_id, password);
+            User userRes = loginService.UserLogin(email, password);
 
             if (userRes != null) {
                 String token = JwtUtil.createToken(userRes);
@@ -35,7 +35,7 @@ public class LoginController {
                 response.put("message", "登录成功");
             } else {
                 // 检查账户锁定状态
-                User user = loginService.getUserByID(user_id);
+                User user = loginService.getUserByEmail(email);
                 if (user != null && user.isAccountLockStatus()) {
                     response.put("code", 403);
                     response.put("token", "");
