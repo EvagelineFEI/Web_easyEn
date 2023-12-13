@@ -7,8 +7,8 @@
         VALUES(#{username}, #{password}, #{email}, #{other_info}, false, 0)
     </insert>
 
-    <select id="getUserByEmail" resultType="com.easyen.easyenglish.entity.User">
-        select * from users where email = #{email}
+    <select id="getUserByID" resultType="com.easyen.easyenglish.entity.User">
+        select * from users where user_id = #{user_id}
     </select>
 
     <update id="updateUser" parameterType="com.easyen.easyenglish.entity.User">

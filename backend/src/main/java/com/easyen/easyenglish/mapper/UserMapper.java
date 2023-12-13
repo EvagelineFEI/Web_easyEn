@@ -10,6 +10,6 @@ public interface UserMapper {
     int insertUser(String username, String password, String email, String other_info);
 
     //登录用
-    User getUserByEmail(String email);
+    User getUserByID(Integer user_id);
     void updateUser(User user);
 }
