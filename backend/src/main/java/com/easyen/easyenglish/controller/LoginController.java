@@ -30,7 +30,10 @@ public class LoginController {
 
             if (userRes != null) {
                 String token = JwtUtil.createToken(userRes);
+                Integer user_id = userRes.getUser_id();
+
                 response.put("code", 200);
+                response.put("user_id", user_id);
                 response.put("token", token);
                 response.put("message", "登录成功");
             } else {
