@@ -4,10 +4,8 @@ import com.easyen.easyenglish.entity.essay;
 import com.easyen.easyenglish.entity.speakEnPracticeRecord;
 import com.easyen.easyenglish.service.viewprogressService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import com.easyen.easyenglish.util.JwtUtil;
 import java.util.List;
 
 @RestController
@@ -15,40 +13,44 @@ import java.util.List;
 public class viewprogressController {
     @Autowired
     viewprogressService viewService;
-    @GetMapping("/speak-num/{user_id}")
-    public Result getSpeaknum(@PathVariable Integer user_id){
+    @PostMapping("/speak-num")
+    public Result getSpeaknum(@RequestHeader("Authorization") String userJWT){
+        Integer user_id = JwtUtil.getUserIdByJWT(userJWT);
         try {
             Integer num = viewService.getSpeaknum(user_id);
-            return new Result(num, 200);
+            return Result.success(num);
         } catch (Exception e) {
-            return new Result("发生未知错误：" + e.getMessage(), 500);
+            return Result.failure(e.getMessage());
         }
     }
-    @GetMapping("/speak-progress/{user_id}")
-    public Result getSpeakP(@PathVariable Integer user_id){
+    @PostMapping("/speak-progress")
+    public Result getSpeakP(@RequestHeader("Authorization") String userJWT){
+        Integer user_id = JwtUtil.getUserIdByJWT(userJWT);
         try {
             List<speakEnPracticeRecord> ls= viewService.getSpeakP(user_id);
-            return new Result(ls, 200);
+            return Result.success(ls);
         } catch (Exception e) {
-            return new Result("发生未知错误：" + e.getMessage(), 500);
+            return Result.failure(e.getMessage());
         }
     }
-    @GetMapping("/essay-num/{user_id}")
-    public Result getEssaynum(@PathVariable Integer user_id){
+    @PostMapping("/essay-num")
+    public Result getEssaynum(@RequestHeader("Authorization") String userJWT){
+        Integer user_id = JwtUtil.getUserIdByJWT(userJWT);
         try {
             Integer num = viewService.getEssaynum(user_id);
-            return new Result(num, 200);
+            return Result.success(num);
         } catch (Exception e) {
-            return new Result("发生未知错误：" + e.getMessage(), 500);
+            return Result.failure(e.getMessage());
         }
     }
-    @GetMapping("/essayprogress/{user_id}")
-    public Result getEssayP(@PathVariable Integer user_id){
+    @PostMapping("/essayprogress/{user_id}")
+    public Result getEssayP(@RequestHeader("Authorization") String userJWT){
+        Integer user_id = JwtUtil.getUserIdByJWT(userJWT);
         try {
             List<essay> ls= viewService.getEssayP(user_id);
-            return new Result(ls, 200);
+            return Result.success(ls);
         } catch (Exception e) {
-            return new Result("发生未知错误：" + e.getMessage(), 500);
+            return Result.failure(e.getMessage());
         }
     }
 

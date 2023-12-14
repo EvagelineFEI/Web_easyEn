@@ -22,9 +22,9 @@ public class essayController {
     public Result getAllEssays() {
         try {
             List<essay> essays = essayService.getAllEssays();
-            return new Result(essays, 200);
+            return Result.success(essays);
         } catch (Exception e) {
-            return new Result("发生未知错误：" + e.getMessage(), 500);
+            return Result.failure(e.getMessage());
         }
     }
     // 根据作文号查询作文
@@ -32,9 +32,9 @@ public class essayController {
     public Result findByID(@PathVariable Integer essayId) {
         try {
             essay essay = essayService.findByID(essayId);
-            return new Result(essay, 200);
+            return Result.success(essay);
         } catch (Exception e) {
-            return new Result("发生未知错误：" + e.getMessage(), 500);
+            return Result.failure(e.getMessage());
         }
     }
 
@@ -43,9 +43,9 @@ public class essayController {
     public Result findByUser(@PathVariable Integer userId) {
         try {
             List<essay> essays = essayService.findByUser(userId);
-            return new Result(essays, 200);
+            return Result.success(essays);
         } catch (Exception e) {
-            return new Result("发生未知错误：" + e.getMessage(), 500);
+            return Result.failure(e.getMessage());
         }
     }
 
@@ -54,9 +54,9 @@ public class essayController {
     public Result findEssaysByTitle(@PathVariable String essayTitle) {
         try {
             List<essay> essays = essayService.findEssaysByTitle(essayTitle);
-            return new Result(essays, 200);
+            return Result.success(essays);
         } catch (Exception e) {
-            return new Result("发生未知错误：" + e.getMessage(), 500);
+            return Result.failure(e.getMessage());
         }
     }
     // 增加作文，成功返回200
@@ -64,9 +64,9 @@ public class essayController {
     public Result addEssay(@RequestBody essay essay) {
         try {
             essayService.addEssay(essay);
-            return new Result(essay, 200);
+            return Result.successCode();
         } catch (Exception e) {
-            return new Result("发生未知错误：" + e.getMessage(), 500);
+            return Result.failure(e.getMessage());
         }
     }
     // 删除作文，成功返回200
@@ -74,9 +74,9 @@ public class essayController {
     public Result deleteEssay(@PathVariable Integer essayId) {
         try {
             essayService.deleteEssay(essayId);
-            return new Result(essayId, 200);
+            return Result.successCode();
         } catch (Exception e) {
-            return new Result("发生未知错误：" + e.getMessage(), 500);
+            return Result.failure(e.getMessage());
         }
     }
     // 更新作文，成功返回200
@@ -84,9 +84,9 @@ public class essayController {
     public Result updateEssay(@RequestBody essay essay) {
         try {
             essayService.updateEssay(essay);
-            return new Result(essay, 200);
+            return Result.success(essay);
         } catch (Exception e) {
-            return new Result("发生未知错误：" + e.getMessage(), 500);
+            return Result.failure(e.getMessage());
         }
     }
 }
