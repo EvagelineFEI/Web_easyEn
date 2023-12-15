@@ -10,7 +10,8 @@ import org.slf4j.LoggerFactory;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
 public class JwtUtil {
     private static final Logger logger = LoggerFactory.getLogger(JwtUtil.class);
     /**
@@ -63,6 +64,20 @@ public class JwtUtil {
             return null;
         }
         return jwt.getClaims();
+    }
+
+    /**
+     * 解析JWT令牌, 并获取用户id
+     * @param jwt JWT令牌
+     * @return JWT第二部分负载 payload 中存储的内容
+     */
+    public static Integer getUserIdByJWT(String jwt){
+        Claims claims = Jwts.parser()
+                .setSigningKey(SECRET)
+                .parseClaimsJws(jwt)
+                .getBody();
+        Integer id = claims.get("userId", Integer.class);
+        return id;
     }
 
 }

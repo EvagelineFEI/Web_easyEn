@@ -11,9 +11,9 @@ public class LoginServiceImpl implements LoginService {
     @Autowired
     private UserMapper userMapper;
 
-    public User UserLogin(Integer userID, String password) {
+    public User UserLogin(String email, String password) {
 
-        User user = userMapper.getUserByID(userID);
+        User user = userMapper.getUserByEmail(email);
 
         if (user != null && !user.isAccountLockStatus()){
             if( user.getPassword().equals(password)) {
@@ -30,13 +30,12 @@ public class LoginServiceImpl implements LoginService {
                     user.setAccountLockStatus(true);
                 }
                 userMapper.updateUser(user);
-                }
+            }
         }
         return null;
     }
-    public User getUserByID(int user_id) {
-        return userMapper.getUserByID(user_id);
+    public User getUserByEmail(String email) {
+        return userMapper.getUserByEmail(email);
     }
 
 }
-
