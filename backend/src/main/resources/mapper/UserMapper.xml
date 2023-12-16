@@ -22,4 +22,12 @@
             where user_id = #{user_id}
     </update>
 
+    <update id="resetPassword" parameterType="com.easyen.easyenglish.entity.User">
+        update users set
+                         password = #{password},
+                         account_lock_status= false,
+                         errors_count = 0
+        where user_id = #{user_id}
+    </update>
+
 </mapper>

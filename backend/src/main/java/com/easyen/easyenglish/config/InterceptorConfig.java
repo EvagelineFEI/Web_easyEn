@@ -1,4 +1,4 @@
-package com.easyen.easyenglish.util;
+package com.easyen.easyenglish.config;
 import com.easyen.easyenglish.util.JwtInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
