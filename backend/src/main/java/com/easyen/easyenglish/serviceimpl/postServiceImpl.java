@@ -24,13 +24,14 @@ public class postServiceImpl implements postService{
     }
 
     @Override
-    public List<post_name> findPostByUser(Integer userID,Integer offset, Integer pageSize){
-        return postMapper.selectPostByUser(userID, offset, pageSize);
+    public List<post_name> findPostByUser(String user_name,Integer offset, Integer pageSize){
+        return postMapper.selectPostByUser(user_name, offset, pageSize);
     }
 
     @Override
-    public List<post_name> findPostByTitle(String postTitle, Integer offset, Integer pageSize){
-        return postMapper.selectPostByTitle(postTitle, offset, pageSize);
+    public List<post_name> findPostByTitle_content(String postTitle, Integer offset, Integer pageSize){
+        return postMapper.selectPostByTitle_content(postTitle, offset, pageSize);
+
     }
 
 
@@ -60,7 +61,6 @@ public class postServiceImpl implements postService{
             throw new RuntimeException("删除帖子失败：" + e.getMessage());
         }
     }
-
 
 
 }

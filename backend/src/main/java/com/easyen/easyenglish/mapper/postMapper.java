@@ -13,11 +13,12 @@ public interface postMapper {
     // 按照postid查找
     post_name selectPostById(Integer postID);
     // 按照用户查找
-    List<post_name> selectPostByUser(Integer userID, Integer offset, Integer pageSize);
+    List<post_name> selectPostByUser(String userName, Integer offset, Integer pageSize);
     // 标题模糊查询
-    List<post_name> selectPostByTitle(String postTitle,Integer offset, Integer pageSize);
+    List<post_name> selectPostByTitle_content(String postTitleContent, Integer offset, Integer pageSize);
     // 更新
     void updatePost(post_name post);
     // 删除
     void deletePost(Integer postID);
+
 }
