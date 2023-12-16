@@ -12,5 +12,6 @@ public interface UserMapper {
     //登录用
     User getUserByEmail(String email);
     void updateUser(User user);
+
     User getUserById(Integer user_id);
 }

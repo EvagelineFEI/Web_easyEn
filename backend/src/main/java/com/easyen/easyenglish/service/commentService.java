@@ -5,6 +5,7 @@ import com.easyen.easyenglish.entity.comments;
 import java.util.List;
 
 public interface commentService {
+
     List<comments> findAllComments(Integer post_id);
     List<comments> findCommentsByPost(Integer postID, Integer offset, Integer pageSize);
     void addComment(comments comment);

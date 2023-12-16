@@ -5,7 +5,9 @@ import com.easyen.easyenglish.entity.comments;
 import com.easyen.easyenglish.entity.post_name;
 import com.easyen.easyenglish.service.commentService;
 import com.easyen.easyenglish.service.postService;
+
 import com.easyen.easyenglish.util.JwtUtil;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +24,7 @@ public class postController {
     commentService commentService;
 
     // 添加帖子
+
     @PostMapping("/addPost")
     public Result addPost(@RequestHeader("Authorization") String userJWT,@RequestBody post_name post){
         Integer userId = JwtUtil.getUserIdByJWT(userJWT);
@@ -36,6 +39,7 @@ public class postController {
 
     // 查询所有帖子信息,分页
     // 页面初始状态
+
     @GetMapping("/returnAll")
     public Result findAllPost( @RequestParam(value = "page", defaultValue = "1") Integer page,
                                @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize) {
@@ -64,7 +68,6 @@ public class postController {
             Map<String, Object> result = new HashMap<>();
             result.put("posts", posts);
             result.put("comments", comments);
-
             return Result.success(result);
         }catch (Exception e){
             return Result.failure(e.getMessage());
@@ -84,7 +87,6 @@ public class postController {
             // System.out.print(offset);
             List<post_name> posts = postService.findPostByUser(userName, offset, pageSize);
             // System.out.print(posts);
-
             // 遍历每一个帖子，查找对应的评论
             Map<post_name, List<comments>> postCommentMap = new HashMap<>();
             for (post_name post : posts) {
@@ -108,14 +110,12 @@ public class postController {
             // 分页查询帖子
             int offset = (page - 1) * pageSize;
             List<post_name> posts = postService.findPostByTitle_content(postTitle, offset, pageSize);
-
             // 遍历每一个帖子，查找对应的评论
             Map<post_name, List<comments>> postCommentMap = new HashMap<>();
             for (post_name post : posts) {
                 List<comments> comments = commentService.findCommentsByPost(post.getPost_id(), offset, pageSize);
                 postCommentMap.put(post, comments);
             }
-
             return Result.success(postCommentMap);
         }catch (Exception e){
             return Result.failure("发生未知错误:" + e.getMessage());

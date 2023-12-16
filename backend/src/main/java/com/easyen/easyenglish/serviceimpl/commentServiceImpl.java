@@ -14,6 +14,7 @@ public class commentServiceImpl implements commentService {
     commentMapper commentMapper;
 
     @Override
+
     public List<comments> findAllComments(Integer post_id){
         return commentMapper.selectAllComments(post_id);
     }
@@ -38,4 +39,6 @@ public class commentServiceImpl implements commentService {
         }
     }
 
+
 }
+

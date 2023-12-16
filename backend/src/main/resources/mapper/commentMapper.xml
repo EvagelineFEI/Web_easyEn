@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.easyen.easyenglish.mapper.commentMapper">
     <select id="selectAllComments" resultType="com.easyen.easyenglish.entity.comments">
+
         select * from comments where post_id = #{postID}
     </select>
     <select id="selectCommentsByPost" resultType="com.easyen.easyenglish.entity.comments">
