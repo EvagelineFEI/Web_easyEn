@@ -14,7 +14,7 @@ public interface essayMapper {
     // 根据用户号查询作文
     List<essay> findByUser(Integer userID);
     // 根据作文标题模糊查询作文
-    List<essay> findEssaysByTitle(String essayTitle);
+    List<essay> findEssaysByTitle(Integer user_id, String essayTitle);
     // 增加作文
     void addEssay(essay essay);
     // 删除作文

@@ -8,7 +8,7 @@ import java.util.List;
 @Mapper
 public interface commentMapper {
     // 查询所有评论
-    List<comments> selectAllComments();
+    List<comments> selectAllComments(Integer post_id);
     // 按照帖子实体查询评论
     List<comments> selectCommentsByPost(Integer postID, Integer offset, Integer pageSize);
     // 发帖

@@ -43,7 +43,7 @@ public class viewprogressController {
             return Result.failure(e.getMessage());
         }
     }
-    @PostMapping("/essayprogress/{user_id}")
+    @PostMapping("/essayprogress")
     public Result getEssayP(@RequestHeader("Authorization") String userJWT){
         Integer user_id = JwtUtil.getUserIdByJWT(userJWT);
         try {

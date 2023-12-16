@@ -28,8 +28,8 @@ public class essayServiceImpl implements essayService {
     }
 
     @Override
-    public List<essay> findEssaysByTitle(String essayTitle) {
-        return essayMapper.findEssaysByTitle(essayTitle);
+    public List<essay> findEssaysByTitle(essay essay) {
+        return essayMapper.findEssaysByTitle(essay.getUser_id(),essay.getEssay_title());
     }
     @Override
     @Transactional
