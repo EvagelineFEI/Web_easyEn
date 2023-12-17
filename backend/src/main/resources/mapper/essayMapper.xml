@@ -23,7 +23,7 @@
     <update id="updateEssay" parameterType="com.easyen.easyenglish.entity.essay">
         UPDATE essay
         SET
-        status = "Modified Done"
+        status = #{status}
         WHERE essay_id = #{essay_id}
     </update>
 </mapper>
