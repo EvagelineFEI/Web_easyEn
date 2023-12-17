@@ -3,7 +3,7 @@
 <mapper namespace="com.easyen.easyenglish.mapper.correctionFeedbackMapper">
     <insert id="addFeedback" parameterType="com.easyen.easyenglish.entity.correctionFeedback">
         INSERT INTO correction_feedback(essay_id, correction_score, correction_suggestions, correction_date)
-        VALUES (#{essay_id}, #{correction_score}, #{correction_suggestions}, #{correction_date})
+        VALUES (#{essay_id}, #{correction_score}, #{correction_suggestions}, CURRENT_DATE)
     </insert>
     <delete id="deleteFeedback" parameterType="java.lang.Integer">
         DELETE FROM correction_feedback WHERE feedback_id = #{feedbackId}

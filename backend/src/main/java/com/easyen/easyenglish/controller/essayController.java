@@ -63,6 +63,7 @@ public class essayController {
         try {
             Integer user_id = JwtUtil.getUserIdByJWT(userJWT);
             essay.setUser_id(user_id);
+            essay.setStatus("pending");
             essayService.addEssay(essay);
             return Result.successCode();
         } catch (Exception e) {
@@ -74,7 +75,7 @@ public class essayController {
     public Result deleteEssay(@RequestBody essay essay, @RequestHeader("Authorization") String userJWT) {
         Integer userId = JwtUtil.getUserIdByJWT(userJWT);
         if (userId != essay.getUser_id()){
-            return Result.failure("非法请求, 你不是该评论的所有者");
+            return Result.failure("非法请求, 你不是该作文的所有者");
         }
         try {
             essayService.deleteEssay(essay.getEssay_id());

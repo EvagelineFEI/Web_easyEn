@@ -39,7 +39,7 @@
             title = #{title},
             content = #{content},
             public_or = #{public_or},
-            time = CURRENT_TIME
+            time = CURRENT_TIMESTAMP
         WHERE post_id = #{post_id}
     </update>
     <delete id="deletePost" parameterType="com.easyen.easyenglish.entity.post_name">

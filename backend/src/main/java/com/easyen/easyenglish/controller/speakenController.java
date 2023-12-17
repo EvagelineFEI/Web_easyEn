@@ -15,9 +15,10 @@ public class speakenController {
     @Autowired
     speakEnRecordService speakEnService;
     @PostMapping("/speakFeedback")
-    public Result getChat(@RequestBody topicReq tpoic_req) {
+    public Result getChat(@RequestBody topicReq topicReq){
         try {
-            String ans = speakEnService.getSpeakResponce(tpoic_req.getRequirements(), tpoic_req.getTopic());
+            System.out.println("request body: " + topicReq);
+            String ans = speakEnService.getSpeakResponce(topicReq.getRequirements(), topicReq.getTopic());
             return Result.success(ans);
         } catch (Exception e) {
             return Result.failure("发生未知错误：" + e.getMessage());

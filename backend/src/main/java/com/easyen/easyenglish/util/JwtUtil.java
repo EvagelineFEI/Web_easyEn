@@ -72,12 +72,23 @@ public class JwtUtil {
      * @return JWT第二部分负载 payload 中存储的内容
      */
     public static Integer getUserIdByJWT(String jwt){
-        Claims claims = Jwts.parser()
-                .setSigningKey(SECRET)
-                .parseClaimsJws(jwt)
-                .getBody();
-        Integer id = claims.get("userId", Integer.class);
-        return id;
+//        Claims claims = JWT.parser()
+//                .setSigningKey(SECRET)
+//                .parseClaimsJws(jwt)
+//                .getBody();
+//        Integer id = claims.get("id", Integer.class);
+//        return id;
+        DecodedJWT jwt_ = JWT.require(Algorithm.HMAC256(SECRET))
+                .build()
+                .verify(jwt);
+        // 获取 claims
+        Map<String, Claim> claims = jwt_.getClaims();
+        // 从 claims 中获取 user_id
+        Integer userId = claims.get("id").asInt();
+
+        // 输出 user_id
+        System.out.println("User ID: " + userId);
+        return userId;
     }
 
 }

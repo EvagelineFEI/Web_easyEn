@@ -17,4 +17,9 @@ gpt:
   model: "text-davinci-003"
   maxTokens: 2048
   temperature: 0.5
+  timeout: 20000
+
+proxy:
+  host: "192.168.10.3"
+  port: 7890
 
