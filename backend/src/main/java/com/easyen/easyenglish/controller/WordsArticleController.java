@@ -16,6 +16,7 @@ import org.apache.http.util.EntityUtils;
 
 @RestController
 @Slf4j
+@RequestMapping("/api")
 public class WordsArticleController {
     @PostMapping("/article")
     public Result get_article()  {
