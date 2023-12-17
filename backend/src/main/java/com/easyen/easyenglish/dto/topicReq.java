@@ -1,18 +1,14 @@
 package com.easyen.easyenglish.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class topicReq {
-    String Requirements;
-    String Topic;
-    public topicReq(String requirements, String topic){
-        Requirements = requirements;
-        Topic = topic;
-    }
+    private String requirements;
+    private String topic;
 
-    public String getRequirements() {
-        return Requirements;
-    }
-
-    public String getTopic() {
-        return Topic;
-    }
 }

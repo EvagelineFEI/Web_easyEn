@@ -2,7 +2,11 @@ package com.easyen.easyenglish.controller;
 
 import com.easyen.easyenglish.dto.Result;
 import com.easyen.easyenglish.entity.comments;
+
+import com.easyen.easyenglish.entity.post_name;
 import com.easyen.easyenglish.service.commentService;
+import com.easyen.easyenglish.util.JwtUtil;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,14 +20,16 @@ public class commentController {
 
     // 显示所有评论
     @GetMapping("/getallcomments")
-    public Result findAllComments(){
+
+    public Result findAllComments(@RequestBody post_name post_){
         try{
-            List<comments> comments = commentService.findAllComments();
-            return new Result(comments, 200);
+            List<comments> comments = commentService.findAllComments(post_.getPost_id());
+            return Result.success(comments);
         }catch (Exception e){
-            return new Result("发生未知错误:" + e.getMessage(), 500);
+            return Result.failure(e.getMessage());
         }
     }
+
 
     // 显示某一个帖子实体的最近10条评论
     @GetMapping("/getcomments/{postID}")
@@ -34,32 +40,39 @@ public class commentController {
             // 计算偏移量
             int offset = (page - 1) * pageSize;
             List<comments> comments = commentService.findCommentsByPost(postID, offset, pageSize);
-            return new Result(comments, 200);
+
+            return Result.success(comments);
         }catch (Exception e){
-            return new Result("发生未知错误:" + e.getMessage(), 500);
+            return Result.failure(e.getMessage());
         }
     }
-
-    // 发帖
-    @PostMapping("/addcomments/{userID}")
-    public Result addComment(@RequestBody comments comment, @PathVariable("userID") Integer userID){
-        comment.setUser_id(userID);
+    // 发布评论
+    //前端需要回传帖子ID，评论内容，评论时间
+    @PostMapping("/addcomments")
+    public Result addComment(@RequestHeader("Authorization") String userJWT, @RequestBody comments comment){
+        Integer userId = JwtUtil.getUserIdByJWT(userJWT);
+        comment.setUser_id(userId);
         try{
             commentService.addComment(comment);
-            return new Result(comment, 200);
+            return Result.success(comment);
         }catch (Exception e){
-            return new Result("发生未知错误:" + e.getMessage(), 500);
+            return Result.failure(e.getMessage());
         }
     }
 
     // 删除
-    @DeleteMapping("/deleteComment/{commentID}")
-    public Result deleteComment(@PathVariable("commentID") Integer commentID){
+    @DeleteMapping("/deleteComment")
+    public Result deleteComment(@RequestHeader("Authorization") String userJWT, @RequestBody comments comment){
+        Integer userId = JwtUtil.getUserIdByJWT(userJWT);
+        if (userId != comment.getUser_id()){
+            return Result.failure("非法请求, 你不是该评论的所有者");
+        }
         try{
-            commentService.deleteComment(commentID);
-            return new Result(commentID, 200);
+            commentService.deleteComment(comment.getComment_id());
+            return Result.successCode();
         }catch (Exception e){
-            return new Result("发生未知错误:" + e.getMessage(), 500);
+            return Result.failure(e.getMessage());
         }
     }
 }
+

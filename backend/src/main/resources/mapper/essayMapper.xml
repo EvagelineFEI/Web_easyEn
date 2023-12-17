@@ -10,12 +10,12 @@
     <select id="findByUser" resultType="com.easyen.easyenglish.entity.essay">
         select * from essay where user_id = #{userId}
     </select>
-    <select id="findEssaysByTitle" parameterType="java.lang.String" resultType="com.easyen.easyenglish.entity.essay">
-        SELECT * FROM essay WHERE essay_title LIKE CONCAT('%', #{essayTitle}, '%')
+    <select id="findEssaysByTitle" resultType="com.easyen.easyenglish.entity.essay">
+        SELECT * FROM essay WHERE (essay_id = #{essayId} AND essay_title LIKE CONCAT('%', #{essayTitle}, '%'))
     </select>
     <insert id="addEssay" parameterType="com.easyen.easyenglish.entity.essay">
         INSERT INTO essay (user_id, essay_title, essay_content, essay_requirements, upload_date, status)
-        VALUES (#{user_id}, #{essay_title}, #{essay_content}, #{essay_requirements}, #{upload_date}, #{status})
+        VALUES (#{user_id}, #{essay_title}, #{essay_content}, #{essay_requirements}, CURRENT_TIMESTAMP, #{status})
     </insert>
     <delete id="deleteEssay" parameterType="java.lang.Integer">
         DELETE FROM essay WHERE essay_id = #{essayId}
@@ -23,11 +23,6 @@
     <update id="updateEssay" parameterType="com.easyen.easyenglish.entity.essay">
         UPDATE essay
         SET
-        user_id = #{user_id},
-        essay_title = #{essay_title},
-        essay_content = #{essay_content},
-        essay_requirements = #{essay_requirements},
-        upload_date = #{upload_date},
         status = #{status}
         WHERE essay_id = #{essay_id}
     </update>

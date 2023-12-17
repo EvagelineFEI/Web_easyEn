@@ -4,6 +4,7 @@ import com.easyen.easyenglish.entity.essay;
 import com.easyen.easyenglish.entity.speakEnPracticeRecord;
 import com.easyen.easyenglish.service.speakEnRecordService;
 import com.easyen.easyenglish.dto.Result;
+import com.easyen.easyenglish.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,21 +16,24 @@ public class speakenController {
     @Autowired
     speakEnRecordService speakEnService;
     @PostMapping("/speakFeedback")
-    public Result getChat(@RequestBody topicReq tpoic_req) {
+    public Result getChat(@RequestHeader("Authorization") String userJWT,@RequestBody topicReq topicReq){
         try {
-            String ans = speakEnService.getSpeakResponce(tpoic_req.getRequirements(), tpoic_req.getTopic());
-            return new Result(ans, 200);
+            System.out.println("request body: " + topicReq);
+            String ans = speakEnService.getSpeakResponce(topicReq.getRequirements(), topicReq.getTopic());
+            return Result.success(ans);
         } catch (Exception e) {
-            return new Result("发生未知错误：" + e.getMessage(), 500);
+            return Result.failure("发生未知错误：" + e.getMessage());
         }
     }
     @PostMapping("/speak-upload")
-    public Result uploadChat(@RequestBody speakEnPracticeRecord record) {
+    public Result uploadChat(@RequestHeader("Authorization") String userJWT,@RequestBody speakEnPracticeRecord record) {
         try {
+            Integer user_id = JwtUtil.getUserIdByJWT(userJWT);
+            record.setUser_id(user_id);
             speakEnService.addRecord(record);
-            return new Result(record, 200);
+            return Result.success(record);
         } catch (Exception e) {
-            return new Result("发生未知错误：" + e.getMessage(), 500);
+            return Result.failure("发生未知错误：" + e.getMessage());
         }
     }
     // 查询数据库所有练习记录
@@ -37,9 +41,9 @@ public class speakenController {
     public Result getAllRecord() {
         try {
             List<speakEnPracticeRecord> records = speakEnService.getAllrecord();
-            return new Result(records, 200);
+            return Result.success(records);
         } catch (Exception e) {
-            return new Result("发生未知错误：" + e.getMessage(), 500);
+            return Result.failure("发生未知错误：" + e.getMessage());
         }
     }
     // 按照话题查询数据库练习记录
@@ -47,9 +51,9 @@ public class speakenController {
     public Result getByTopic(@PathVariable String topic){
         try {
             List<speakEnPracticeRecord> record = speakEnService.findByTopic(topic);
-            return new Result(record, 200);
+            return Result.success(record);
         } catch (Exception e) {
-            return new Result("发生未知错误：" + e.getMessage(), 500);
+            return Result.failure("发生未知错误：" + e.getMessage());
         }
     }
 }

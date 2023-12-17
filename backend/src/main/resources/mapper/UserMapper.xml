@@ -13,14 +13,17 @@
 
     <update id="updateUser" parameterType="com.easyen.easyenglish.entity.User">
         update users set
-            username = #{username},
-            password = #{password},
-            email = #{email},
-            other_info = #{other_info},
-            account_lock_status= #{account_lock_status},
-            errors_count = #{errorsCount}
-            where user_id = #{user_id}
+                         username = #{username},
+                         password = #{password},
+                         email = #{email},
+                         other_info = #{other_info},
+                         account_lock_status= #{account_lock_status},
+                         errors_count = #{errorsCount}
+        where user_id = #{user_id}
     </update>
+    <select id="getUserById" resultType="com.easyen.easyenglish.entity.User">
+        select * from users where user_id = #{user_id}
+    </select>
 
     <update id="resetPassword" parameterType="com.easyen.easyenglish.entity.User">
         update users set

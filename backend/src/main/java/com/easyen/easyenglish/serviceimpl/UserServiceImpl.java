@@ -10,6 +10,11 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import com.easyen.easyenglish.mapper.UserMapper;
+import com.easyen.easyenglish.entity.User;
+import com.easyen.easyenglish.mapper.UserMapper;
+import com.easyen.easyenglish.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Random;
 
@@ -70,5 +75,16 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Override
+    public void modifyInformation(User user) {
+        userMapper.updateUser(user);
+    }
+
+    @Override
+    public User getSelfById(User user) {
+        return userMapper.getUserById(user.getUser_id());
+    }
+
 }
+
 

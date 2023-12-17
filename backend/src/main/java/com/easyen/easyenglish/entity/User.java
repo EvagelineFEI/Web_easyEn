@@ -9,7 +9,7 @@ public class User {
     private String other_info;
     private boolean account_lock_status;
     private int errors_count;
-
+    private String userImg;
     public String getUser_name() {
         return username;
     }
@@ -73,4 +73,11 @@ public class User {
     public void setErrorsCount(int errors_count) {
         this.errors_count = errors_count;
     }
+
+
+    public void setUserImg(String fileName) {
+        this.userImg = fileName;
+    }
+
+
 }

@@ -30,7 +30,7 @@ public class LoginServiceImpl implements LoginService {
                     user.setAccountLockStatus(true);
                 }
                 userMapper.updateUser(user);
-                }
+            }
         }
         return null;
     }
@@ -39,4 +39,3 @@ public class LoginServiceImpl implements LoginService {
     }
 
 }
-

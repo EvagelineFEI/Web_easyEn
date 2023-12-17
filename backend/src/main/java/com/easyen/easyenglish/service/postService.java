@@ -11,11 +11,12 @@ public interface postService {
 
     post_name findPostByID(Integer postID);
 
-    List<post_name> findPostByUser(Integer userID, Integer offset, Integer pageSize);
+    List<post_name> findPostByUser(String userName, Integer offset, Integer pageSize);
 
-    List<post_name> findPostByTitle(String postTitle, Integer offset, Integer pageSize);
+    List<post_name> findPostByTitle_content(String postTitle, Integer offset, Integer pageSize);
 
     void updatePost(post_name post);
 
     void deletePost(Integer postID);
 }
+
