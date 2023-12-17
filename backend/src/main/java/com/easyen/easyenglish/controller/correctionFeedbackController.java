@@ -7,11 +7,9 @@ import com.easyen.easyenglish.entity.essay;
 import com.easyen.easyenglish.service.correctionFeedbackService;
 import com.easyen.easyenglish.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/suggestion")
@@ -20,6 +18,7 @@ public class correctionFeedbackController {
     correctionFeedbackService correctionFeedbackService;
 
     // 增加批改记录，成功返回200
+    // 把这个接口和获取批改建议整合起来了
     @PostMapping("/upload")
     public Result addFeedback(@RequestBody correctionFeedback correctionFeedback, @RequestHeader("Authorization") String userJWT) {
         try {
@@ -82,11 +81,14 @@ public class correctionFeedbackController {
 
     // 传入批改要点requirement（String）、批改作文originalEssay（String），返回批改建议（String）
     @PostMapping("/Suggestion")
-    public Result getChatResponse(@RequestBody essayGenerate essayGenerate, @RequestHeader("Authorization") String userJWT) {
+    public Result getChatResponse(@RequestHeader("Authorization") String userJWT,@RequestBody essay essay) {
         try {
             Integer user_id = JwtUtil.getUserIdByJWT(userJWT);
-            String suggestion = correctionFeedbackService.generateSuggestion(essayGenerate.getRequirements(), essayGenerate.getOriginalEssay());
-            return Result.success(suggestion);
+            String suggestion = correctionFeedbackService.generateSuggestion(essay.getEssay_requirements(),essay.getEssay_title(),essay.getEssay_content());
+            correctionFeedback correctionFeedback = new correctionFeedback();
+            correctionFeedback.setEssay_id(essay.getEssay_id());
+            correctionFeedback.setCorrection_suggestions(suggestion);
+            return Result.success(correctionFeedback);
         } catch (Exception e) {
             return Result.failure(e.getMessage());
         }
@@ -97,7 +99,7 @@ public class correctionFeedbackController {
     public Result getChatScore(@RequestBody essayGenerate essayGenerate, @RequestHeader("Authorization") String userJWT) {
         try {
             Integer user_id = JwtUtil.getUserIdByJWT(userJWT);
-            String score = correctionFeedbackService.generateScore(essayGenerate.getRequirements(), essayGenerate.getOriginalEssay());
+            String score = correctionFeedbackService.generateScore(essayGenerate.getRequirements(), essayGenerate.getEssay_content());
             return Result.success(score);
         } catch (Exception e) {
             return Result.failure(e.getMessage());
