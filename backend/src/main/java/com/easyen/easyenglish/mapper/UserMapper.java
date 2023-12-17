@@ -11,7 +11,12 @@ public interface UserMapper {
 
     //登录用
     User getUserByEmail(String email);
+
     void updateUser(User user);
+
+    //找回密码
+    void resetPassword(User user);
+
 
     User getUserById(Integer user_id);
 }

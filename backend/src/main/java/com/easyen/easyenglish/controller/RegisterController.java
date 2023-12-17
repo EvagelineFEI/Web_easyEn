@@ -1,5 +1,6 @@
 package com.easyen.easyenglish.controller;
 
+import com.easyen.easyenglish.dto.Result;
 import com.easyen.easyenglish.entity.ApiResult;
 import com.easyen.easyenglish.serviceimpl.RegisterServiceImpl;
 import com.easyen.easyenglish.util.ApiResultHandler;
@@ -16,7 +17,7 @@ public class RegisterController {
     private RegisterServiceImpl registerService;
 
     @PutMapping("/register")
-    public ApiResult register(@RequestParam String username,
+    public Result register(@RequestParam String username,
                               @RequestParam String password,
                               @RequestParam String email,
                               @RequestParam(required = false) String other_info){
@@ -25,12 +26,13 @@ public class RegisterController {
             Integer user_insert =  registerService.UserRegister(username, password, email, other_info);
 
             if (user_insert != 0) {
-                return ApiResultHandler.buildApiResult(200, "请求成功", null);
+                return Result.success("请求成功");
+                //return ApiResultHandler.buildApiResult(200, "请求成功", null);
             }
-            return ApiResultHandler.buildApiResult(400, "请求失败", null);
+            return Result.failure( "请求失败");
         } catch (Exception e) {
             e.printStackTrace();
-            return ApiResultHandler.buildApiResult(500, "服务器内部错误", null);
+            return Result.failure( "请求失败");
         }
     }
 }

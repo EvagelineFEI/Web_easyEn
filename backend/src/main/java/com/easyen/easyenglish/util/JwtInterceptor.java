@@ -11,8 +11,9 @@ import java.util.Map;
 
 public class JwtInterceptor implements HandlerInterceptor {
     //private static final String TOKEN_HEADER = "token";
-//    @Override
+//   @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        System.out.println("JwtInterceptor: PreHandle method is called.");
         String token = request.getHeader("token");
         if (!(handler instanceof HandlerMethod)) {
             return true;

@@ -8,6 +8,19 @@ spring:
     username: admin
     password: iloveSCU
 
+  mail:
+    host: smtp.163.com
+    username: easyenglishscu@163.com
+    password: MHSDFJXRSUSOEYBN
+    default-encoding: UTF-8
+
+  data:
+    redis:
+      password:
+      database: 0
+      host: localhost
+      port: 6379
+
 mybatis:
   mapper-locations: classpath:mapper/*.xml
 
@@ -22,4 +35,7 @@ gpt:
 proxy:
   host: "192.168.10.3"
   port: 7890
+
+
+
 
