@@ -90,6 +90,7 @@ public class essayController {
         try {
             Integer user_id = JwtUtil.getUserIdByJWT(userJWT);
             essay.setUser_id(user_id);
+            essay.setStatus("Modified Done");
             essayService.updateEssay(essay);
             return Result.success(essay);
         } catch (Exception e) {

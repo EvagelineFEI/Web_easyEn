@@ -29,7 +29,7 @@
     </select>
     <insert id="insertPost" parameterType="com.easyen.easyenglish.entity.post_name">
         INSERT INTO post_name (state, user_id, title, content, public_or, time)
-        VALUES (#{state}, #{user_id}, #{title}, #{content}, #{public_or}, CURRENT_TIME)
+        VALUES (#{state}, #{user_id}, #{title}, #{content}, #{public_or}, CURRENT_DATE)
     </insert>
     <update id="updatePost" parameterType="com.easyen.easyenglish.entity.post_name">
         UPDATE post_name

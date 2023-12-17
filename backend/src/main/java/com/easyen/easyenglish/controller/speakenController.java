@@ -4,6 +4,7 @@ import com.easyen.easyenglish.entity.essay;
 import com.easyen.easyenglish.entity.speakEnPracticeRecord;
 import com.easyen.easyenglish.service.speakEnRecordService;
 import com.easyen.easyenglish.dto.Result;
+import com.easyen.easyenglish.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +16,7 @@ public class speakenController {
     @Autowired
     speakEnRecordService speakEnService;
     @PostMapping("/speakFeedback")
-    public Result getChat(@RequestBody topicReq topicReq){
+    public Result getChat(@RequestHeader("Authorization") String userJWT,@RequestBody topicReq topicReq){
         try {
             System.out.println("request body: " + topicReq);
             String ans = speakEnService.getSpeakResponce(topicReq.getRequirements(), topicReq.getTopic());
@@ -25,8 +26,10 @@ public class speakenController {
         }
     }
     @PostMapping("/speak-upload")
-    public Result uploadChat(@RequestBody speakEnPracticeRecord record) {
+    public Result uploadChat(@RequestHeader("Authorization") String userJWT,@RequestBody speakEnPracticeRecord record) {
         try {
+            Integer user_id = JwtUtil.getUserIdByJWT(userJWT);
+            record.setUser_id(user_id);
             speakEnService.addRecord(record);
             return Result.success(record);
         } catch (Exception e) {
