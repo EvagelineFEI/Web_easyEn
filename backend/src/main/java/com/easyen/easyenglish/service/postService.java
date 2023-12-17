@@ -19,3 +19,4 @@ public interface postService {
 
     void deletePost(Integer postID);
 }
+

@@ -31,6 +31,7 @@ public class postServiceImpl implements postService{
     @Override
     public List<post_name> findPostByTitle_content(String postTitle, Integer offset, Integer pageSize){
         return postMapper.selectPostByTitle_content(postTitle, offset, pageSize);
+
     }
 
 

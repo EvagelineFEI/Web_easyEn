@@ -24,4 +24,5 @@
     <select id="getUserById" resultType="com.easyen.easyenglish.entity.User">
         select * from users where user_id = #{user_id}
     </select>
+
 </mapper>
