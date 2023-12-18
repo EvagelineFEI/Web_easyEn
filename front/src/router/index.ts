@@ -5,6 +5,7 @@ import auth from "@/router/auth";
 import learning from "@/router/learn";
 import Track from "@/router/track";
 import communication from "@/router/communication";
+import {useAuthStore} from "@/configs/stores/authStore";
 
 // register new route in here
 const routes = [
@@ -32,6 +33,7 @@ const routes = [
     path: "/practice",
     meta: {
       layout: "learn",
+      needAuth: true,
     },
     children: learning,
   },
@@ -41,6 +43,7 @@ const routes = [
     path: "/learn-track",
     meta: {
       layout: "default",
+      needAuth: true,
     },
     children: Track,
   },
@@ -67,6 +70,17 @@ router.beforeEach((to, from) => {
     from.matched.some((record) => record.meta.layout)
   ) {
     to.meta.layout = from.meta.layout;
+  }
+  if (
+      !to.matched.some((record) => record.meta.needAuth) &&
+      from.matched.some((record) => record.meta.needAuth)
+  ) {
+    to.meta.needAuth = from.meta.needAuth;
+  }
+
+  const auth = useAuthStore();
+  if (to.meta.needAuth && !auth.isLoggedIn) {
+     router.push("/auth/signin");
   }
 });
 

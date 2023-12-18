@@ -2,14 +2,13 @@ import Speaking from "@/views/Practice/Speaking.vue";
 import Writing from "@/views/Practice/Writing.vue";
 import Vocabulary from "@/views/Practice/Vocabulary.vue";
 import Articles from "@/views/Practice/Article/Articles.vue";
-import Article from "@/views/Practice/Article/Article.vue";
-import Learning from "@/views/Practice.vue";
+//import Learning from "@/views/Practice.vue";
 
 export default [
   {
     path: "",
     name: "Practice",
-    component: Learning,
+    redirect: "/practice/articles",
   },
   {
     path: "speaking",
@@ -19,21 +18,22 @@ export default [
   {
     path: "writing",
     name: "Writing",
+    meta: {
+      needAuth: true
+    },
     component: Writing,
   },
   {
     path: "vocabulary",
     name: "Vocabulary",
+    meta: {
+      needAuth: true
+    },
     component: Vocabulary,
   },
   {
     path: "articles",
     name: "Articles",
     component: Articles,
-  },
-  {
-    path: "article/:id", // 依靠文章id来做内容获取
-    name: "Article",
-    component: Article,
   },
 ];

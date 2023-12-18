@@ -1,55 +1,53 @@
-import {json_request} from "@/api/utils";
+import {requester} from "@/api/utils";
 
-interface AuthRequest {
-    userEmail: string,
-    userPasswd?: string
+interface AuthStruct {
+    username?: string,
+    user_id?: number,
+    password?: string,
+    email?: string,
+    code?: string,
+    other_info?: string,
+    token?: string
 }
 
-type AuthResponsesData =
-       LoginResponses | RegisterResponses | null;
+const auth = {
+    login: async (params: AuthStruct) =>
+    requester<AuthStruct>({
+        url: "/login",
+        method: "post",
+        params
+    }),
 
-interface LoginResponses {
-    JWT: string,
-    userId: number
+    register: async (params: AuthStruct) =>
+    requester<AuthStruct>({
+        url: "/register",
+        method: "post",
+        params
+    }),
+
+    getUserInfo: async (token: string, data: AuthStruct) =>
+    requester<AuthStruct>({
+        url: "/user/QueryUser",
+        method: "post",
+        headers: {
+            Authorization: token
+        },
+        data,
+    }),
+
+    updateUserInfo: async (token: string, data: AuthStruct) =>
+    requester<AuthStruct>({
+        url: "/user/QueryUser",
+        method: "post",
+        headers: {
+            Authorization: token
+        },
+        data,
+    }),
 }
 
-interface RegisterResponses {
-    JWT: string,
-    userId: number
-}
-
-
-export class Practice {
-    async login(email: string, password: string)  {
-        
-        const Data: AuthRequest = {
-            userEmail: email,
-            userPasswd: password
-        }
-
-        return await json_request(null ,'/login/Email', Data)
-    }
-    
-    async register(email: string, password: string)  {
-        
-        const Data: AuthRequest = {
-            userEmail: email,
-            userPasswd: password
-        }
-        
-        return await json_request(null ,'/register/Email', Data)
-    }
-    
-    async forgot(email: string) {
-        const Data: AuthRequest = {
-            userEmail: email
-        }
-        
-        return await json_request(null ,'/forgot/Email', Data)
-    }
-}
+export default auth;
 
 export type {
-    AuthRequest,
-    AuthResponsesData
+    AuthStruct,
 }

@@ -1,48 +1,29 @@
-import axios from "axios";
-import {AuthRequest, AuthResponsesData} from "@/api/auth";
+import axios, {AxiosRequestConfig} from "axios";
 
-type JsonRequest = AuthRequest | null;
-
-type ParamRequest = AuthRequest | null;
-
-type ResponsesData = AuthResponsesData | null;
-
-interface Responses {
+interface Response<T = any> {
     code: number,
-    data?: ResponsesData
+    msg: string,
+    resultData: T
 }
 
-const requester = axios.create({
+const request = axios.create({
     baseURL: '/api',
 })
 
-export async function json_request(JWT: string | null, url: string, Data: JsonRequest) {
-    const config = {
-        headers: {
-            Authorization: JWT
-        }
-    };
-    return await requester.post( url, Data, config )
-        .then(({data}:{data: Responses}) => {
-            return data
-        })
-        .catch((error) => {
-            return {code: 0,} as Responses
-        })
+
+export type {
+    Response
 }
 
-export async function params_request(JWT: string | null, url: string, Data: ParamRequest) {
-    const config = {
-        params: Data,
-        headers: {
-            Authorization: JWT
-        }
-    };
-    return await requester.get( url, config )
-        .then(({data}:{data: Responses}) => {
-            return data
-        })
-        .catch((error) => {
-            return {code: 0,} as Responses
+export async function requester<T>(config: AxiosRequestConfig) {
+    return request.request<Response<T>>(config)
+        .then((res) => {
+            return res.data;
+        }).catch( function (error) {
+            return {
+                code: 0,
+                msg: error.toString(),
+                resultData: ""
+            } as Response
         })
 }

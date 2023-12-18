@@ -5,11 +5,13 @@ import CommunicationSidebarLayout from "@/layouts/CommunicateSidebarLayout.vue";
 import PracticeSidebarLayout from "@/layouts/PracticeSidebarLayout.vue";
 import ErrorLayout from "@/layouts/ErrorLayout.vue";
 import configs from "@/configs";
+import {useAuthStore} from "@/configs/stores/authStore";
 
 // Store Listen
 const customizeTheme = configs.stores.useCustomizeThemeStore();
-
 const router = useRoute();
+const route = useRouter();
+const auth = useAuthStore();
 
 const isRouterLoaded = computed(() => {
   return router.name !== null;

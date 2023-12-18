@@ -1,33 +1,35 @@
 <script setup lang="ts">
 import DateRangeCard from "@/components/DateRangeCard.vue";
 import {Ref} from "vue";
+import {useAuthStore} from "@/configs/stores/authStore";
+import communicate from "@/api/communication";
+import type {PostPages, UserPostData} from "@/api/communication";
 
-const posts: Ref<Post[]> = ref([
-  {id: 1, title: "Vue.js 3.0 发布啦！", content: "Vue 3.0 带来了许多新特性...", publishedAt: "2023-01-01"},
-  {id: 2, title: "Vue.js 3.0 发布啦！", content: "Vue 3.0 带来了许多新特性...", publishedAt: "2023-01-01"},
-  {id: 3, title: "Vue.js 3.0 发布啦！", content: "Vue 3.0 带来了许多新特性...", publishedAt: "2023-01-01"},
-  {id: 4, title: "Vue.js 3.0 发布啦！", content: "Vue 3.0 带来了许多新特性...", publishedAt: "2023-01-01"},
-  {id: 5, title: "Vue.js 3.0 发布啦！", content: "Vue 3.0 带来了许多新特性...", publishedAt: "2023-01-01"},
-  {id: 6, title: "Vue.js 3.0 发布啦！", content: "Vue 3.0 带来了许多新特性...", publishedAt: "2023-01-01"},
-  {id: 7, title: "Vue.js 3.0 发布啦！", content: "Vue 3.0 带来了许多新特性...", publishedAt: "2023-01-01"},
-  {id: 8, title: "Vue.js 3.0 发布啦！", content: "Vue 3.0 带来了许多新特性...", publishedAt: "2023-01-01"},
-  {id: 9, title: "Vue.js 3.0 发布啦！", content: "Vue 3.0 带来了许多新特性...", publishedAt: "2023-01-01"},
-  {id: 10, title: "Vue.js 3.0 发布啦！", content: "Vue 3.0 带来了许多新特性...", publishedAt: "2023-01-01"},
-  {id: 11, title: "Vue.js 3.0 发布啦！", content: "Vue 3.0 带来了许多新特性...", publishedAt: "2023-01-01"},
-])
 
-interface Post {
-  id: number,
-  title: string,
-  content: string,
-  publishedAt: string
+const recvPosts: Ref<UserPostData[]> = ref([]);
+
+async function loadItems() {
+
+  const page: PostPages = {
+    page: 1,
+    pageSize: 10,
+  }
+
+  await communicate.getAllPost(page)
+    .then((response) => {
+      if (response.code === 200) {
+        recvPosts.value = response.resultData as UserPostData[];
+      } else {
+        recvPosts.value = [] as UserPostData[];
+      }
+    })
 }
 
 const filteredPosts = computed(() => {
   // 实现关键词和时间检索
-  return posts.value.filter(post => {
-    return (!startDate.value || new Date(post.publishedAt) >= new Date(startDate.value)) &&
-        (!endDate.value || new Date(post.publishedAt) <= new Date(endDate.value));
+  return recvPosts.value.filter(post => {
+    return (!startDate.value || new Date(post.time as string) >= new Date(startDate.value)) &&
+        (!endDate.value || new Date(post.time as string) <= new Date(endDate.value));
   })
 })
 
@@ -36,9 +38,13 @@ const endDate = ref('');
 const triggerKeyword = ref('');
 const page = ref(1);
 
+const auth = useAuthStore();
+
 function clearKeyword() {
   triggerKeyword.value = ''
 }
+
+loadItems();
 </script>
 
 <template>
@@ -56,6 +62,7 @@ function clearKeyword() {
           clearable
           clear-icon="mdi-close-circle"
           @click:clear="clearKeyword"
+          @keyup.enter="filteredPosts"
       ></v-text-field>
 
       <br/>
@@ -75,10 +82,10 @@ function clearKeyword() {
           >
             <v-card>
               <v-card-title>{{ item.raw.title }}</v-card-title>
-              <v-card-subtitle>{{ item.raw.publishedAt }}</v-card-subtitle>
+              <v-card-subtitle>{{ item.raw.time }}</v-card-subtitle>
               <v-card-text>{{ item.raw.content }}</v-card-text>
             <div class="text-end pa-4">
-              <v-btn color="primary" :to="{ name: 'Post', params: { id: item.raw.id } }">详情</v-btn>
+              <v-btn color="primary" :to="{ name: 'Post', params: { id: 0 } }">详情</v-btn>
             </div>
             </v-card>
             <br/>
@@ -119,10 +126,15 @@ function clearKeyword() {
       <v-card
           prepend-icon="mdi-toolbox"
           :title="$t('communication.toolbox')">
-        <v-card-text>
+
+        <v-card-text v-if="auth.isLoggedIn">
           <v-btn block prepend-icon="mdi-pen" color="primary" :to="{name: 'Write'}">{{ $t("communication.post") }}</v-btn>
           <br/>
           <v-btn block prepend-icon="mdi-note-multiple" color="primary" :to="{name: 'PostManage', params: {userid: 0}}">{{ $t("communication.manage") }}</v-btn>
+        </v-card-text>
+
+        <v-card-text v-else>
+           请登录后使用
         </v-card-text>
       </v-card>
 
@@ -134,14 +146,14 @@ function clearKeyword() {
           :title="$t('communication.populerPost')"
           height="300px">
         <v-container>
-          <v-infinite-scroll :height="300" :items="posts">
+          <v-infinite-scroll :height="300" :items="recvPosts">
             <template
-                v-for="(item, index) in posts"
+                v-for="(item, index) in recvPosts"
                 :key="index + 1"
             >
               <v-row justify="start">
                 <v-col cols="10">
-                  <router-link :to="{name:'Post', params: {id: item.id}}" >
+                  <router-link :to="{name:'Post', params: {id: 0}}" >
                     {{ item.title }}
                   </router-link>
                 </v-col>
@@ -152,6 +164,5 @@ function clearKeyword() {
         </v-container>
       </v-card>
     </v-col>
-
   </v-row>
 </template>

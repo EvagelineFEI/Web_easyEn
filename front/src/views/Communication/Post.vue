@@ -53,24 +53,40 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-
+import { ref, onMounted } from 'vue';
+import communicate from '@/api/communication.ts';
+import UserPostData from '@/api/communication.ts';
 const postTitle = ref('Post Title');
 const postContent = ref('Post Content');
 const loading = ref(false);
 const comments = ref([
-    {
-        author: 'John Doe',
-        message: 'This is a comment.',
-    },
-    {
-        author: 'Jane Smith',
-        message: 'Another comment.',
-    },
+    // {
+    //     author: 'John Doe',
+    //     message: 'This is a comment.',
+    // },
+    // {
+    //     author: 'Jane Smith',
+    //     message: 'Another comment.',
+    // },
+
 ]);
+const user_posts = ref<UserPostData>([]);
 const newComment = ref({
     author: '',
     message: '',
+});
+
+onMounted(async () => {
+  try {
+    loading.value = true;
+    const response = await communicate.getAllPost();
+    // 假设 response 直接包含帖子数据
+    user_posts.value = response;
+  } catch (error) {
+    console.error("Error fetching posts:", error);
+  } finally {
+    loading.value = false;
+  }
 });
 
 function addComment() {

@@ -54,6 +54,7 @@ export default {
     "100":"100",
 
     $vuetify: {
+        loading: "载入中...",
         badge: "徽章",
         open: "开",
         close: "关",

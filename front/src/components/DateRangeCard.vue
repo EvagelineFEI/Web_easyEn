@@ -1,39 +1,38 @@
 <template>
   <v-sheet elevation="0">
-    <v-row justify="center" align="center">
+    <v-row align="center" justify="center">
 
-      <v-col cols="5" align-self="center" >
+      <v-col align-self="center" cols="5">
         <v-text-field
             v-model="startDate"
+            :label="$t('track.start')"
+            hide-details
             type="date"
             variant="outlined"
-            hide-details
-            :label="$t('track.start')">
-        </v-text-field>
+        />
       </v-col>
 
-      <v-col cols="5" align-self="center" >
+      <v-col align-self="center" cols="5">
         <v-text-field
             v-model="endDate"
+            :label="$t('track.end')"
+            hide-details
             type="date"
             variant="outlined"
-            hide-details
-            :label="$t('track.end')">
-        </v-text-field>
+        />
       </v-col>
-
 
       <v-row justify="center">
         <v-tooltip
             v-model="showFilter"
             location="top">
           <template v-slot:activator="{ props }">
-            <v-btn 
-              v-bind="props" 
-              variant="plain" 
-              @click="updateDateRange" 
-              icon="mdi-arrow-top-right" 
-              color="primary"
+            <v-btn
+                color="primary"
+                icon="mdi-arrow-top-right"
+                v-bind="props"
+                variant="plain"
+                @click="updateDateRange"
             />
           </template>
           <span>筛选</span>
@@ -42,12 +41,12 @@
             v-model="cleanFilter"
             location="top">
           <template v-slot:activator="{ props }">
-            <v-btn 
-              v-bind="props" 
-              variant="plain" 
-              @click="cleanDateRange" 
-              icon="mdi-close" 
-              color="primary"
+            <v-btn
+                color="primary"
+                icon="mdi-close"
+                v-bind="props"
+                variant="plain"
+                @click="cleanDateRange"
             />
           </template>
           <span>清空</span>
@@ -57,7 +56,7 @@
   </v-sheet>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 defineProps({
   start_date: String,
   end_date: String

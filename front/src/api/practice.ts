@@ -1,18 +1,95 @@
-import requester from "@/api/utils";
+import {requester} from "@/api/utils";
 
-interface Reqeust {
-    
+interface ArticleData {
+    pic_url: string,
+    article_url: string,
+    article_name: string,
+    article_descr: string,
 }
 
-interface Responses {
-    
+interface WordReqeustParams {
+    is_six: number,
+    is_master: number,
+    is_today: number,
 }
 
-export class Practice {
-    
+interface WordData {
+    errno?: number,
+    word_id?: string,
+    en_word?: string,
+    ch_word?: string,
+    phonetic_sign?: string,
 }
+
+
+interface WriteData {
+    essay_id?: number,
+    user_id?: number,
+    essay_title: string,
+    essay_content: string,
+    essay_requirements: string,
+    upload_date?: string,
+    status?: string
+}
+
+
+const practice = {
+    getArticle: () => {
+        return requester<ArticleData>({
+            url: "/article",
+            method: "post"
+        })
+    },
+
+    getNewWord: (token: string, params: WordReqeustParams) => {
+        return requester<WordData>({
+            url: "/word",
+            method: "post",
+            headers: {
+                Authorization: token
+            },
+            params
+        })
+    },
+    
+    updateUserWord: (token: string, params: WordData) =>  {
+        return requester<WordData>({
+            url: "/user_practice",
+            method: "post",
+            headers: {
+                Authorization: token
+            },
+            params
+        })
+    },
+
+    submitEssay: (token: string, data: WriteData) => {
+        return requester<WriteData>({
+            url: "/essay/upload",
+            method: "post",
+            headers: {
+                Authorization: token
+            },
+            data,
+        })
+    },
+
+    searchWrite: (token: string) => {
+        return requester<WriteData[]>({
+            url: "/listWrite",
+            method: "post",
+            headers: {
+                Authorization: token
+            },
+        })
+    }
+}
+
+export default practice;
 
 export type {
-    Reqeust,
-    Responses
+    ArticleData,
+    WordReqeustParams,
+    WordData,
+    WriteData,
 }

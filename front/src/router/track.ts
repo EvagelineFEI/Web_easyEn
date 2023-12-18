@@ -1,20 +1,15 @@
-// import LearnTrackDetail from "@/views/LearnTrack/LearnTrackDetail";
-
-import LearnTrack from "@/views/LearnTrack.vue";
+// import LearnTrack from "@/views/LearnTrack.vue";
 import LearnTrackDetail from "@/views/LearnTrack/LearnTrackDetail.vue";
 
 export default [
   {
     path: "",
     name: "LearnTrack",
-    component: LearnTrack,
+    component: LearnTrackDetail,
   },
   {
-    path: "detail/:id", // id: 记录id
+    path: "detail/:id", // id: userid
     name: "TrackDetails",
     component: LearnTrackDetail,
-    meta: {
-      layout: "default",
-    },
   },
 ];

@@ -1,3 +1,14 @@
+<script setup lang="ts">
+import router from "@/router";
+import communicate from "@/api/communication";
+
+const title = ref('');
+const content = ref('');
+const publishPost = () => {
+  communicate.addPost();
+}
+</script>
+
 <template>
     <v-container>
         <v-btn icon @click="$router.go(-1)">
@@ -9,25 +20,3 @@
         <v-btn @click="publishPost" color="primary">发布</v-btn>
     </v-container>
 </template>
-
-<script>
-export default {
-    data() {
-        return {
-            title: '',
-            content: ''
-        };
-    },
-    methods: {
-        publishPost() {
-            // 发布帖子的逻辑
-        },
-        goBack() {
-            // 返回上一级的逻辑
-        }
-    }
-};
-</script>
-
-<style scoped>
-</style>

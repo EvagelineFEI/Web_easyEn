@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import configs from "@/configs";
 import {ref} from "vue";
+import auth from "@/api/auth";
+import type {AuthStruct} from "@/api/auth";
+import router from "@/router";
 
 const authStore = configs.stores.useAuthStore();
-const username = ref("");
 
 // sign in buttons
 const isLoading = ref(false);
@@ -11,23 +13,61 @@ const isSignInDisabled = ref(false);
 
 const refLoginForm = ref();
 const isFormValid = ref(true);
+
+const username = ref("");
 const email = ref("");
 const password = ref("");
 
 // show password field
 const showPassword = ref(false);
 
+// snack provider
+const snackColor = ref('')
+const snackProvider = ref(false);
+const snackProviderMessages = ref("");
+
 // Submit
 const handleRegister = async () => {
-  const { valid } = await refLoginForm.value.validate();
-  if (valid) {
-    isLoading.value = true;
-    isSignInDisabled.value = true;
-    authStore.registerWithEmailAndPassword(email.value, password.value);
-  } else {
-    console.log("no");
+  snackProvider.value = false;
+  snackProviderMessages.value = '';
+
+  if (!isFormValid) {
+    return
   }
+
+  isLoading.value = true;
+  isSignInDisabled.value = true;
+
+  const data: AuthStruct = {
+    username: username.value,
+    email: email.value,
+    password: password.value,
+    other_info: ''
+  }
+
+  await auth.register(data)
+    .then((response) => {
+      if (response.code === 200) {
+        isLoading.value = false;
+        isSignInDisabled.value = false;
+        handleSnackBar(0, '注册成功, 即将前往登录页');
+        setTimeout(() => {
+          router.push("/auth/signin");
+        }, 1000);
+      } else {
+        handleSnackBar(response.code, response.msg);
+      }
+    })
+
+  isLoading.value = false;
+  isSignInDisabled.value = false;
 };
+
+function handleSnackBar(status: number, msg: string) {
+  snackProvider.value = true;
+  snackProviderMessages.value = msg;
+  snackColor.value = status === 0 ? 'success' : 'error';
+}
 
 // Error Check
 const emailRules = ref([
@@ -40,7 +80,7 @@ const usernameRules = ref([(v: string) => !!v || "UserNmae is required"]);
 const passwordRules = ref([
   (v: string) => !!v || "Password is required",
   (v: string) =>
-      (v && v.length <= 10) || "Password must be less than 10 characters",
+      (v && v.length >= 8) || "Password must be more than 8 characters",
 ]);
 
 // error provider
@@ -72,6 +112,7 @@ const resetErrors = () => {
           class="text-left"
           v-model="isFormValid"
           lazy-validation
+          @submit.prevent="handleRegister"
       >
         <v-text-field
             v-model="username"
@@ -90,7 +131,6 @@ const resetErrors = () => {
             @change="resetErrors"
         ></v-text-field>
         <v-text-field
-            ref="refEmail"
             v-model="email"
             required
             :error="error"
@@ -107,7 +147,6 @@ const resetErrors = () => {
             @change="resetErrors"
         ></v-text-field>
         <v-text-field
-            ref="refPassword"
             v-model="password"
             :append-inner-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
             :type="showPassword ? 'text' : 'password'"
@@ -128,12 +167,11 @@ const resetErrors = () => {
         ></v-text-field>
         <v-btn
             :loading="isLoading"
-            :disabled="isSignInDisabled"
             block
-            size="x-large"
-            color="primary"
-            @click="handleRegister"
             class="mt-2"
+            color="primary"
+            size="x-large"
+            type="submit"
         >{{ $t("register.button") }}</v-btn>
 
         <div v-if="errorProvider" class="error--text my-5">
@@ -151,7 +189,8 @@ const resetErrors = () => {
               $t("common.policy")
             }}</router-link>
         </div>
-      </v-form></v-card-text>
+      </v-form>
+    </v-card-text>
   </v-card>
   <div class="text-center mt-6">
     {{ $t("register.account") }}
@@ -159,7 +198,20 @@ const resetErrors = () => {
       {{ $t("register.signin") }}
     </router-link>
   </div>
-  </div>
+</div>
+  <v-snackbar
+      v-model="snackProvider"
+      :timeout="2000"
+      :color="snackColor">
+    {{ snackProviderMessages }}
+    <template v-slot:actions>
+      <v-btn
+          variant="text"
+          @click="snackProvider = false">
+        关闭
+      </v-btn>
+    </template>
+  </v-snackbar>
 </template>
 
 <style lang="scss" scoped>

@@ -7,16 +7,16 @@ export default [
     },
     {
         text: "单词积累",
-        icon:"mdi-book",
+        icon:"mdi-file-word-box",
         key:"",
         link: { name: 'Vocabulary' }
     },
-//    {
-//        text: "口语跟练",
-//        icon:"mdi-forum",
-//        key:"",
-//        link: { name: 'Speaking' }
-//    },
+    {
+        text: "口语跟练",
+        icon:"mdi-forum",
+        key:"",
+        link: { name: 'Speaking' }
+    },
     {
         text: "作文批改",
         icon:"mdi-book-open-variant",

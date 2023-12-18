@@ -1,35 +1,34 @@
 import {defineStore} from "pinia";
 
-interface Profile {
-    id: string;
+export interface Profile {
     name: string;
     email: string;
-    avatar: string;
+    content: string;
 }
 
 export const useAuthStore = defineStore("auth", {
     state: () => ({
         isLoggedIn: false,
-        user: null, // cookie with user
+        user: null as string | null, // cookie with user
+        user_id: 0,
         profile: null as Profile | null
     }),
 
     persist: {
         enabled: true,
-        strategies: [
-            {storage: localStorage, paths: ["isLoggedIn"]},
-        ],
     },
 
     getters: {},
 
     actions: {
-        loggedIn(JWT: string, userId: string) {
+        loggedIn(JWT: string, user_id: number) {
             this.isLoggedIn = true;
             this.user = JWT;
-            this.profile = {
-                id: userId
-            };
+            this.user_id = user_id;
+        },
+
+        updateProfile(profile: Profile) {
+            this.profile = profile;
         },
 
         logout() {

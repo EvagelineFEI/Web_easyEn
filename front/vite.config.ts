@@ -11,13 +11,20 @@ export default defineConfig({
     host: "0.0.0.0",
     proxy: {
       '/api': {
-        target: 'http://127.0.0.1:8080',
+        target: 'http://127.0.0.1:6660/api',
         rewrite: (path) => path.replace(/^\/api/, ''),
+        changeOrigin: true,
+        ws: true,
+      },
+      '/luo': {
+        target: 'http://',
+        rewrite: (path) => path.replace(/^\/luo/, ''),
         changeOrigin: true,
         ws: true,
       },
     },
   },
+
   plugins: [
     vue(),
     vuetify({
@@ -28,6 +35,7 @@ export default defineConfig({
       imports: ["vue", "vue-router", "pinia"],
     }),
   ],
+
   resolve: {
     alias: {
       "~": fileURLToPath(new URL("./", import.meta.url)),

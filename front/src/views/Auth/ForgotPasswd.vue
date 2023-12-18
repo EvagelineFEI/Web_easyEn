@@ -1,87 +1,269 @@
-<script setup lang="ts">
-const email = ref("");
-const isFormValid = ref(true);
-const emailRules = ref([
-    (v: string) => !!v || "E-mail is required",
-    (v: string) => /.+@.+\..+/.test(v) || "E-mail must be valid",
-    ]);
+<script lang="ts" setup>
+import {ref} from "vue";
+//import {forgot} from "@/api/auth"
+import router from "@/router";
 
-// forgot in buttons
+// 组件状态
 const isLoading = ref(false);
 const isSignInDisabled = ref(false);
+const showPassword = ref(false);
+const disabled = ref(true);
+const step = ref(1);
+const snackColor = ref('')
 
-const handleForgot = async () => {
+// 重要参数
+const email = ref("");
+const vertificateCode = ref("");
+const password = ref("");
+const confirmPassword = ref("");
 
+const sendCodeHandle = async () => {
+  snackProvider.value = false;
+  snackProviderMessages.value = '';
+
+  isLoading.value = true;
+  isSignInDisabled.value = true;
+
+//  const response = await
+//      forgot(email.value);
+
+  if (response.code != 1) {
+    errorHandle(response.data as string)
+    return;
+  }
+
+  isLoading.value = false;
+  isSignInDisabled.value = false;
+  snackProviderMessages.value = "邮件发送成功，请查收验证码";
+  snackColor.value = "success";
+  snackProvider.value = true;
+
+  window.setTimeout(() => {
+    disabled.value = false;
+    step.value = 2;
+  }, 2000);
 }
 
+const resetHandle = async () => {
+  snackProvider.value = false;
+  snackProviderMessages.value = '';
+
+  if (password.value != confirmPassword.value) {
+    error.value = true;
+    errorMessagesConfirm.value = "密码不正确，请检查";
+    return;
+  }
+
+  isLoading.value = true;
+  isSignInDisabled.value = true;
+
+  const response = await
+      resetPasswd_newPassword(
+          vertificateCode.value,
+          email.value,
+          password.value);
+
+  console.log(response)
+
+  if (response.code != 1) {
+    errorHandle(response.msg)
+    return
+  }
+
+  isLoading.value = false;
+  isSignInDisabled.value = false;
+  snackProviderMessages.value = "重置成功，即将返回登录页面";
+  snackColor.value = "success";
+  snackProvider.value = true;
+
+  window.setTimeout(() => {
+    router.push("/")
+  }, 2000);
+};
+
+function errorHandle(errorMsg: string) {
+  error.value = true;
+  snackProvider.value = true;
+  snackColor.value = "error";
+  snackProviderMessages.value = errorMsg;
+  isLoading.value = false;
+  isSignInDisabled.value = false;
+}
+
+
+// 邮件密码规则检查
+const emailRules = ref([
+  (v: string) => !!v || "E-mail is required",
+  (v: string) => /.+@.+\..+/.test(v) || "E-mail must be valid",
+]);
+
+const passwordRules = ref([
+  (v: string) => !!v || "Password is required",
+  (v: string) =>
+      (v && v.length >= 8) || "Password must be more than 8 characters",
+]);
+
+
 // error provider
-const errorProvider = ref(false);
-const errorProviderMessages = ref("");
+const snackProvider = ref(false);
+const snackProviderMessages = ref("");
 
 const error = ref(false);
 const errorMessages = ref("");
-const resetErrors = () => {
-    error.value = false;
-    errorMessages.value = "";
-};
+const errorMessagesConfirm = ref("");
 
+const resetErrors = () => {
+  error.value = false;
+  errorMessages.value = "";
+  errorMessagesConfirm.value = "";
+};
 </script>
+
 <template>
 <div class="layout-content ma-auto w-full">
-    <v-card color="white" class="pa-3 ma-3 rounded-lg" elevation="3">
-      <v-card-title class="my-4 text-h4">
-        <span class="flex-fill"> Forgot </span>
-      </v-card-title>
-      <v-card-subtitle>输入你的账号邮箱</v-card-subtitle>
-      <!-- sign in form -->
+  <v-stepper
+      :disabled="disabled"
+      color="primary"
+      prev-text="上一步"
+      next-text="下一步"
+      :model-value="step"
+      :items="['输入账号', '重置密码']"
+      class="layout-content rounded-lg"
+  >
+    <template v-slot:item.1>
+      <v-card class="rounded-lg" elevation="3">
+        <v-card-title class="my-4 text-h4">
+          <span class="flex-fill"> 请求验证码 </span>
+        </v-card-title>
+        <v-card-subtitle>输入账号获取验证码</v-card-subtitle>
+        <v-card-text>
 
-      <v-card-text>
-        <v-form
-            ref="refLoginForm"
-            class="text-left"
-            v-model="isFormValid"
-            lazy-validation
-        >
-          <v-text-field
-              ref="refEmail"
-              v-model="email"
-              required
-              :error="error"
-              :label="$t('login.email')"
-              density="default"
-              variant="underlined"
-              color="primary"
-              bg-color="#fff"
-              :rules="emailRules"
-              name="email"
-              outlined
-              validateOn="blur"
-              @keyup.enter="handleForgot"
-              @change="resetErrors"
-          ></v-text-field>
-          <v-btn
-              :loading="isLoading"
-              :disabled="isSignInDisabled"
-              block
-              size="x-large"
-              color="primary"
-              @click="handleForgot"
-              class="mt-2"
+          <v-form
+              class="text-left"
+              validate-on="input"
+              @submit.prevent="sendCodeHandle"
           >
-            {{ $t("login.button") }}
-          </v-btn>
+            <v-text-field
+                v-model="email"
+                :error="error"
+                :rules="emailRules"
+                bg-color="#fff"
+                color="primary"
+                density="default"
+                label="邮件"
+                name="email"
+                outlined
+                validateOn="blur"
+                variant="underlined"
+                @change="resetErrors"
+            ></v-text-field>
+            <v-btn
+                :loading="isLoading"
+                block
+                class="mt-2"
+                color="primary"
+                size="x-large"
+                type="submit"
+            >
+              发送验证码
+            </v-btn>
+          </v-form>
+        </v-card-text>
+      </v-card>
+    </template>
+    <template v-slot:item.2>
+      <v-card class="rounded-lg" elevation="3">
+        <v-card-title class="my-4 text-h4">
+          <span class="flex-fill"> 重置密码 </span>
+        </v-card-title>
+        <v-card-subtitle>输入验证码重置密码</v-card-subtitle>
+        <v-card-text>
+          <v-form
+              :disabled="isSignInDisabled"
+              class="text-left"
+              validate-on="input"
+              @submit.prevent="resetHandle"
+          >
+            <v-otp-input
+                v-model="vertificateCode"
+                :error="error"
+                @change="resetErrors"
+            ></v-otp-input>
 
-          <div v-if="errorProvider" class="error--text my-2">
-            {{ errorProviderMessages }}
-          </div>
-        </v-form>
-      </v-card-text>
-    </v-card>
-  </div>
+            <v-text-field
+                v-model="password"
+                :append-inner-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                :error="error"
+                :error-messages="errorMessages"
+                :rules="passwordRules"
+                :type="showPassword ? 'text' : 'password'"
+                bg-color="#fff"
+                color="primary"
+                density="default"
+                label="密码"
+                name="password"
+                outlined
+                validateOn="blur"
+                variant="underlined"
+                @change="resetErrors"
+                @click:append-inner="showPassword = !showPassword"
+            ></v-text-field>
+
+            <v-text-field
+                v-model="confirmPassword"
+                :error="error"
+                :error-messages="errorMessagesConfirm"
+                bg-color="#fff"
+                color="primary"
+                density="default"
+                label="确认密码"
+                name="confirmPasswd"
+                outlined
+                type="password"
+                validateOn="blur"
+                variant="underlined"
+                @change="resetErrors"
+            ></v-text-field>
+
+            <v-btn
+                :loading="isLoading"
+                block
+                class="mt-2"
+                color="primary"
+                size="x-large"
+                type="submit"
+            >
+              重置密码
+            </v-btn>
+
+          </v-form>
+        </v-card-text>
+      </v-card>
+    </template>
+  </v-stepper>
+
+  <v-snackbar
+      v-model="snackProvider"
+      :timeout="2000"
+      :color="snackColor">
+    {{ snackProviderMessages }}
+    <template v-slot:actions>
+      <v-btn
+          variant="text"
+          @click="snackProvider = false">
+        关闭
+      </v-btn>
+    </template>
+  </v-snackbar>
+</div>
 </template>
 
-<style>
+<style lang="scss" scoped>
+.layout-side {
+  width: 420px;
+}
+
 .layout-content {
-  max-width: 480px;
+  width: 420px;
 }
 </style>

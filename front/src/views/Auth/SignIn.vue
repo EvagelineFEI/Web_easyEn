@@ -1,32 +1,56 @@
 <script setup lang="ts">
 import configs from "@/configs";
 import {ref} from "vue";
+import auth from "@/api/auth";
+import type {AuthStruct} from "@/api/auth";
+import {Response} from "@/api/utils";
+import router from "@/router";
 
 const authStore = configs.stores.useAuthStore();
 const isLoading = ref(false);
 const isSignInDisabled = ref(false);
+const isFormValid=ref(true);
 
 const email = ref("");
 const password = ref("");
-const isFormValid = ref(true);
 
 // show password field
 const showPassword = ref(false);
 
-const handleLogin = async () => {
-  if (!isFormValid) {
-    return
-  }
-  
-  const response = await true;
+// snack provider
+const snackColor = ref('')
+const snackProvider = ref(false);
+const snackProviderMessages = ref("");
 
-  if (response) {
-    isLoading.value = true;
-    isSignInDisabled.value = true;
-  } else {
-    errorMessages.value = response;
-    console.log("no");
+const handleLogin = async () => {
+  isLoading.value = true;
+  isSignInDisabled.value = true;
+
+  const data: AuthStruct = {
+    email: email.value,
+    password: password.value
   }
+
+  try {
+    await auth.login(data)
+    .then((response) => {
+      if (Number(response.code) === 200) {
+        const data = response.resultData as AuthStruct;
+        authStore.loggedIn(
+          data.token as string,
+          Number(data.user_id)
+        );
+        router.push("/");
+      } else {
+        errorHandle(response.msg as string);
+      }
+    })
+  } catch {
+    errorHandle("意外错误发生");
+  }
+
+  isLoading.value = false;
+  isSignInDisabled.value = false;
 };
 
 const emailRules = ref([
@@ -37,7 +61,7 @@ const emailRules = ref([
 const passwordRules = ref([
   (v: string) => !!v || "Password is required",
   (v: string) =>
-      (v && v.length >= 8) || "Password must be more than 8 characters",
+      (v && v.length >= 6) || "Password must be more than 6 characters",
 ]);
 
 // error provider
@@ -51,6 +75,12 @@ const resetErrors = () => {
   errorMessages.value = "";
 };
 
+function errorHandle(errorMsg: string) {
+  error.value = true;
+  snackColor.value = "error";
+  snackProvider.value = true;
+  snackProviderMessages.value = errorMsg;
+}
 </script>
 
 <template>
@@ -60,12 +90,10 @@ const resetErrors = () => {
         <span class="flex-fill"> Welcome </span>
       </v-card-title>
       <v-card-subtitle>Sign in to your account</v-card-subtitle>
-      <!-- sign in form -->
-
       <v-card-text>
         <v-form
-            class="text-left"
             v-model="isFormValid"
+            class="text-left"
             @submit.prevent="handleLogin"
             validate-on="input"
         >
@@ -82,7 +110,7 @@ const resetErrors = () => {
               :rules="emailRules"
               name="email"
               outlined
-              validateOn="blur"
+              validateOn="input"
               @keyup.enter="handleLogin"
               @change="resetErrors"
           ></v-text-field>
@@ -101,18 +129,18 @@ const resetErrors = () => {
               :rules="passwordRules"
               name="password"
               outlined
-              validateOn="blur"
+              validateOn="input"
               @change="resetErrors"
               @keyup.enter="handleLogin"
               @click:append-inner="showPassword = !showPassword"
           ></v-text-field>
           <v-btn
               :loading="isLoading"
-              :disabled="isSignInDisabled"
               block
-              size="x-large"
-              color="primary"
               class="mt-2"
+              color="primary"
+              size="x-large"
+              type="submit"
           >
             {{ $t("login.button") }}
           </v-btn>
@@ -127,8 +155,7 @@ const resetErrors = () => {
             </router-link>
           </div>
         </v-form>
-      </v-card-text
-      >
+      </v-card-text>
     </v-card>
     <div class="text-center mt-6">
       {{ $t("login.noaccount")}}
@@ -137,6 +164,20 @@ const resetErrors = () => {
       </router-link>
     </div>
   </div>
+
+  <v-snackbar
+      v-model="snackProvider"
+      :timeout="2000"
+      :color="snackColor">
+    {{ snackProviderMessages }}
+    <template v-slot:actions>
+      <v-btn
+          variant="text"
+          @click="snackProvider = false">
+        关闭
+      </v-btn>
+    </template>
+  </v-snackbar>
 </template>
 
 <style lang="scss" scoped>
