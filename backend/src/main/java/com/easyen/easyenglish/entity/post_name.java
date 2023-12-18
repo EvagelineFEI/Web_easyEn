@@ -12,7 +12,7 @@ public class post_name {
     private String title;
     private String content;
     private boolean public_or;
-    private Date time;
+    private Date post_time;
 
     public Integer getPost_id() {
         return post_id;
@@ -63,11 +63,11 @@ public class post_name {
     }
 
     public Date getTime() {
-        return time;
+        return post_time;
     }
 
     public void setTime(Date time) {
-        this.time = time;
+        this.post_time = time;
     }
 
     @Override
@@ -82,7 +82,7 @@ public class post_name {
         sb.append(", title=").append(title);
         sb.append(", content=").append(content);
         sb.append(", public_or=").append(public_or);
-        sb.append(", time=").append(time);
+        sb.append(", post_time=").append(post_time);
         sb.append("]");
         return sb.toString();
     }
