@@ -20,6 +20,10 @@ interface WordData {
     ch_word?: string,
     phonetic_sign?: string,
 }
+export interface SpeakTopicData {
+    requirements: string,
+    topic: string
+}
 
 
 interface WriteData {
@@ -76,13 +80,25 @@ const practice = {
 
     searchWrite: (token: string) => {
         return requester<WriteData[]>({
-            url: "/listWrite",
-            method: "post",
+            url: "/essay/findByUser",
+            method: "get",
             headers: {
                 Authorization: token
             },
         })
+    },
+
+    getTopicAns: (token: string,data: SpeakTopicData) => {
+        return requester<string>({
+            url: "/speaken/speakFeedback",
+            method: "post",
+            headers: {
+                Authorization: token
+            },
+            data
+        })
     }
+
 }
 
 export default practice;

@@ -215,7 +215,7 @@ getDetails();
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn variant="text" class="text-end" color="primary" to="/practice/writing">
+            <v-btn variant="text" class="text-end" color="primary" to="/learn-track/write-details">
               查看详情
             </v-btn>
             <v-btn variant="text" class="text-end" color="primary" to="/practice/writing">

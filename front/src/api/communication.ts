@@ -37,11 +37,11 @@ const communicate = {
         })
     },
 
-    getAllPost: (params: PostPages) => {
+    getAllPost: () => {
         return requester<UserPostData[]>({
             url: "/post/returnAll",
             method: "get",
-            params,
+
         })
     },
 
@@ -119,4 +119,5 @@ export default communicate;
 export type {
     UserPostData,
     PostPages,
+    CommentData,
 }

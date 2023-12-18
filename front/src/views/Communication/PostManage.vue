@@ -81,7 +81,6 @@ const filteredItems = computed(() => {
         </template>
       </v-data-table>
     </v-col>
-
   </v-row>
 </template>
 

@@ -3,19 +3,14 @@ import DateRangeCard from "@/components/DateRangeCard.vue";
 import {Ref} from "vue";
 import {useAuthStore} from "@/configs/stores/authStore";
 import communicate from "@/api/communication";
-import type {PostPages, UserPostData} from "@/api/communication";
+import type {UserPostData} from "@/api/communication";
 
 
 const recvPosts: Ref<UserPostData[]> = ref([]);
 
 async function loadItems() {
 
-  const page: PostPages = {
-    page: 1,
-    pageSize: 10,
-  }
-
-  await communicate.getAllPost(page)
+  await communicate.getAllPost()
     .then((response) => {
       if (response.code === 200) {
         recvPosts.value = response.resultData as UserPostData[];

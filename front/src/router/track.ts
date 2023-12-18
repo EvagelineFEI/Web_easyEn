@@ -1,5 +1,6 @@
 // import LearnTrack from "@/views/LearnTrack.vue";
 import LearnTrackDetail from "@/views/LearnTrack/LearnTrackDetail.vue";
+import WriteDetails from "@/views/LearnTrack/WriteDetails.vue";
 
 export default [
   {
@@ -8,8 +9,8 @@ export default [
     component: LearnTrackDetail,
   },
   {
-    path: "detail/:id", // id: userid
-    name: "TrackDetails",
-    component: LearnTrackDetail,
-  },
+    path: "write-details",
+    name: "WriteDetails",
+    component: WriteDetails,
+  }
 ];

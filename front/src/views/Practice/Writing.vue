@@ -62,8 +62,6 @@ import {useAuthStore} from "@/configs/stores/authStore";
 const essay_title = ref('');
 const essay_req = ref('');
 const essay_content = ref('');
-const checkPredicate = ref(false);
-const checkPro = ref(false);
 
 const snackProvider = ref(false);
 const snackColor = ref('success');

@@ -85,6 +85,7 @@ refreshArticles();
                   class="align-end text-white"
                   cover
                   :src="article.pic_url"
+                  lazy-src=""
               >
               </v-img>
               <v-card-text class="text-h6">
