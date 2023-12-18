@@ -14,8 +14,8 @@ public class postServiceImpl implements postService{
     postMapper postMapper;
 
     @Override
-    public List<post_name> findAllPost(Integer offset, Integer pageSize){
-        return postMapper.findAllPost(offset, pageSize);
+    public List<post_name> findAllPost(){
+        return postMapper.findAllPost();
     }
 
     @Override

@@ -3,8 +3,7 @@
 <mapper namespace="com.easyen.easyenglish.mapper.postMapper">
     <select id="findAllPost" resultType="com.easyen.easyenglish.entity.post_name">
         select * from post_name
-        order by post_id desc
-            limit #{pageSize} offset #{offset}
+        order by post_id
     </select>
     <select id="selectPostById" resultType="com.easyen.easyenglish.entity.post_name">
         select * from post_name

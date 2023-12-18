@@ -7,7 +7,7 @@ import java.util.List;
 
 @Mapper
 public interface postMapper {
-    List<post_name> findAllPost(Integer offset, Integer pageSize);
+    List<post_name> findAllPost();
     // 插入帖子
     void insertPost(post_name post);
     // 按照postid查找

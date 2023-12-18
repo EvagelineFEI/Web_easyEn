@@ -7,7 +7,7 @@ import java.util.List;
 public interface postService {
     void addPost(post_name post);
 
-    List<post_name> findAllPost(Integer offset, Integer pageSize);
+    List<post_name> findAllPost();
 
     post_name findPostByID(Integer postID);
 

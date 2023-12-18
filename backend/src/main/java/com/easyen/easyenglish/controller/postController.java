@@ -41,11 +41,9 @@ public class postController {
     // 页面初始状态
 
     @GetMapping("/returnAll")
-    public Result findAllPost( @RequestParam(value = "page", defaultValue = "1") Integer page,
-                               @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize) {
+    public Result findAllPost() {
         try{
-            int offset = (page - 1) * pageSize;
-            List<post_name> posts = postService.findAllPost(offset, pageSize);
+            List<post_name> posts = postService.findAllPost();
             return Result.success(posts);
         }catch (Exception e){
             return Result.failure(e.getMessage());
