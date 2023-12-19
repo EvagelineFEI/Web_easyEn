@@ -61,7 +61,7 @@ public class postController {
             post_name posts = postService.findPostByID(postID);
             // 查询对应的评论
             int offset = (page - 1) * pageSize;
-            List<comments> comments = commentService.findCommentsByPost(postID, offset, pageSize);
+            List<comments> comments = commentService.findCommentsByPost(postID);
             // 构建结果对象
 
 //            Map<String, Object> result = new HashMap<>();
@@ -92,7 +92,7 @@ public class postController {
             Map<post_name, List<comments>> postCommentMap = new HashMap<>();
             for (post_name post : posts) {
                 //System.out.print(post.getUser_id());
-                List<comments> comments= commentService.findCommentsByPost(post.getPost_id(), offset, pageSize);
+                List<comments> comments= commentService.findCommentsByPost(post.getPost_id());
                 //System.out.print(comments);
                 postCommentMap.put(post, comments);
             }
@@ -114,7 +114,7 @@ public class postController {
             // 遍历每一个帖子，查找对应的评论
             Map<post_name, List<comments>> postCommentMap = new HashMap<>();
             for (post_name post : posts) {
-                List<comments> comments = commentService.findCommentsByPost(post.getPost_id(), offset, pageSize);
+                List<comments> comments = commentService.findCommentsByPost(post.getPost_id());
                 postCommentMap.put(post, comments);
             }
             return Result.success(postCommentMap);

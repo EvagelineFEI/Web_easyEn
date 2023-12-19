@@ -19,8 +19,8 @@ public class commentServiceImpl implements commentService {
         return commentMapper.selectAllComments(post_id);
     }
     @Override
-    public List<comments> findCommentsByPost(Integer postID, Integer offset, Integer pageSize){
-        return commentMapper.selectCommentsByPost(postID, offset, pageSize);
+    public List<comments> findCommentsByPost(Integer postID){
+        return commentMapper.selectCommentsByPost(postID);
     }
     @Override
     public void addComment(comments comment){

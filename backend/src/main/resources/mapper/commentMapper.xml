@@ -10,11 +10,11 @@
         where comment_state = true and
             post_id = #{postID}
         order by comment_time desc
-            limit #{pageSize} offset #{offset}
+--             limit #{pageSize} offset #{offset}
     </select>
     <insert id="insertComment" parameterType="com.easyen.easyenglish.entity.comments">
         insert INTO comments (comment_state, user_id, post_id, contents, comment_time)
-        VALUES (#{comment_state}, #{user_id}, #{post_id}, #{contents}, #{comment_time})
+        VALUES (#{comment_state}, #{user_id}, #{post_id}, #{contents}, CURRENT_DATE)
     </insert>
     <delete id="deleteComment" parameterType="com.easyen.easyenglish.entity.comments">
         delete from comments

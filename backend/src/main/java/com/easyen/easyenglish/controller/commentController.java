@@ -33,13 +33,11 @@ public class commentController {
 
     // 显示某一个帖子实体的最近10条评论
     @GetMapping("/getcomments/{postID}")
-    public Result findCommentsByPost(@PathVariable("postID") Integer postID,
-                                     @RequestParam(value = "page", defaultValue = "1") Integer page,
-                                     @RequestParam(value = "pageSize", defaultValue = "2") Integer pageSize){
+    public Result findCommentsByPost(@PathVariable("postID") Integer postID){
         try {
             // 计算偏移量
-            int offset = (page - 1) * pageSize;
-            List<comments> comments = commentService.findCommentsByPost(postID, offset, pageSize);
+//            int offset = (page - 1) * pageSize;
+            List<comments> comments = commentService.findCommentsByPost(postID);
 
             return Result.success(comments);
         }catch (Exception e){
@@ -47,7 +45,7 @@ public class commentController {
         }
     }
     // 发布评论
-    //前端需要回传帖子ID，评论内容，评论时间
+    //前端需要回传帖子ID，评论内容
     @PostMapping("/addcomments")
     public Result addComment(@RequestHeader("Authorization") String userJWT, @RequestBody comments comment){
         Integer userId = JwtUtil.getUserIdByJWT(userJWT);
