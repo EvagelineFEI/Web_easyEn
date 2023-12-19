@@ -37,7 +37,12 @@ const learnTrack = {
             method: "post",
         })
     },
-
+    getWordNum_Today: (token: string) => {
+        return requester<WordNumData>({
+            url: "/word_practice",
+            method: "post",
+        })
+    },
     getSpeakNum: (token: string) => {
         return requester<Number>({
             url: "/view-progress/speak-num",

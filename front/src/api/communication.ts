@@ -42,14 +42,16 @@ const communicate = {
             url: "/post/returnAll",
             method: "get",
 
+
+
+
         })
     },
 
-    showPostComment: (postId: number, params: PostPages) => {
+    showPostComment: (postId: number) => {
         return requester<CommentData[]>({
             url: "/post/returnbyid/" + postId,
             method: "get",
-            params,
         })
     },
 

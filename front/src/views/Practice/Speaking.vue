@@ -33,7 +33,6 @@ const submitTopic = async () => {
 
   await practice.getTopicAns(auth.user as string, data)
       .then((response) => {
-
         if (response.code === 200) {
           snackHandler('提交成功', 'success');
           // status.value = 'answer';

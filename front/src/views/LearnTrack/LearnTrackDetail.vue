@@ -27,6 +27,14 @@ const route = useRoute();
 
 
 async function getDetails() {
+  await learnTrack.getWordNum_Today(auth.user as string)
+      .then((response) => {
+        if (response.code === 200) {
+          const data = JSON.parse(response.resultData);
+          console.log(data);
+          wordNum.value = data.word_number;
+        }
+      })
 
   await learnTrack.getWordNum_CET4()
   .then((response) => {

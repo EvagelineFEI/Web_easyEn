@@ -82,12 +82,13 @@ const authStore = useAuthStore();
 onMounted(async () => {
   try {
     loading.value = true;
-    await communicate.getAllPost().then((response) => {
-      if (response.code === 200) {
-        user_posts.value = response.resultData;
-      } else {
-        user_posts.value = {} as UserPostData;
-      }
+    await communicate.showPostComment()
+      .then((response) => {
+        if (response.code === 200) {
+          user_posts.value = response.resultData;
+        } else {
+          user_posts.value = {} as UserPostData;
+        }
     })
   } catch (error) {
     console.error("Error fetching posts:", error);

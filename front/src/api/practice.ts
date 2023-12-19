@@ -98,7 +98,6 @@ const practice = {
             data
         })
     }
-
 }
 
 export default practice;
