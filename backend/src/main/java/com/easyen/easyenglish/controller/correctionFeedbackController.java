@@ -8,7 +8,7 @@ import com.easyen.easyenglish.service.correctionFeedbackService;
 import com.easyen.easyenglish.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
+import com.easyen.easyenglish.service.essayService;
 import java.util.List;
 
 @RestController
@@ -16,7 +16,8 @@ import java.util.List;
 public class correctionFeedbackController {
     @Autowired
     correctionFeedbackService correctionFeedbackService;
-
+    @Autowired
+    essayService essayService;
     // 增加批改记录，成功返回200
     // 把这个接口和获取批改建议整合起来了
     @PostMapping("/upload")
@@ -79,21 +80,35 @@ public class correctionFeedbackController {
         }
     }
 
-    // 传入批改要点requirement（String）、批改作文originalEssay（String），返回批改建议（String）
+//    // 传入批改要点requirement（String）、批改作文originalEssay（String），返回批改建议（String）
+//    @PostMapping("/Suggestion")
+//    public Result getChatResponse(@RequestHeader("Authorization") String userJWT,@RequestBody essay essay) {
+//        try {
+//            Integer user_id = JwtUtil.getUserIdByJWT(userJWT);
+//            String suggestion = correctionFeedbackService.generateSuggestion(essay.getEssay_requirements(),essay.getEssay_title(),essay.getEssay_content());
+//            correctionFeedback correctionFeedback = new correctionFeedback();
+//            correctionFeedback.setEssay_id(essay.getEssay_id());
+//            correctionFeedback.setCorrection_suggestions(suggestion);
+//            return Result.success(correctionFeedback);
+//        } catch (Exception e) {
+//            return Result.failure(e.getMessage());
+//        }
+//    }
+    // 修改版：上传作文时，已经把作文存到数据库了，所以不需要前端再上传一次传入批改要点requirement（String）、批改作文originalEssay（String），返回批改建议（String）
     @PostMapping("/Suggestion")
     public Result getChatResponse(@RequestHeader("Authorization") String userJWT,@RequestBody essay essay) {
         try {
             Integer user_id = JwtUtil.getUserIdByJWT(userJWT);
-            String suggestion = correctionFeedbackService.generateSuggestion(essay.getEssay_requirements(),essay.getEssay_title(),essay.getEssay_content());
+            essay essay_ = essayService.findByID(essay.getEssay_id());
+            String suggestion = correctionFeedbackService.generateSuggestion_new(essay_);
             correctionFeedback correctionFeedback = new correctionFeedback();
-            correctionFeedback.setEssay_id(essay.getEssay_id());
+            correctionFeedback.setEssay_id(essay_.getEssay_id());
             correctionFeedback.setCorrection_suggestions(suggestion);
             return Result.success(correctionFeedback);
         } catch (Exception e) {
             return Result.failure(e.getMessage());
         }
     }
-
     // 传入批改要点requirement（String）、批改作文originalEssay（String），返回批改分数（String）
     @PostMapping("/essayScore")
     public Result getChatScore(@RequestBody essayGenerate essayGenerate, @RequestHeader("Authorization") String userJWT) {
