@@ -127,4 +127,32 @@ public class correctionFeedbackServiceImpl implements correctionFeedbackService 
         String generatedText = choice.getText();
         return generatedText;
     }
+
+    @Override
+    public String generateSuggestion_new(essay essay_) {
+//        essay essay = essayService.findByID(essay_id);
+        ObjectMapper mapper = defaultObjectMapper();
+        Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(host, port));
+        OkHttpClient client = defaultClient(token, timeout)
+                .newBuilder()
+                .proxy(proxy)
+                .build();
+        Retrofit retrofit = defaultRetrofit(client, mapper);
+        OpenAiApi api = retrofit.create(OpenAiApi.class);
+        OpenAiService service = new OpenAiService(api);
+        // 构建ChatGPT请求
+        CompletionRequest completionRequest = CompletionRequest.builder()
+                .model("text-davinci-003")
+                .prompt("请你为我的作文返回批改意见。我希望你从这几个要求入手批改："+essay_.getEssay_requirements()+"。作文题目要求是："+essay_.getEssay_title()+"我的作文是："+essay_.getEssay_content())
+                .temperature(t)
+                .maxTokens(maxt)
+                .topP(1D)
+                .frequencyPenalty(0D)
+                .presencePenalty(0D)
+                .build();
+        CompletionChoice choice = service.createCompletion(completionRequest).getChoices().get(0);
+        String generatedText = choice.getText();
+        return generatedText;
+
+    }
 }
