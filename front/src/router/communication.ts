@@ -1,5 +1,5 @@
 import WritePost from "@/views/Communication/WritePost.vue";
-import Communication from "@/views/Communication.vue";
+import Communication from "@/views/Communication/Communication.vue";
 import Post from "@/views/Communication/Post.vue";
 import PostManage from "@/views/Communication/PostManage.vue";
 

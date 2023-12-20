@@ -35,6 +35,7 @@ const showPassage = ref(false);
                   rows="12"
                   label="正文"
                   :model-value="props.content"
+                  variant="solo"
                   readonly
               >
               </v-textarea>
@@ -43,7 +44,12 @@ const showPassage = ref(false);
         </v-form>
       </v-card-text>
       <v-card-actions>
-        <v-btn color="primary" @click="showPassage = !showPassage">关闭</v-btn>
+        <v-btn
+            color="primary"
+            @click="showPassage = !showPassage"
+        >
+          关闭
+        </v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>

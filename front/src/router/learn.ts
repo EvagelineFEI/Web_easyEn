@@ -1,7 +1,7 @@
 import Speaking from "@/views/Practice/Speaking.vue";
 import Writing from "@/views/Practice/Writing.vue";
 import Vocabulary from "@/views/Practice/Vocabulary.vue";
-import Articles from "@/views/Practice/Article/Articles.vue";
+import Articles from "@/views/Practice/Articles.vue";
 //import Learning from "@/views/Practice.vue";
 
 export default [

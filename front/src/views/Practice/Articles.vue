@@ -78,7 +78,7 @@ refreshArticles();
           <v-skeleton-loader
               :loading="loading"
               height="350"
-              type="image, list-item-two-line"
+              type="image, article"
           >
             <v-responsive>
               <v-img

@@ -18,9 +18,6 @@ const headers = [
 
 const auth = useAuthStore();
 const userWrites: Ref<WriteData[]> = ref([]);
-const showPassage = ref(false);
-const showConfirm = ref(false);
-
 
 const snackProvider = ref(false);
 const snackProviderMessages = ref('');
@@ -44,9 +41,7 @@ async function loadItems() {
   })
 }
 
-const Delete = async () => {
-
-}
+const Delete = async () => {}
 
 const judgeCorrection = async (id: number) => {
   await practice.searchWrite(auth.user as string)
@@ -70,7 +65,6 @@ const filteredItems = computed(() => {
 
 loadItems()
 </script>
-
 
 <template>
   <v-row>
@@ -106,10 +100,17 @@ loadItems()
                 <v-col cols="2">
                   <Passages
                     :title="item.essay_title"
-                    :content="item.essay_content" />
+                    :content="item.essay_content"
+                  />
                 </v-col>
                 <v-col cols="2">
-                  <v-btn variant="text" color="primary" @click="judgeCorrection(item.essay_id)">批改</v-btn>
+                  <v-btn
+                      variant="text"
+                      color="primary"
+                      @click="judgeCorrection(item.essay_id)"
+                  >
+                    批改
+                  </v-btn>
                 </v-col>
                 <v-col cols="2">
 

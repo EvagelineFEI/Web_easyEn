@@ -69,4 +69,3 @@ function getUnitLogo(src: string) {
   text-align: center;
 }
 </style>
-

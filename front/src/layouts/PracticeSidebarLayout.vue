@@ -17,8 +17,9 @@ const nav = ref(configs.menu.learnNav);
                     </v-card>
                 </v-col>
                 <v-col cols="9">
-                    <v-sheet min-height="70vh" elevation="4" rounded="lg" border>
+                    <v-sheet min-height="auto" elevation="4" rounded="lg" border>
                         <slot />
+                        <br/>
                     </v-sheet>
                 </v-col>
             </v-row>

@@ -216,6 +216,8 @@ const navs = [
                   v-model="userContent"
                   label="用户简介"
                   readonly
+                  variant="solo"
+                  hide-details
                   :loading="loading">
               </v-textarea>
             </v-col>
@@ -223,9 +225,26 @@ const navs = [
         </v-form>
       </v-card-text>
       <v-card-actions>
-        <v-btn color="primary" @click="toggleEdit" v-if="!editing">编辑</v-btn>
-        <v-btn color="primary" @click="saveChanges" v-if="editing">保存</v-btn>
-        <v-btn color="primary" @click="profileTrigger">关闭</v-btn>
+        <v-btn
+            color="primary"
+            @click="toggleEdit"
+            v-if="!editing"
+        >
+          编辑
+        </v-btn>
+        <v-btn
+            color="primary"
+            @click="saveChanges"
+            v-if="editing"
+        >
+          保存
+        </v-btn>
+        <v-btn
+            color="primary"
+            @click="profileTrigger"
+        >
+          关闭
+        </v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -243,6 +262,7 @@ const navs = [
               <v-textarea
                   v-model="advice"
                   readonly
+                  variant="solo"
               >
               </v-textarea>
             </v-col>

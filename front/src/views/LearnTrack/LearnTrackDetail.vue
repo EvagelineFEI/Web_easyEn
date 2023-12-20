@@ -3,11 +3,11 @@ import {useAuthStore} from "@/configs/stores/authStore";
 import learnTrack from "@/api/learnTrack"
 import {useRoute} from "vue-router";
 
-const wordNum = ref(3);
-const CET4total = ref(1456);
-const CET4prcatice = ref(2);
-const CET6total = ref(1456);
-const CET6prcatice = ref(1);
+const wordNum = ref(0);
+const CET4total = ref(0);
+const CET4prcatice = ref(0);
+const CET6total = ref(0);
+const CET6prcatice = ref(0);
 const CET4Progress = computed(() => CET4prcatice.value / CET4total.value * 100);
 const CET6Progress = computed(() => CET6prcatice.value / CET6total.value * 100);
 
@@ -18,7 +18,7 @@ const oralPraNum = computed(() => {
 
 const writeList = ref([]);
 const writeNum = computed(() => {
-  return writeList.value.length ?  writeList.value.length : 0;
+  return writeList.value.length ? writeList.value.length : 0;
 });
 
 const passageNum = ref('4');
@@ -31,42 +31,40 @@ async function getDetails() {
       .then((response) => {
         if (response.code === 200) {
           const data = JSON.parse(response.resultData);
-          console.log(data);
           wordNum.value = data.word_number;
         }
       })
 
   await learnTrack.getWordNum_CET4()
-  .then((response) => {
-    if (response.code === 200) {
-      const data = JSON.parse(response.resultData);
-      CET4total.value = data.word_number;
-    }
-  })
+      .then((response) => {
+        if (response.code === 200) {
+          const data = JSON.parse(response.resultData);
+          CET4total.value = data.word_number;
+        }
+      })
 
   await learnTrack.getWordNum_CET6()
-  .then((response) => {
-    if (response.code === 200) {
-      const data = JSON.parse(response.resultData);
-      CET6total.value = data.word_number;
-    }
-  })
+      .then((response) => {
+        if (response.code === 200) {
+          const data = JSON.parse(response.resultData);
+          CET6total.value = data.word_number;
+        }
+      })
 
   await learnTrack.getSpeakProgress(auth.user as string)
-  .then((response) => {
-      if (response.code === 200) {
-        oralList.value = response.resultData;
-      }
-  })
+      .then((response) => {
+        if (response.code === 200) {
+          oralList.value = response.resultData;
+        }
+      })
 
   await learnTrack.getEssayProgress(auth.user as string)
-  .then((response) => {
-    if (response.code === 200) {
-      writeList.value = response.resultData;
-    }
-  })
+      .then((response) => {
+        if (response.code === 200) {
+          writeList.value = response.resultData;
+        }
+      })
 
-  console.log(writeList.value)
 }
 
 const passages = ref([

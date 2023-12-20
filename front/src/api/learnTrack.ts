@@ -30,17 +30,21 @@ const learnTrack = {
             method: "post",
         })
     },
-    
+
     getWordNum_CET6: () => {
         return requester<WordNumData>({
             url: "/word_all_six",
             method: "post",
         })
     },
+
     getWordNum_Today: (token: string) => {
         return requester<WordNumData>({
             url: "/word_practice",
             method: "post",
+            headers: {
+                Authorization: token
+            }
         })
     },
     getSpeakNum: (token: string) => {
@@ -52,7 +56,7 @@ const learnTrack = {
             }
         })
     },
-    
+
     getEssayNum: (token: string) => {
         return requester<Number>({
             url: "/view-progress/essay-num",
@@ -62,7 +66,7 @@ const learnTrack = {
             }
         })
     },
-    
+
     getSpeakProgress: (token: string) => {
         return requester<PronunciationData[]>({
             url: "/view-progress/speak-progress",
@@ -72,7 +76,7 @@ const learnTrack = {
             }
         })
     },
-    
+
     getEssayProgress: (token: string) => {
         return requester<WritesData[]>({
             url: "/view-progress/essayprogress",

@@ -16,12 +16,6 @@ export default defineConfig({
         changeOrigin: true,
         ws: true,
       },
-      '/luo': {
-        target: 'http://',
-        rewrite: (path) => path.replace(/^\/luo/, ''),
-        changeOrigin: true,
-        ws: true,
-      },
     },
   },
 
