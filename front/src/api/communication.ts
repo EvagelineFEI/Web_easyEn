@@ -16,7 +16,7 @@ interface CommentData {
     post_id: number,
     user_id?: number,
     contents: string,
-    comment_time: string,
+    comment_time?: string,
     comment_state?: string,
 }
 
