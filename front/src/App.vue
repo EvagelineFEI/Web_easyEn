@@ -5,13 +5,10 @@ import CommunicationSidebarLayout from "@/layouts/CommunicateSidebarLayout.vue";
 import PracticeSidebarLayout from "@/layouts/PracticeSidebarLayout.vue";
 import ErrorLayout from "@/layouts/ErrorLayout.vue";
 import configs from "@/configs";
-import {useAuthStore} from "@/configs/stores/authStore";
 
 // Store Listen
 const customizeTheme = configs.stores.useCustomizeThemeStore();
 const router = useRoute();
-const route = useRouter();
-const auth = useAuthStore();
 
 const isRouterLoaded = computed(() => {
   return router.name !== null;
@@ -21,7 +18,7 @@ const layouts = {
   default: DefaultLayout,
   communicate: CommunicationSidebarLayout,
   learn: PracticeSidebarLayout,
-  error: ErrorLayout
+  error: ErrorLayout,
 };
 
 type LayoutName = "default" | "communicate" | "learn" | "error";
@@ -37,11 +34,11 @@ const currentLayout = computed(() => {
 </script>
 
 <template>
-  <v-app id="inspire" :theme="customizeTheme.darkTheme? 'dark' : 'light'">
+  <v-app id="inspire" :theme="customizeTheme.darkTheme ? 'dark' : 'light'">
     <component :is="currentLayout" v-if="isRouterLoaded">
-      <router-view/>
+      <router-view />
     </component>
-    <CustomizationMenu/>
+    <CustomizationMenu />
   </v-app>
 </template>
 
@@ -50,4 +47,3 @@ const currentLayout = computed(() => {
   max-width: 1140px;
 }
 </style>
-
