@@ -57,7 +57,7 @@ import {onMounted, ref} from 'vue';
 import type {CommentData, UserPostData} from '@/api/communication';
 import communicate from '@/api/communication';
 import {useAuthStore} from "@/configs/stores/authStore";
-
+import { useRoute } from 'vue-router';
 const postTitle = ref('Post Title');
 const postContent = ref('Post Content');
 const loading = ref(false);
@@ -76,13 +76,16 @@ const newComment = ref({
   author: '',
   message: '',
 });
-
+const route = useRoute();
 const authStore = useAuthStore();
-
+const postId = computed(() => {
+  const rawPostId = route.params.post_id;
+  return typeof rawPostId === 'string' ? parseInt(rawPostId, 10) : 0;
+});
 onMounted(async () => {
   try {
     loading.value = true;
-    await communicate.showPostComment()
+    await communicate.showPostComment(postId.value)
       .then((response) => {
         if (response.code === 200) {
           user_posts.value = response.resultData;
@@ -107,9 +110,9 @@ async function addComment() {
 
   const data: CommentData = {
     //post_id咋传
-    post_id: 0,
-    contents: newComment.message, // 你看看这里要怎么解决
-    comment_time: new Date().toDateString(),
+    post_id: postId.value,
+    contents: newComment.value.message
+
   }
 
   await communicate.postComment(authStore.user as string, data)

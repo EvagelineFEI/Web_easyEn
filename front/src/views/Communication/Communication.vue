@@ -80,7 +80,7 @@ loadItems();
               <v-card-subtitle>{{ item.raw.time }}</v-card-subtitle>
               <v-card-text>{{ item.raw.content }}</v-card-text>
             <div class="text-end pa-4">
-              <v-btn color="primary" :to="{ name: 'Post', params: { id: 0 } }">详情</v-btn>
+              <v-btn color="primary" :to="{ name: 'Post', params: { id: item.raw.post_id } }">详情</v-btn>
             </div>
             </v-card>
             <br/>
