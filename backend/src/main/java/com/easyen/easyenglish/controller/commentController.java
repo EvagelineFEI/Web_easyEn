@@ -33,12 +33,11 @@ public class commentController {
 
     // 显示某一个帖子实体的最近10条评论
     @GetMapping("/getcomments/{postID}")
-    public Result findCommentsByPost(@PathVariable("postID") Integer postID){
+    public Result findCommentsByPost(@PathVariable Integer postID){
         try {
             // 计算偏移量
 //            int offset = (page - 1) * pageSize;
             List<comments> comments = commentService.findCommentsByPost(postID);
-
             return Result.success(comments);
         }catch (Exception e){
             return Result.failure(e.getMessage());

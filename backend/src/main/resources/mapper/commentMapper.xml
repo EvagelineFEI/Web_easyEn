@@ -3,14 +3,11 @@
 <mapper namespace="com.easyen.easyenglish.mapper.commentMapper">
     <select id="selectAllComments" resultType="com.easyen.easyenglish.entity.comments">
 
-        select * from comments where post_id = #{postID} and comment_state = true
+        select * from comments where post_id = #{post_id} and comment_state = true
     </select>
     <select id="selectCommentsByPost" resultType="com.easyen.easyenglish.entity.comments">
-        select * from comments
-        where comment_state = true and
-            post_id = #{postID}
+        select * from comments where post_id = #{postID} and comment_state = true
         order by comment_time desc
---             limit #{pageSize} offset #{offset}
     </select>
     <insert id="insertComment" parameterType="com.easyen.easyenglish.entity.comments">
         insert INTO comments (comment_state, user_id, post_id, contents, comment_time)
