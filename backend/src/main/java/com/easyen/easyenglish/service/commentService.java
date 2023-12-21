@@ -7,7 +7,7 @@ import java.util.List;
 public interface commentService {
 
     List<comments> findAllComments(Integer post_id);
-    List<comments> findCommentsByPost(Integer postID, Integer offset, Integer pageSize);
+    List<comments> findCommentsByPost(Integer postID);
     void addComment(comments comment);
     void deleteComment(Integer commentID);
 

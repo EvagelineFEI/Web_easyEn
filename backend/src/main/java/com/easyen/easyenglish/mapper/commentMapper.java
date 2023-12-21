@@ -12,7 +12,7 @@ public interface commentMapper {
     List<comments> selectAllComments(Integer post_id);
 
     // 按照帖子实体查询评论
-    List<comments> selectCommentsByPost(Integer postID, Integer offset, Integer pageSize);
+    List<comments> selectCommentsByPost(Integer postID);
     // 发帖
     void insertComment(comments comment);
     // 删除

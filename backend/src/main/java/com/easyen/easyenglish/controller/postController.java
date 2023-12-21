@@ -31,8 +31,10 @@ public class postController {
         post.setUser_id(userId);
         try {
             postService.addPost(post);
+            System.out.println("Response body: " + post);
             return Result.success(post);
         }catch (Exception e){
+            System.out.println("error: " + e.getMessage());
             return Result.failure(e.getMessage());
         }
     }
@@ -53,21 +55,19 @@ public class postController {
     // 按照potsid查询
     //点击某条帖子，会拉出所有的评论
     @GetMapping("/returnbyid/{postID}")
-    public Result findPostByID(@PathVariable("postID") Integer postID,
-                               @RequestParam(value = "page", defaultValue = "1") Integer page,
-                               @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize){
+    public Result findPostByID(@PathVariable("postID") Integer postID){
         try{
             // 查询帖子内容
             post_name posts = postService.findPostByID(postID);
             // 查询对应的评论
-            int offset = (page - 1) * pageSize;
-            List<comments> comments = commentService.findCommentsByPost(postID, offset, pageSize);
+//            int offset = (page - 1) * pageSize;
+            List<comments> comments = commentService.findCommentsByPost(postID);
             // 构建结果对象
 
-//            Map<String, Object> result = new HashMap<>();
-//            result.put("posts", posts);
-//            result.put("comments", comments);
-
+            Map<String, Object> result = new HashMap<>();
+            result.put("posts", posts);
+            result.put("comments", comments);
+            System.out.println(Result.success(comments));
             return Result.success(comments);
 
         }catch (Exception e){
@@ -92,7 +92,7 @@ public class postController {
             Map<post_name, List<comments>> postCommentMap = new HashMap<>();
             for (post_name post : posts) {
                 //System.out.print(post.getUser_id());
-                List<comments> comments= commentService.findCommentsByPost(post.getPost_id(), offset, pageSize);
+                List<comments> comments= commentService.findCommentsByPost(post.getPost_id());
                 //System.out.print(comments);
                 postCommentMap.put(post, comments);
             }
@@ -114,7 +114,7 @@ public class postController {
             // 遍历每一个帖子，查找对应的评论
             Map<post_name, List<comments>> postCommentMap = new HashMap<>();
             for (post_name post : posts) {
-                List<comments> comments = commentService.findCommentsByPost(post.getPost_id(), offset, pageSize);
+                List<comments> comments = commentService.findCommentsByPost(post.getPost_id());
                 postCommentMap.put(post, comments);
             }
             return Result.success(postCommentMap);
