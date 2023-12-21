@@ -2,6 +2,7 @@ package com.easyen.easyenglish.service;
 
 import com.easyen.easyenglish.entity.post_name;
 
+import java.util.Date;
 import java.util.List;
 
 public interface postService {
@@ -18,5 +19,6 @@ public interface postService {
     void updatePost(post_name post);
 
     void deletePost(Integer postID);
+    List<post_name> findPostByTime(String startDate, String endDate);
 }
 

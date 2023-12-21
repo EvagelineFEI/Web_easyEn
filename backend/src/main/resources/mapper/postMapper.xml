@@ -45,4 +45,8 @@
         delete from post_name
         where post_id = #{postID}
     </delete>
+    <select id="findPostByTime" resultType="com.easyen.easyenglish.entity.post_name">
+        SELECT * FROM post_name
+        WHERE post_time BETWEEN #{startDate} AND #{endDate}
+    </select>
 </mapper>
