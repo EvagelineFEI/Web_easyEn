@@ -55,21 +55,19 @@ public class postController {
     // 按照potsid查询
     //点击某条帖子，会拉出所有的评论
     @GetMapping("/returnbyid/{postID}")
-    public Result findPostByID(@PathVariable("postID") Integer postID,
-                               @RequestParam(value = "page", defaultValue = "1") Integer page,
-                               @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize){
+    public Result findPostByID(@PathVariable("postID") Integer postID){
         try{
             // 查询帖子内容
             post_name posts = postService.findPostByID(postID);
             // 查询对应的评论
-            int offset = (page - 1) * pageSize;
+//            int offset = (page - 1) * pageSize;
             List<comments> comments = commentService.findCommentsByPost(postID);
             // 构建结果对象
 
-//            Map<String, Object> result = new HashMap<>();
-//            result.put("posts", posts);
-//            result.put("comments", comments);
-
+            Map<String, Object> result = new HashMap<>();
+            result.put("posts", posts);
+            result.put("comments", comments);
+            System.out.println(Result.success(comments));
             return Result.success(comments);
 
         }catch (Exception e){
