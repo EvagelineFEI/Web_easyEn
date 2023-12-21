@@ -31,8 +31,10 @@ public class postController {
         post.setUser_id(userId);
         try {
             postService.addPost(post);
+            System.out.println("Response body: " + post);
             return Result.success(post);
         }catch (Exception e){
+            System.out.println("error: " + e.getMessage());
             return Result.failure(e.getMessage());
         }
     }

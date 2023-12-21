@@ -50,10 +50,13 @@ public class commentController {
     public Result addComment(@RequestHeader("Authorization") String userJWT, @RequestBody comments comment){
         Integer userId = JwtUtil.getUserIdByJWT(userJWT);
         comment.setUser_id(userId);
+        comment.setComment_state(true);
         try{
             commentService.addComment(comment);
+            System.out.println("新评论"+comment); //
             return Result.success(comment);
         }catch (Exception e){
+            System.out.println(e.getMessage());
             return Result.failure(e.getMessage());
         }
     }
