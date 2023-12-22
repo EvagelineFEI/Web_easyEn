@@ -8,12 +8,12 @@
 
     <v-card :loading="loading">
       <v-card-title>
-        <h2>{{ postTitle }}</h2>
+        <h2>{{ title }}</h2>
       </v-card-title>
       <v-card-text min-height="250px">
-        <p>Author: John Doe</p>
-        <p>Published: 2021-01-01</p>
-        <p>{{ postContent }}</p>
+        <p>{{ time }}</p>
+        <p> Author: {{ author }}</p>
+        <p>{{ content }}</p>
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
@@ -26,20 +26,28 @@
       </v-card-actions>
     </v-card>
     <br/>
+
     <v-card :loading="loading">
       <v-card-title>
         <h2>Comments</h2>
       </v-card-title>
       <v-card-text>
-        <v-row v-for="(comment, index) in user_comment" :key="index">
+        <v-row v-for="(comment, index) in user_comment" :key="index" v-if="user_comment.length !== 0">
           <v-col cols="12">
+            <v-divider></v-divider>
             <h3>{{ comment.contents }}</h3>
-            <p>{{ comment.comment_time }}</p>
+            <p> User: {{ comment.user_id }}, {{ comment.comment_time }}</p>
+            <br/>
           </v-col>
         </v-row>
+        <div v-else>
+          No Comments
+        </div>
       </v-card-text>
     </v-card>
+
     <br/>
+
     <v-card>
       <v-card-title>
         <h2>发表评论</h2>
@@ -54,39 +62,33 @@
 
 <script lang="ts" setup>
 import {onMounted, ref} from 'vue';
-import type {CommentData, UserPostData} from '@/api/communication';
+import type {CommentData, UserPostData, PostComment} from '@/api/communication';
 import communicate from '@/api/communication';
 import {useAuthStore} from "@/configs/stores/authStore";
 import { useRoute } from 'vue-router';
-const postTitle = ref('Post Title');
-const postContent = ref('Post Content');
+
+
 const loading = ref(false);
-const comments = ref([
-  {
-    author: 'John Doe',
-    message: 'This is a comment.',
-  },
-  {
-    author: 'Jane Smith',
-    message: 'Another comment.',
-  },
-  {
-    contents: '',
-    comment_time:''
-  },
-]);
-const user_comment = ref<CommentData>();
-const user_post = ref<UserPostData>();
+const user_comment = ref<CommentData[]>([]);
+
+const title = ref<string>('');
+const time = ref<string>('');
+const author = ref<number>(0);
+const content = ref<string>('');
+
 const newComment = ref({
   author: '',
   message: '',
 });
+
 const route = useRoute();
 const authStore = useAuthStore();
 const postId = computed(() => {
   const rawPostId = route.params.id;
   return typeof rawPostId === 'string' ? parseInt(rawPostId, 10) : 0;
 });
+
+
 onMounted(async () => {    //显示帖子 和 它下面的评论
   try {
     loading.value = true;
@@ -94,11 +96,14 @@ onMounted(async () => {    //显示帖子 和 它下面的评论
       .then((response) => {
         if (response.code === 200) {
           console.log(response)
-          const data = response.resultData;
+          const data: PostComment = response.resultData;
           user_comment.value = data.comments;  // 存评论
-          user_post.value = data.posts;  // 存帖子
+          title.value = data.posts.title;
+          time.value = formatDate(data.posts.time as string);
+          author.value = Number(data.posts.user_id);
+          content.value = data.posts.content as string;
         } else {
-          user_comment.value = {} as CommentData;
+          user_comment.value = [] as CommentData[];
         }
         console.log(user_comment)
     })
@@ -109,28 +114,39 @@ onMounted(async () => {    //显示帖子 和 它下面的评论
   }
 });
 
+function formatDate(input: string): string {
+  let date = new Date(input);
+
+  const options: Intl.DateTimeFormatOptions = {
+    year: 'numeric',
+    month: 'numeric',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+    second: 'numeric',
+    hour12: false,
+  };
+
+  return new Intl.DateTimeFormat('cn-ZH', options).format(date);
+}
+
 async function addComment() {
-  comments.value.push({
-    author: newComment.value.author,
-    message: newComment.value.message,
-  });
+
   newComment.value.author = '';
   // newComment.value.message = '';
 
   const data: CommentData = {
-    //post_id咋传
     post_id: postId.value,
     contents: newComment.value.message
-
   }
 
   await communicate.postComment(authStore.user as string, data)
       .then((response) => {
         // 处理响应，例如将新评论添加到显示列表
         if (response.code === 200) {
-          comments.value.push(response.resultData);
           newComment.value.author = '';
           newComment.value.message = '';
+          user_comment.value.push(response.resultData);
         }
       })
       .catch((error) => {

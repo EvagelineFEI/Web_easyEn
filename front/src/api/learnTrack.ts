@@ -20,26 +20,47 @@ interface PronunciationData {
 
 interface WordNumData {
     errno: number,
-    word_number: number,
+    word_number?: number,
+    num?: number,
 }
 
 const learnTrack = {
-    getWordNum_CET4: () => {
-        return requester<WordNumData>({
+    getWordNum_CET4: async () => {
+        return await requester<WordNumData>({
             url: "/word_all_four",
             method: "post",
         })
     },
 
-    getWordNum_CET6: () => {
-        return requester<WordNumData>({
+    getWordNum_CET6: async () => {
+        return await requester<WordNumData>({
             url: "/word_all_six",
             method: "post",
         })
     },
 
-    getWordNum_Today: (token: string) => {
-        return requester<WordNumData>({
+    getUserWord_CET4: async (token: string) => {
+        return await requester<WordNumData>({
+            url: "/user_master_four",
+            method: "post",
+            headers: {
+                Authorization: token
+            }
+        })
+    },
+
+    getUserWord_CET6: async (token: string) => {
+        return await requester<WordNumData>({
+            url: "/user_master_six",
+            method: "post",
+            headers: {
+                Authorization: token
+            }
+        })
+    },
+
+    getWordNum_Today: async (token: string) => {
+        return await requester<WordNumData>({
             url: "/word_practice",
             method: "post",
             headers: {
@@ -47,8 +68,8 @@ const learnTrack = {
             }
         })
     },
-    getSpeakNum: (token: string) => {
-        return requester<Number>({
+    getSpeakNum: async (token: string) => {
+        return await requester<Number>({
             url: "/view-progress/speak-num",
             method: "post",
             headers: {
@@ -57,8 +78,8 @@ const learnTrack = {
         })
     },
 
-    getEssayNum: (token: string) => {
-        return requester<Number>({
+    getEssayNum: async (token: string) => {
+        return await requester<Number>({
             url: "/view-progress/essay-num",
             method: "post",
             headers: {
@@ -67,8 +88,8 @@ const learnTrack = {
         })
     },
 
-    getSpeakProgress: (token: string) => {
-        return requester<PronunciationData[]>({
+    getSpeakProgress: async (token: string) => {
+        return await requester<PronunciationData[]>({
             url: "/view-progress/speak-progress",
             method: "post",
             headers: {
@@ -77,8 +98,8 @@ const learnTrack = {
         })
     },
 
-    getEssayProgress: (token: string) => {
-        return requester<WritesData[]>({
+    getEssayProgress: async (token: string) => {
+        return await requester<WritesData[]>({
             url: "/view-progress/essayprogress",
             method: "post",
             headers: {
@@ -91,6 +112,7 @@ const learnTrack = {
 export default learnTrack;
 
 export type {
+    WordNumData,
     WritesData,
     PronunciationData,
 }

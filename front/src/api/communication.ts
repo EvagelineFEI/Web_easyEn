@@ -20,6 +20,11 @@ interface CommentData {
     comment_state?: string,
 }
 
+interface PostComment {
+    posts: UserPostData,
+    comments: CommentData[]
+}
+
 interface PostPages {
     page: number,
     pageSize: number
@@ -41,15 +46,11 @@ const communicate = {
         return requester<UserPostData[]>({
             url: "/post/returnAll",
             method: "get",
-
-
-
-
         })
     },
 
     showPostComment: (postId: number) => {
-        return requester<CommentData[]>({
+        return requester<PostComment>({
             url: "/post/returnbyid/" + postId,
             method: "get",
         })
@@ -119,6 +120,7 @@ const communicate = {
 export default communicate;
 
 export type {
+    PostComment,
     UserPostData,
     PostPages,
     CommentData,

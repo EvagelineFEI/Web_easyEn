@@ -13,6 +13,7 @@ async function loadItems() {
   await communicate.getAllPost()
     .then((response) => {
       if (response.code === 200) {
+        console.log(response)
         recvPosts.value = response.resultData as UserPostData[];
       } else {
         recvPosts.value = [] as UserPostData[];

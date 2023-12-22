@@ -19,24 +19,24 @@ const articles: Ref<ArticleData[]> = ref([
   },
   {
     article_id: '3',
-    article_name: 'abandon',
-    article_descr: 'əˈbændən',
-    pic_url: '放弃，抛弃',
-    article_url: 'https://www.baidu.com'
+    article_name: '',
+    article_descr: '',
+    pic_url: '',
+    article_url: ''
   },
   {
     article_id: '4',
-    article_name: 'abandon',
-    article_descr: 'əˈbændən',
-    pic_url: '放弃，抛弃',
-    article_url: 'https://www.baidu.com'
+    article_name: '',
+    article_descr: '',
+    pic_url: '',
+    article_url: ''
   },
   {
     article_id: '5',
-    article_name: 'abandon',
-    article_descr: 'əˈbændən',
-    pic_url: '放弃，抛弃',
-    article_url: 'https://www.baidu.com'
+    article_name: '',
+    article_descr: '',
+    pic_url: '',
+    article_url: ''
   },
   {
     article_id: '6',

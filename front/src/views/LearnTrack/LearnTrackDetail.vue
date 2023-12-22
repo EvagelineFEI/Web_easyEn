@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { useAuthStore } from "@/configs/stores/authStore";
 import learnTrack from "@/api/learnTrack";
+import type {WordNumData} from "@/api/learnTrack";
 
 const wordNum = ref(0);
 const CET4total = ref(0);
@@ -41,6 +42,22 @@ async function getDetails() {
       CET4total.value = data.word_number;
     }
   });
+
+  await learnTrack.getUserWord_CET4(auth.user as string).then((response) => {
+    if (response.code === 200) {
+      const data: WordNumData = JSON.parse(response.resultData);
+      console.log(data)
+      CET4prcatice.value = Number(data.num);
+    }
+  })
+
+  await learnTrack.getUserWord_CET6(auth.user as string).then((response) => {
+    if (response.code === 200) {
+      const data: WordNumData = JSON.parse(response.resultData);
+      console.log(data)
+      CET6prcatice.value = Number(data.num);
+    }
+  })
 
   await learnTrack.getWordNum_CET6().then((response) => {
     if (response.code === 200) {

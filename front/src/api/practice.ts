@@ -38,15 +38,15 @@ interface WriteData {
 
 
 const practice = {
-    getArticle: () => {
-        return requester<ArticleData>({
+    getArticle: async () => {
+        return await requester<ArticleData>({
             url: "/article",
             method: "post"
         })
     },
 
-    getNewWord: (token: string, params: WordReqeustParams) => {
-        return requester<WordData>({
+    getNewWord: async (token: string, params: WordReqeustParams) => {
+        return await requester<WordData>({
             url: "/word",
             method: "post",
             headers: {
@@ -56,8 +56,8 @@ const practice = {
         })
     },
     
-    updateUserWord: (token: string, params: WordData) =>  {
-        return requester<WordData>({
+    updateUserWord: async (token: string, params: WordData) =>  {
+        return await requester<WordData>({
             url: "/user_practice",
             method: "post",
             headers: {
@@ -67,8 +67,8 @@ const practice = {
         })
     },
 
-    submitEssay: (token: string, data: WriteData) => {
-        return requester<WriteData>({
+    submitEssay: async (token: string, data: WriteData) => {
+        return await requester<WriteData>({
             url: "/essay/upload",
             method: "post",
             headers: {
@@ -78,8 +78,8 @@ const practice = {
         })
     },
 
-    searchWrite: (token: string) => {
-        return requester<WriteData[]>({
+    searchWrite: async (token: string) => {
+        return await requester<WriteData[]>({
             url: "/essay/findByUser",
             method: "get",
             headers: {
@@ -88,8 +88,8 @@ const practice = {
         })
     },
 
-    getTopicAns: (token: string,data: SpeakTopicData) => {
-        return requester<string>({
+    getTopicAns: async (token: string,data: SpeakTopicData) => {
+        return await requester<string>({
             url: "/speaken/speakFeedback",
             method: "post",
             headers: {
