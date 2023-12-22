@@ -31,10 +31,10 @@
         <h2>Comments</h2>
       </v-card-title>
       <v-card-text>
-        <v-row v-for="(comment, index) in comments" :key="index">
+        <v-row v-for="(comment, index) in user_comment" :key="index">
           <v-col cols="12">
-            <h3>{{ comment.author }}</h3>
-            <p>{{ comment.message }}</p>
+            <h3>{{ comment.contents }}</h3>
+            <p>{{ comment.comment_time }}</p>
           </v-col>
         </v-row>
       </v-card-text>
@@ -70,8 +70,13 @@ const comments = ref([
     author: 'Jane Smith',
     message: 'Another comment.',
   },
+  {
+    contents: '',
+    comment_time:''
+  },
 ]);
-const user_posts = ref<UserPostData>();
+const user_comment = ref<CommentData>();
+const user_post = ref<UserPostData>();
 const newComment = ref({
   author: '',
   message: '',
@@ -79,19 +84,23 @@ const newComment = ref({
 const route = useRoute();
 const authStore = useAuthStore();
 const postId = computed(() => {
-  const rawPostId = route.params.post_id;
+  const rawPostId = route.params.id;
   return typeof rawPostId === 'string' ? parseInt(rawPostId, 10) : 0;
 });
-onMounted(async () => {
+onMounted(async () => {    //显示帖子 和 它下面的评论
   try {
     loading.value = true;
     await communicate.showPostComment(postId.value)
       .then((response) => {
         if (response.code === 200) {
-          user_posts.value = response.resultData;
+          console.log(response)
+          const data = response.resultData;
+          user_comment.value = data.comments;  // 存评论
+          user_post.value = data.posts;  // 存帖子
         } else {
-          user_posts.value = {} as UserPostData;
+          user_comment.value = {} as CommentData;
         }
+        console.log(user_comment)
     })
   } catch (error) {
     console.error("Error fetching posts:", error);
@@ -106,7 +115,7 @@ async function addComment() {
     message: newComment.value.message,
   });
   newComment.value.author = '';
-  newComment.value.message = '';
+  // newComment.value.message = '';
 
   const data: CommentData = {
     //post_id咋传
