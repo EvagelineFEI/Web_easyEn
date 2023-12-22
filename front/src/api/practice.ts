@@ -20,7 +20,7 @@ interface WordData {
     ch_word?: string,
     phonetic_sign?: string,
 }
-export interface SpeakTopicData {
+interface SpeakTopicData {
     requirements: string,
     topic: string
 }
@@ -29,9 +29,10 @@ export interface SpeakTopicData {
 interface WriteData {
     essay_id?: number,
     user_id?: number,
-    essay_title: string,
-    essay_content: string,
-    essay_requirements: string,
+    essay_title?: string,
+    essay_content?: string,
+    essay_requirements?: string,
+    correction_suggestions?: string,
     upload_date?: string,
     status?: string
 }
@@ -78,6 +79,28 @@ const practice = {
         })
     },
 
+    essayAns: async (token: string, data: WriteData) => {
+        return await requester<WriteData>({
+            url: "/suggestion/Suggestion",
+            method: "post",
+            headers: {
+                Authorization: token
+            },
+            data,
+        })
+    },
+
+    deleteEssay: async (token: string, data: WriteData) => {
+        return await requester<WriteData>({
+            url: "/essay/delete",
+            method: "delete",
+            headers: {
+                Authorization: token
+            },
+            data,
+        })
+    },
+
     searchWrite: async (token: string) => {
         return await requester<WriteData[]>({
             url: "/essay/findByUser",
@@ -103,6 +126,7 @@ const practice = {
 export default practice;
 
 export type {
+    SpeakTopicData,
     ArticleData,
     WordReqeustParams,
     WordData,

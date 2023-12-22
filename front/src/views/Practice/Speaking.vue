@@ -21,11 +21,16 @@ const snackHandler = (message: string, color: string) => {
   snackProvider.value = true;
 }
 
+const getTopic = async () => {
+  //const token = practice.getTopicAns()
+}
+
 const submitTopic = async () => {
   if (essay_req.value === '' || essay_content.value === '') {
     snackHandler('请填写完整信息', 'error');
     return;
   }
+
   const data: SpeakTopicData = {
     requirements: essay_req.value,
     topic: essay_content.value,
@@ -69,7 +74,7 @@ const submitTopic = async () => {
               color="primary"
               @click="submitTopic"
           >
-            提交并得到话题回答
+            提交话题
           </v-btn>
         </v-col>
       </v-row>

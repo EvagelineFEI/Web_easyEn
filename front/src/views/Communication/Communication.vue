@@ -36,6 +36,18 @@ const page = ref(1);
 
 const auth = useAuthStore();
 
+function formatDate(input: string): string {
+  let date = new Date(input);
+
+  const options: Intl.DateTimeFormatOptions = {
+    year: 'numeric',
+    month: 'numeric',
+    day: 'numeric',
+  };
+
+  return new Intl.DateTimeFormat('cn-ZH', options).format(date);
+}
+
 function clearKeyword() {
   triggerKeyword.value = ''
 }
@@ -78,7 +90,7 @@ loadItems();
           >
             <v-card>
               <v-card-title>{{ item.raw.title }}</v-card-title>
-              <v-card-subtitle>{{ item.raw.time }}</v-card-subtitle>
+              <v-card-subtitle>{{ formatDate(item.raw.time) }}</v-card-subtitle>
               <v-card-text>{{ item.raw.content }}</v-card-text>
             <div class="text-end pa-4">
               <v-btn color="primary" :to="{ name: 'Post', params: { id: item.raw.post_id } }">详情</v-btn>

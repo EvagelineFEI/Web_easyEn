@@ -25,6 +25,7 @@
         </v-btn>
       </v-card-actions>
     </v-card>
+
     <br/>
 
     <v-card :loading="loading">
@@ -36,7 +37,7 @@
           <v-col cols="12">
             <v-divider></v-divider>
             <h3>{{ comment.contents }}</h3>
-            <p> User: {{ comment.user_id }}, {{ comment.comment_time }}</p>
+            <p> User: {{ comment.user_id }}, {{ formatDate(comment.comment_time) }}</p>
             <br/>
           </v-col>
         </v-row>
@@ -53,8 +54,17 @@
         <h2>发表评论</h2>
       </v-card-title>
       <v-card-text>
-        <v-textarea v-model="newComment.message" label="Message"></v-textarea>
-        <v-btn color="primary" @click="addComment">发布</v-btn>
+        <v-textarea
+            :disabled="!authStore.isLoggedIn"
+            v-model="newComment.message"
+            :label="authStore.isLoggedIn ? '输入信息' : '此功能仅限登录用户使用'"
+        />
+        <v-btn
+            :disabled="!authStore.isLoggedIn"
+            color="primary"
+            @click="addComment">
+          发布
+        </v-btn>
       </v-card-text>
     </v-card>
   </v-col>
@@ -121,10 +131,6 @@ function formatDate(input: string): string {
     year: 'numeric',
     month: 'numeric',
     day: 'numeric',
-    hour: 'numeric',
-    minute: 'numeric',
-    second: 'numeric',
-    hour12: false,
   };
 
   return new Intl.DateTimeFormat('cn-ZH', options).format(date);

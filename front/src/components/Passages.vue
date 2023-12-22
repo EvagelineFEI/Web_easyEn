@@ -9,15 +9,15 @@ const showPassage = ref(false);
 <template>
   <v-dialog
     v-model="showPassage"
-    max-width="500px"
+    max-width="600px"
   >
     <template v-slot:activator="{ props }">
       <v-btn
         color="info"
         variant="text"
+        icon="mdi-view-headline"
         v-bind="props"
       >
-        查看详情
       </v-btn>
     </template>
     <v-card>
@@ -44,6 +44,7 @@ const showPassage = ref(false);
         </v-form>
       </v-card-text>
       <v-card-actions>
+        <v-spacer />
         <v-btn
             color="primary"
             @click="showPassage = !showPassage"
