@@ -65,12 +65,11 @@ public class postController {
 //            int offset = (page - 1) * pageSize;
             List<comments> comments = commentService.findCommentsByPost(postID);
             // 构建结果对象
-
             Map<String, Object> result = new HashMap<>();
             result.put("posts", posts);
             result.put("comments", comments);
-            System.out.println(Result.success(comments));
-            return Result.success(comments);
+            System.out.println(Result.success(result));
+            return Result.success(result);
 
         }catch (Exception e){
             return Result.failure(e.getMessage());

@@ -47,6 +47,6 @@
     </delete>
     <select id="findPostByTime" resultType="com.easyen.easyenglish.entity.post_name">
         SELECT * FROM post_name
-        WHERE post_time BETWEEN #{startDate} AND #{endDate}
+        WHERE to_char(post_time,'%YYY-%mm-%dd') BETWEEN #{startDate} AND #{endDate}
     </select>
 </mapper>
