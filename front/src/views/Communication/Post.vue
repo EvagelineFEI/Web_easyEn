@@ -93,13 +93,13 @@ onMounted(async () => {    //显示帖子 和 它下面的评论
     await communicate.showPostComment(postId.value)
       .then((response) => {
         if (response.code === 200) {
-          const data = JSON.parse(response.resultData);
+          console.log(response)
+          const data = response.resultData;
           user_comment.value = data.comments;  // 存评论
           user_post.value = data.posts;  // 存帖子
         } else {
           user_comment.value = {} as CommentData;
         }
-        console.log(response)
         console.log(user_comment)
     })
   } catch (error) {
