@@ -1,8 +1,12 @@
 package com.easyen.easyenglish.entity;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class speakEnPracticeRecord{
     private Integer id;
     private Integer user_id;

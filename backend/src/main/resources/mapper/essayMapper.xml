@@ -18,7 +18,8 @@
         VALUES (#{user_id}, #{essay_title}, #{essay_content}, #{essay_requirements}, CURRENT_TIMESTAMP, #{status})
     </insert>
     <delete id="deleteEssay" parameterType="java.lang.Integer">
-        DELETE FROM essay WHERE essay_id = #{essayId}
+        DELETE FROM essay WHERE essay_id = #{essayId};
+        DELETE FROM correction_feedback WHERE essay_id = #{essayId}
     </delete>
     <update id="updateEssay" parameterType="com.easyen.easyenglish.entity.essay">
         UPDATE essay
