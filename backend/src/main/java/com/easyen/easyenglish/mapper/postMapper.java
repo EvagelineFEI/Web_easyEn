@@ -3,7 +3,10 @@ package com.easyen.easyenglish.mapper;
 import com.easyen.easyenglish.entity.post_name;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface postMapper {
@@ -20,5 +23,6 @@ public interface postMapper {
     void updatePost(post_name post);
     // 删除
     void deletePost(Integer postID);
+    List<post_name> findPostByTime(String startDate,String endDate);
 
 }

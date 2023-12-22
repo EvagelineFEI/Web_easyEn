@@ -8,9 +8,11 @@ import com.easyen.easyenglish.service.postService;
 
 import com.easyen.easyenglish.util.JwtUtil;
 
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -63,12 +65,11 @@ public class postController {
 //            int offset = (page - 1) * pageSize;
             List<comments> comments = commentService.findCommentsByPost(postID);
             // 构建结果对象
-
             Map<String, Object> result = new HashMap<>();
             result.put("posts", posts);
             result.put("comments", comments);
-            System.out.println(Result.success(comments));
-            return Result.success(comments);
+            System.out.println(Result.success(result));
+            return Result.success(result);
 
         }catch (Exception e){
             return Result.failure(e.getMessage());
@@ -113,12 +114,15 @@ public class postController {
             List<post_name> posts = postService.findPostByTitle_content(postTitle, offset, pageSize);
             // 遍历每一个帖子，查找对应的评论
             Map<post_name, List<comments>> postCommentMap = new HashMap<>();
+            System.out.println(posts);
             for (post_name post : posts) {
                 List<comments> comments = commentService.findCommentsByPost(post.getPost_id());
                 postCommentMap.put(post, comments);
             }
+            System.out.println(posts);
             return Result.success(postCommentMap);
         }catch (Exception e){
+            System.out.println(e.getMessage());
             return Result.failure("发生未知错误:" + e.getMessage());
         }
     }
@@ -149,6 +153,18 @@ public class postController {
             postService.deletePost(post.getPost_id());
             return Result.success("成功删除"+post.getPost_id());
         }catch (Exception e){
+            return Result.failure("发生未知错误:" + e.getMessage());
+        }
+    }
+    @PostMapping("/return-By-time")
+    public Result findPostByTime(@RequestParam(value = "start") String start,
+                                  @RequestParam(value = "end") String end){
+        try{
+            System.out.println(start);
+            List<post_name> posts = postService.findPostByTime(start,end);
+            return Result.success(posts);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
             return Result.failure("发生未知错误:" + e.getMessage());
         }
     }

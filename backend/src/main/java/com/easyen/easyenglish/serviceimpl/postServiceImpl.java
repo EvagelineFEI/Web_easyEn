@@ -6,6 +6,7 @@ import com.easyen.easyenglish.service.postService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -60,6 +61,11 @@ public class postServiceImpl implements postService{
             e.printStackTrace();
             throw new RuntimeException("删除帖子失败：" + e.getMessage());
         }
+    }
+
+    @Override
+    public List<post_name> findPostByTime(String startDate, String endDate) {
+        return postMapper.findPostByTime(startDate,endDate);
     }
 
 
