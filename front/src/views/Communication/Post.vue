@@ -17,10 +17,10 @@
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="primary" icon>
+        <v-btn :style="{ color: likeButtonColor }" icon @click="toggleLike">
           <v-icon>mdi-thumb-up</v-icon>
         </v-btn>
-        <v-btn color="primary" icon>
+        <v-btn :style="{ color: dislikeButtonColor }" icon @click="toggleDislike">
           <v-icon>mdi-thumb-down</v-icon>
         </v-btn>
       </v-card-actions>
@@ -134,6 +134,32 @@ function formatDate(input: string): string {
   };
 
   return new Intl.DateTimeFormat('cn-ZH', options).format(date);
+}
+const liked = ref(false);
+const disliked = ref(false);
+// 计算点赞按钮的颜色
+const likeButtonColor = computed(() => {
+  return liked.value ? 'green' : 'black'; // 激活状态为绿色，非激活状态为主要颜色
+});
+
+// 计算点踩按钮的颜色
+const dislikeButtonColor = computed(() => {
+  return disliked.value ? 'red' : 'black'; // 激活状态为红色，非激活状态为主要颜色
+});
+// 点赞功能
+function toggleLike() {
+  liked.value = !liked.value;
+  if (liked.value && disliked.value) {
+    disliked.value = false; // 如果已经点踩，取消点踩
+  }
+}
+
+// 点踩功能
+function toggleDislike() {
+  disliked.value = !disliked.value;
+  if (disliked.value && liked.value) {
+    liked.value = false; // 如果已经点赞，取消点赞
+  }
 }
 
 async function addComment() {

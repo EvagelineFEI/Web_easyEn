@@ -35,7 +35,6 @@ async function loadItems() {
   await communicate.showPostByUser(Number(auth.user_id), {page: 1, pageSize: 10})
       .then((response) => {
         if (response.code === 200) {
-          console.log(response)
           recvPosts.value = response.resultData as PostComment[];
         } else {
           recvPosts.value = [] as PostComment[];
