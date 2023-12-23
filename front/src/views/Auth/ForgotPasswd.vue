@@ -1,11 +1,14 @@
 <script lang="ts" setup>
 import {ref} from "vue";
-//import {forgot} from "@/api/auth"
+import auth from "@/api/auth";
+import type {AuthStruct} from "@/api/auth.ts";
 import router from "@/router";
 
 // 组件状态
 const isLoading = ref(false);
 const isSignInDisabled = ref(false);
+const isRequireCodeDisabled = ref(false)
+const isFormValid = ref(true);
 const showPassword = ref(false);
 const disabled = ref(true);
 const step = ref(1);
@@ -16,32 +19,67 @@ const email = ref("");
 const vertificateCode = ref("");
 const password = ref("");
 const confirmPassword = ref("");
+const isInterval = ref(false);
+const time = ref(60);
+const content = ref('发送验证码')
 
 const sendCodeHandle = async () => {
   snackProvider.value = false;
   snackProviderMessages.value = '';
 
+  if (error.value) {
+    return
+  }
+
   isLoading.value = true;
-  isSignInDisabled.value = true;
+  isRequireCodeDisabled.value = true;
 
-//  const response = await
-//      forgot(email.value);
+  const params = {
+    email: email.value,
+  }
 
-  if (response.code != 1) {
-    errorHandle(response.data as string)
+  let code = 0;
+  let msg = '';
+
+
+  await auth.getCheckCode(
+    params
+  ).then((response) => {
+    code = response.code;
+    msg = code === 200 ? response.resultData : response.msg;
+  })
+
+  if (code != 200) {
+    errorHandle(msg);
+    isRequireCodeDisabled.value = false;
     return;
   }
 
   isLoading.value = false;
-  isSignInDisabled.value = false;
   snackProviderMessages.value = "邮件发送成功，请查收验证码";
   snackColor.value = "success";
   snackProvider.value = true;
 
+  isInterval.value = !isInterval.value;
+  await countDown();
   window.setTimeout(() => {
     disabled.value = false;
     step.value = 2;
   }, 2000);
+}
+
+async function countDown() {
+  content.value = time.value + 's后可重试' //这里解决60秒不见了的问题
+  let clock = window.setInterval(() => {
+    time.value--
+    content.value = time.value + 's后重新发送'
+    if (time.value < 0) {     //当倒计时小于0时清除定时器
+      window.clearInterval(clock)
+      content.value = '发送验证码'
+      time.value = 60
+      isRequireCodeDisabled.value = false;
+    }
+  },1000)
 }
 
 const resetHandle = async () => {
@@ -54,19 +92,36 @@ const resetHandle = async () => {
     return;
   }
 
+  if (error.value) {
+    return
+  }
+
   isLoading.value = true;
   isSignInDisabled.value = true;
 
-  const response = await
-      resetPasswd_newPassword(
-          vertificateCode.value,
-          email.value,
-          password.value);
+  const data: AuthStruct = {
+    email: email.value,
+    password: password.value,
+  }
 
-  console.log(response)
+  const params = {
+    code: vertificateCode.value,
+  }
 
-  if (response.code != 1) {
-    errorHandle(response.msg)
+  let code = 0;
+
+  let msg = '';
+
+  await auth.newPassword(
+    data,
+    params
+  ).then((response) => {
+    code = response.code;
+    msg = code === 200 ? response.resultData : response.msg;
+  })
+
+  if (code != 200) {
+    errorHandle(msg)
     return
   }
 
@@ -95,13 +150,13 @@ function errorHandle(errorMsg: string) {
 const emailRules = ref([
   (v: string) => !!v || "E-mail is required",
   (v: string) => /.+@.+\..+/.test(v) || "E-mail must be valid",
-]);
+  ]);
 
 const passwordRules = ref([
   (v: string) => !!v || "Password is required",
   (v: string) =>
       (v && v.length >= 8) || "Password must be more than 8 characters",
-]);
+  ]);
 
 
 // error provider
@@ -117,6 +172,7 @@ const resetErrors = () => {
   errorMessages.value = "";
   errorMessagesConfirm.value = "";
 };
+
 </script>
 
 <template>
@@ -139,6 +195,7 @@ const resetErrors = () => {
         <v-card-text>
 
           <v-form
+              v-model="isFormValid"
               class="text-left"
               validate-on="input"
               @submit.prevent="sendCodeHandle"
@@ -160,12 +217,13 @@ const resetErrors = () => {
             <v-btn
                 :loading="isLoading"
                 block
+                :disabled="isRequireCodeDisabled"
                 class="mt-2"
                 color="primary"
                 size="x-large"
                 type="submit"
             >
-              发送验证码
+              {{ content }}
             </v-btn>
           </v-form>
         </v-card-text>
@@ -178,7 +236,9 @@ const resetErrors = () => {
         </v-card-title>
         <v-card-subtitle>输入验证码重置密码</v-card-subtitle>
         <v-card-text>
+
           <v-form
+              v-model="isFormValid"
               :disabled="isSignInDisabled"
               class="text-left"
               validate-on="input"
