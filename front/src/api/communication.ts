@@ -59,7 +59,7 @@ const communicate = {
     showPostByUser: (userId: number, params: PostPages) => {
         return requester<CommentData[]>({
             url: "/post/returnbyuser/" + userId,
-            method: "post",
+            method: "get",
             params,
         })
     },
