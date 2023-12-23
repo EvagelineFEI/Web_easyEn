@@ -78,8 +78,8 @@ public class postController {
 
     // 按照用户查找
     // 查找某用户发的所有帖子
-    @GetMapping("/returnbyuser/{userName}")
-    public Result findPostByUser(@PathVariable("userName") String userName,
+    @GetMapping("/returnbyuser/{userId}")
+    public Result findPostByUser(@PathVariable("userId") Integer userId,
                                  @RequestParam(value = "page", defaultValue = "1") Integer page,
                                  @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize){
         try{
@@ -87,18 +87,16 @@ public class postController {
             int offset = (page - 1) * pageSize;
             // System.out.print(userID);
             // System.out.print(offset);
-            List<post_name> posts = postService.findPostByUser(userName, offset, pageSize);
-            // System.out.print(posts);
+            List<post_name> posts = postService.findPostByUser(userId, offset, pageSize);
             // 遍历每一个帖子，查找对应的评论
             Map<post_name, List<comments>> postCommentMap = new HashMap<>();
             for (post_name post : posts) {
-                //System.out.print(post.getUser_id());
                 List<comments> comments= commentService.findCommentsByPost(post.getPost_id());
-                //System.out.print(comments);
                 postCommentMap.put(post, comments);
             }
             return Result.success(postCommentMap);
         }catch (Exception e){
+            System.out.println(e.getMessage());
             return Result.failure("发生未知错误:" + e.getMessage());
         }
     }

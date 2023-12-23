@@ -16,7 +16,7 @@ public interface postMapper {
     // 按照postid查找
     post_name selectPostById(Integer postID);
     // 按照用户查找
-    List<post_name> selectPostByUser(String userName, Integer offset, Integer pageSize);
+    List<post_name> selectPostByUser(Integer userId, Integer offset, Integer pageSize);
     // 标题模糊查询
     List<post_name> selectPostByTitle_content(String postTitleContent, Integer offset, Integer pageSize);
     // 更新
