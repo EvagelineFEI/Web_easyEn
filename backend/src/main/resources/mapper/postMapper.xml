@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.easyen.easyenglish.mapper.postMapper">
+    <select id="findAllPost" resultType="com.easyen.easyenglish.entity.post_name">
+        select * from post_name
+        order by post_id
+    </select>
+    <select id="selectPostById" resultType="com.easyen.easyenglish.entity.post_name">
+        select * from post_name
+        where post_id = #{postID}
+    </select>
+    <select id="selectPostByUser" resultType="com.easyen.easyenglish.entity.post_name">
+        select title,content,time from users
+        join post_name on post_name.user_id = users.user_id
+        where username = #{userName} and public_or = true
+        order by post_id desc
+            limit #{pageSize} offset #{offset}
+    </select>
+    <select id="selectPostByTitle_content" resultType="com.easyen.easyenglish.entity.post_name">
+        select *
+        from post_name
+        where (title LIKE CONCAT('%', #{postTitleContent}, '%')
+        or content LIKE CONCAT('%', #{postTitleContent}, '%')
+        )
+        order by post_id desc
+            limit #{pageSize}
+        offset #{offset}
+    </select>
+    <insert id="insertPost" parameterType="com.easyen.easyenglish.entity.post_name">
+        INSERT INTO post_name (state, user_id, title, content, public_or, post_time)
+        VALUES (#{state}, #{user_id}, #{title}, #{content}, #{public_or}, CURRENT_DATE)
+    </insert>
+    <update id="updatePost" parameterType="com.easyen.easyenglish.entity.post_name">
+        UPDATE post_name
+        SET
+            state = #{state},
+            user_id = #{user_id},
+            title = #{title},
+            content = #{content},
+            public_or = #{public_or},
+            time = CURRENT_TIMESTAMP
+        WHERE post_id = #{post_id}
+    </update>
+    <delete id="deletePost" parameterType="com.easyen.easyenglish.entity.post_name">
+        delete from post_name
+        where post_id = #{postID}
+    </delete>
+    <select id="findPostByTime" resultType="com.easyen.easyenglish.entity.post_name">
+        SELECT * FROM post_name
+        WHERE to_char(post_time,'%YYY-%mm-%dd') BETWEEN #{startDate} AND #{endDate}
+    </select>
+</mapper>

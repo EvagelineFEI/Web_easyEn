@@ -1,0 +1,41 @@
+server:
+  port: 6660
+
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://121.48.200.8:9000/easy_en
+    username: admin
+    password: iloveSCU
+
+  mail:
+    host: smtp.163.com
+    username: easyenglishscu@163.com
+    password: MHSDFJXRSUSOEYBN
+    default-encoding: UTF-8
+
+  data:
+    redis:
+      password:
+      database: 0
+      host: localhost
+      port: 6379
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+
+
+gpt:
+  api-key: "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"
+  model: "text-davinci-003"
+  maxTokens: 2048
+  temperature: 0.5
+  timeout: 90000
+
+proxy:
+  host: "192.168.10.3"
+  port: 7890
+
+
+
+
