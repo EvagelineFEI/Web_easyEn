@@ -1,41 +1,53 @@
 # Web_easyEn
 A web project by my friends and I for our class~
 
-## 新版项目结构
+[TOC]
 
-hh鉴定原结构耦合度高，所以我换了个结构，变成前后端完全分离在两个文件夹下面的结构了。今天发现之前的web配置（Jsp+Servlet）也是耦合的，赶紧把pom文件也改了。
+## 项目功能说明
 
-但是发现有些项目还是使用的old结构，所以就留着旧版的供参考了。
+旨在实现一个提供英语学习服务的网站。可以实现登录、注册、密码找回；拉取外刊阅读，单词阅读；发学习交流贴，评论；GPT批改作文；查看批改记录等。部分页面如下：
 
-## 项目结构old
+<img src="intro_img\mainPage.png" width = "2200" height = "500" alt="图片名称" align=center>
 
-参考的是网上通用的Java开源项目结构介绍
+<img src="intro_img\comment.png" width = "2200" height = "500" alt="图片名称" align=center>
 
-`/src/main/resources`目录，里面主要存放静态配置文件和页面静态资源等东西：
+<img src="intro_img\progress.png" width = "2200" height = "500" alt="图片名称" align=center>
 
-```text
-|_mapper：存放mybatis的XML映射文件（如果是mybatis项目）
-|_static：存放网页静态资源，比如下面的js/css/img
-   |__
-   |__
-   |__
-   |__
-|_template：存放网页模板，比如thymeleaf/freemarker模板等
-   |__
-   |__
-   |__
-   |__
-```
+## 项目情况说明
 
-`/src/main/java`目录，就是主要的后端代码部分
+目前该项目缺少定期维护，全凭偶尔缝缝补补。欢迎有志之士完善。- [Web\_easyEn](#web_easyen)
+- [Web\_easyEn](#web_easyen)
+  - [项目功能说明](#项目功能说明)
+  - [项目情况说明](#项目情况说明)
+      - [功能Todo](#功能todo)
+      - [如何食用本项目](#如何食用本项目)
 
-```
-|_com.easyen：下面是代码的主要部分
-   |__
-   |__
-   |__
-   |__
-```
+
+#### 功能Todo
+
+口语练习
+
+外刊阅读，单词阅读（目前是拉取某不喜欢写java的组员用C++实现的外部服务实现的）
+
+帖子和评论部分的一些细节完善（小bug等等
+
+学习进度可视化
+
+
+
+#### 如何食用本项目
+
+想要使用较为全面的功能，需要在database_config文件夹中获取data文件夹（也就是整个数据库文件），安装数据库或者导出sql文件，安装表结构即可；
+
+如果希望使用docker部署数据库，相应的docker compose文件也在database_config文件夹中给出了。
+
+部署完成后，修改backend\src\main\resources里面application.yaml的相应信息；
+
+如果需要使用GPT相关的功能，也需要在backend\src\main\resources里面application.yaml里添加相应信息；
+
+<img src="intro_img\config.png" width = "2200" height = "900" alt="图片名称" align=center>
+
+
 
 
 

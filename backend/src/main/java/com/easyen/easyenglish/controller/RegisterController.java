@@ -13,7 +13,7 @@ public class RegisterController {
     @Autowired
     private RegisterServiceImpl registerService;
 
-    @PostMapping("/register")
+    @PutMapping("/register")
     public Result register(@RequestParam String username,
                               @RequestParam String password,
                               @RequestParam String email,

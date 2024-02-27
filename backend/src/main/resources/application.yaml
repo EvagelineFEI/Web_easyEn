@@ -4,7 +4,7 @@ server:
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://121.48.200.8:9000/easy_en
+    url: jdbc:postgresql://your database address/easy_en
     username: admin
     password: iloveSCU
 
@@ -26,15 +26,15 @@ mybatis:
 
 
 gpt:
-  api-key: "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"
-  model: "text-davinci-003"
+  api-key: "Your key"
+  model: "The model you use"
   maxTokens: 2048
   temperature: 0.5
   timeout: 90000
 
 proxy:
-  host: "43.134.22.153"
-  port: 4560
+  host: "ip address of proxy host" //使用本机上的clash等梯子则localhost即可
+  port: 4560 // 如上则7890
 
 
 
