@@ -1,7 +1,12 @@
 # Web_easyEn
 A web project by my friends and I for our class~
+目前该项目缺少定期维护，全凭偶尔缝缝补补。欢迎有志之士完善。- [Web\_easyEn](#web_easyen)
+- [Web\_easyEn](#web_easyen)
+  - [项目功能说明](#项目功能说明)
+  - [项目情况说明](#项目情况说明)
+      - [功能Todo](#功能todo)
+      - [如何食用本项目](#如何食用本项目)
 
-[TOC]
 
 ## 项目功能说明
 
@@ -14,14 +19,6 @@ A web project by my friends and I for our class~
 <img src="intro_img\progress.png" width = "2200" height = "500" alt="图片名称" align=center>
 
 ## 项目情况说明
-
-目前该项目缺少定期维护，全凭偶尔缝缝补补。欢迎有志之士完善。- [Web\_easyEn](#web_easyen)
-- [Web\_easyEn](#web_easyen)
-  - [项目功能说明](#项目功能说明)
-  - [项目情况说明](#项目情况说明)
-      - [功能Todo](#功能todo)
-      - [如何食用本项目](#如何食用本项目)
-
 
 #### 功能Todo
 
