@@ -1,0 +1,14 @@
+version: '3.1'
+
+services:
+
+  db:
+    image: docker.io/library/postgres
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: iloveSCU
+    ports:
+      - 8900:5432
+    volumes:
+       - ./data:/var/lib/postgresql/data:z

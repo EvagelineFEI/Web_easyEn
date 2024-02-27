@@ -25,8 +25,8 @@ public class postServiceImpl implements postService{
     }
 
     @Override
-    public List<post_name> findPostByUser(String user_name,Integer offset, Integer pageSize){
-        return postMapper.selectPostByUser(user_name, offset, pageSize);
+    public List<post_name> findPostByUser(Integer userId,Integer offset, Integer pageSize){
+        return postMapper.selectPostByUser(userId, offset, pageSize);
     }
 
     @Override

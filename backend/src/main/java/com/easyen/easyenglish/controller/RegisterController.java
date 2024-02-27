@@ -5,10 +5,7 @@ import com.easyen.easyenglish.entity.ApiResult;
 import com.easyen.easyenglish.serviceimpl.RegisterServiceImpl;
 import com.easyen.easyenglish.util.ApiResultHandler;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api")

@@ -10,11 +10,8 @@
         where post_id = #{postID}
     </select>
     <select id="selectPostByUser" resultType="com.easyen.easyenglish.entity.post_name">
-        select title,content,time from users
-        join post_name on post_name.user_id = users.user_id
-        where username = #{userName} and public_or = true
-        order by post_id desc
-            limit #{pageSize} offset #{offset}
+        select * from post_name
+        where user_id = #{user_id}
     </select>
     <select id="selectPostByTitle_content" resultType="com.easyen.easyenglish.entity.post_name">
         select *
